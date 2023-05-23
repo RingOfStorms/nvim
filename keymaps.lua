@@ -34,8 +34,6 @@ local mappings = {
     ["p"] = { '"*p', desc = "Paste from system clipboard" },
 		-- TODO L-c to close buffer
 
-    ["<leader>gf"] = { ":OpenInGHFile <CR>", desc = "Open in github" },
-
     ["<leader>fs"] = {
       function()
         require("telescope.builtin").live_grep {
@@ -51,15 +49,8 @@ local mappings = {
     ["<leader>st"] = { function() scratch ".ts" end, desc = "New ts scratch file" },
     ["<leader>sb"] = { function() scratch ".sh" end, desc = "New shell scratch file" },
     ["<leader>sj"] = { function() scratch ".js" end, desc = "New js scratch file" },
-    ["∆"] = {
-      "<Esc>:m .+1<CR>==g",
-      desc = "Move the line up",
-    },
-    ["˚"] = {
-      "<Esc>:m .-2<CR>==g",
-      desc = "Move the line down",
-    },
-    ["<leader>r"] = { function() require("rest-nvim").run() end, desc = "Send http request" },
+
+    
     ["<leader>Q"] = { ":qa<CR>", desc = "Quit all" },
     ["<leader>,"] = { name = " Misc Tools" },
     ["<leader>,c"] = { name = " Casing" },
@@ -163,7 +154,24 @@ function set_mappings(map_table, base)
   if package.loaded["which-key"] then which_key_register() end -- if which-key is loaded already, register
 end
 
--- TODO load mappings from user plugins
+for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath('config')..'/lua/user', [[v:val =~ '\.lua$']])) do
+  local uplugin = require('user.'..file:gsub('%.lua$', ''))
+	if (uplugin[1] ~= nil) then
+		if (uplugin.mappings ~= nil) then
+			for mode, keymaps in pairs(uplugin.mappings) do
+				-- Add new mode if not already existing
+				if (mappings[mode] == nil) then
+					mappings[mode] = {}
+				end
+
+				for key, value in pairs(keymaps) do
+					mappings[mode][key] = value;
+				end
+			end
+		end
+
+	end
+end
 
 set_mappings(mappings);
 

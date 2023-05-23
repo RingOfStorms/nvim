@@ -15,4 +15,6 @@ vim.opt.breakindent = true
 -- set tab length
 vim.opt.tabstop = 2;
 vim.opt.shiftwidth = 2;
-
+-- split to the right or below always
+vim.opt.splitbelow = true
+vim.opt.splitright = true

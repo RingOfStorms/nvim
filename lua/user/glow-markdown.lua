@@ -7,7 +7,9 @@ return {
   },
   cmd = "Glow",
 	mappings = {
-		["<leader>m"] = { name = " Markdown" },
-    ["<leader>mp"] = { ":Glow <CR>", desc = "Markdown preview" },
+		n = {
+			["<leader>m"] = { "<Nop>", name = " Markdown" },
+			["<leader>mp"] = { ":Glow <CR>", desc = "Markdown preview" },
+		}
 	}
 }
