@@ -123,5 +123,9 @@ return {
       ensure_installed = { "codelldb" },
     },
   },
-
+	mappings = {
+  	n = {
+			["<leader>l"] = { desc = " LSP" },
+		}
+	}
 }

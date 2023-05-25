@@ -109,9 +109,27 @@ local mappings = {
   },
 }
 
+for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath('config')..'/lua/user', [[v:val =~ '\.lua$']])) do
+  local uplugin = require('user.'..file:gsub('%.lua$', ''))
+	-- if (uplugin[1] ~= nil) then
+		if (uplugin.mappings ~= nil) then
+			for mode, keymaps in pairs(uplugin.mappings) do
+				-- Add new mode if not already existing
+				if (mappings[mode] == nil) then
+					mappings[mode] = {}
+				end
+
+				for key, value in pairs(keymaps) do
+					mappings[mode][key] = value;
+				end
+			end
+		end
+	-- end
+end
+
+local M = {}
 local which_key_queue = nil
---- Register queued which-key mappings
-function which_key_register()
+function M.which_key_register()
   if which_key_queue then
     local wk_avail, wk = pcall(require, "which-key")
     if wk_avail then
@@ -123,9 +141,6 @@ function which_key_register()
   end
 end
 
---- Table based API for setting keybindings
----@param map_table table A nested table where the first key is the vim mode, the second key is the key to map, and the value is the function to set the mapping to
----@param base? table A base set of options to set on every keybinding
 function set_mappings(map_table, base)
   -- iterate over the first keys for each mode
   base = base or {}
@@ -151,27 +166,10 @@ function set_mappings(map_table, base)
       end
     end
   end
-  if package.loaded["which-key"] then which_key_register() end -- if which-key is loaded already, register
-end
-
-for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath('config')..'/lua/user', [[v:val =~ '\.lua$']])) do
-  local uplugin = require('user.'..file:gsub('%.lua$', ''))
-	if (uplugin[1] ~= nil) then
-		if (uplugin.mappings ~= nil) then
-			for mode, keymaps in pairs(uplugin.mappings) do
-				-- Add new mode if not already existing
-				if (mappings[mode] == nil) then
-					mappings[mode] = {}
-				end
-
-				for key, value in pairs(keymaps) do
-					mappings[mode][key] = value;
-				end
-			end
-		end
-
-	end
+  if package.loaded["which-key"] then M.which_key_register() end -- if which-key is loaded already, register
 end
 
 set_mappings(mappings);
+
+return M
 
