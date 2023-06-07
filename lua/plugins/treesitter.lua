@@ -60,7 +60,7 @@ return {
       "vue",
       "yaml",
     },
-    -- auto_install = true,
+    auto_install = true,
     highlight = {
       enable = true,
 			disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,

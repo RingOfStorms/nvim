@@ -70,24 +70,8 @@ return {
       "MasonUninstall",
       "MasonUninstallAll",
       "MasonLog",
-      "MasonUpdate", -- AstroNvim extension here as well
-      "MasonUpdateAll", -- AstroNvim specific
     },
-		opts = {
-      ui = {
-        icons = {
-          package_installed = "✓",
-          package_uninstalled = "✗",
-          package_pending = "⟳",
-        },
-      },
-    },
-		--config = function(_, opts)
-			--require('mason').setup(opts)
-			--for _, plugin in ipairs { "mason-lspconfig", "mason-null-ls", "mason-nvim-dap" } do
-			--	pcall(require, plugin)
-			--end
-		--end
+		opts = {}
 	},
   {
     "williamboman/mason-lspconfig.nvim",

@@ -6,10 +6,8 @@ return {
     default_type = "keep",
   },
   cmd = "Glow",
-	mappings = {
-		n = {
-			["<leader>m"] = { "<Nop>", name = " Markdown" },
-			["<leader>mp"] = { ":Glow <CR>", desc = "Markdown preview" },
-		}
-	}
+	keys = {
+		{ "<leader>m","<Nop>", desc = " Markdown"  },
+		{ "<leader>mp",":Glow <CR>", desc = "Markdown preview" },
+	},
 }
