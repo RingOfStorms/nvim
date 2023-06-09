@@ -4,6 +4,6 @@ return {
   event = "BufEnter *.http",
   requires = { "nvim-lua/plenary.nvim" },
 	keys = {
-		{ "<leader>r",  function() require("rest-nvim").run() end, desc = "Send http request" }
+		{ "<leader>r",  function() require("rest-nvim").run() end, desc = "Send selected http request" }
 	}
 }

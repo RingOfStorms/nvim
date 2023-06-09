@@ -24,7 +24,7 @@ require('util').keymaps({
 			end,
 			desc = "Find Scratches",
 		},
-		["<leader>s"] = { "<Nop>", desc = " Scratch File" },
+		["<leader>s"] = { "<Nop>", desc = "Scratch File" },
 		["<leader>ss"] = { function() scratch ".txt" end, desc = "New text scratch file" },
 		["<leader>sn"] = { function() scratch ".json" end, desc = "New json scratch file" },
 		["<leader>sq"] = { function() scratch ".sql" end, desc = "New sql scratch file" },

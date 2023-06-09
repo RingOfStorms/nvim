@@ -12,4 +12,6 @@
 		["<leader>,ck"] = { ":Kebab<CR>", desc = "To Kebab Case" },
 		["<leader>,ce"] = { ":Screm<CR>", desc = "To Screm Case" },
 - https://github.com/tpope/vim-fugitive
-
+- https://github.com/folke/noice.nvim
+- greg's: https://github.com/gblock0/dotfiles/blob/master/nvim/.config/nvim/lua/gb/plugins.lua
+- others: https://nvimluau.dev/

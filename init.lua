@@ -1,7 +1,6 @@
 require "options"
 require "keymaps"
 
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   local output = vim.fn.system({
@@ -27,5 +26,4 @@ require("lazy").setup("plugins", {
 vim.cmd 'colorscheme material'
 require "tools"
 require "autocommands"
-require "lsp"
 

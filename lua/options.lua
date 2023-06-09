@@ -1,5 +1,5 @@
 -- allow use of system keyboard
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 
 -- allow use of mouse
 vim.opt.mouse = 'a'
