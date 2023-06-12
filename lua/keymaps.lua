@@ -32,7 +32,7 @@ require('util').keymaps({
     ["<C-k>"] = { "<C-w>k", desc = "Move window above current" },
     ["<C-l>"] = { "<C-w>l", desc = "Move window right current" },
     -- reformat outside of LSP attachment
-    ["<leader>lf"] = { "GVgg=", desc = "Reformat file" }
+    ["<leader>lf"] = { function() vim.lsp.buf.format() end, desc = "Reformat file" }
 
 
     -- ["<leader>,j"] = { name = " Jest Tests" },

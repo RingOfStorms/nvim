@@ -1,7 +1,9 @@
 function isEmpty()
   return vim.api.nvim_buf_get_name(0) == "" or vim.fn.filereadable(vim.api.nvim_buf_get_name(0)) == 0 or vim.fn.line('$') == 1 and vim.fn.col('$') == 1
 end
-
+-- #000000
+--
+--
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function()
     if isEmpty() then
@@ -23,4 +25,10 @@ vim.api.nvim_create_autocmd('BufRead', {
 vim.api.nvim_create_autocmd('BufRead', {
   pattern = "Dockerfile.*",
   command = "set filetype=dockerfile"
+})
+
+vim.api.nvim_create_autocmd("BufRead", {
+  callback = function()
+    vim.cmd.CccHighlighterEnable()
+  end,
 })

@@ -40,3 +40,4 @@ vim.opt.incsearch = true
 -- split to the right or below always
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
