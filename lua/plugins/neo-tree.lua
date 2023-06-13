@@ -24,6 +24,7 @@ return {
 		},
 		nesting_rules = {
 			["ts"] = { ".cjs", ".cjs.map", ".d.ts", ".d.ts.map", ".js", ".js.map", ".mjs", ".mjs.map", ".test.ts" },
+			["js"] = { ".cjs", ".cjs.map", ".d.js", ".d.js.map", ".js", ".js.map", ".mjs", ".mjs.map", ".test.js" },
 			["tsx"] = { ".d.ts", ".d.ts.map", ".js;", ".js.map;", ".jsx;", ".jsx.map;", ".module.scss;", ".svg" },
 			["scss"] = { ".css", ".css.map" },
 		},
@@ -39,3 +40,4 @@ return {
 		end , desc = "Toggle Explorer Focus" },
 	},
 }
+

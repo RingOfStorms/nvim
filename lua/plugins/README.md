@@ -17,3 +17,8 @@
 - https://github.com/folke/noice.nvim
 - greg's: https://github.com/gblock0/dotfiles/blob/master/nvim/.config/nvim/lua/gb/plugins.lua
 - others: https://nvimluau.dev/
+- https://github.com/NvChad/nvim-colorizer.lua
+- https://github.com/numToStr/Comment.nvim
+- https://github.com/windwp/nvim-autopairs
+- https://github.com/lukas-reineke/indent-blankline.nvim
+

@@ -20,5 +20,31 @@ function M.keymaps(mappings)
 	end
 end
 
+function M.spread(template)
+    local result = {}
+    for key, value in pairs(template) do
+        result[key] = value
+    end
+
+    return function(table)
+        for key, value in pairs(table) do
+            result[key] = value
+        end
+        return result
+    end
+end
+
+function M.ensure_installed_mason(items)
+    local registry = require 'mason-registry'
+  for _, item in ipairs(items) do
+    if not registry.is_installed(item) then
+      if registry.has_package(item) then
+        registry.get_package(item).install()
+      end
+    end
+  end
+  registry.refresh()
+end
+
 return M
 

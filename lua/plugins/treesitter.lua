@@ -3,7 +3,7 @@ return {
 	dependencies = { "windwp/nvim-ts-autotag", "JoosepAlviste/nvim-ts-context-commentstring" },
 	commit = "f2778bd1a28b74adf5b1aa51aa57da85adfa3d16",
   build = ":TSUpdate",
-	event = "BufEnter",
+	event = "BufRead",
 	cmd = {
     "TSBufDisable",
     "TSBufEnable",
