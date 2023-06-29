@@ -1,7 +1,6 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
-	commit = "e5594d53986b34e584e8afe2ea6ad99d6f6d2105",
-	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+	dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
 	cmd = "Neotree",
 	init = function() vim.g.neo_tree_remove_legacy_commands = true end,
 	pin = true,
