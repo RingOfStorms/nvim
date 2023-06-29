@@ -12,6 +12,7 @@ vim.g.mapleader = " "
 
 require('util').keymaps({
   n = {
+    [";"] = { ":", desc = "No shift command mode" },
     ["n"] = { "nzzzv", desc = "Next search result centered" },
     ["N"] = { "Nzzzv", desc = "Previous search result centered" },
     ["<esc>"] = { ":noh<CR><esc>", desc = "Clear search on escape" },
@@ -66,6 +67,9 @@ require('util').keymaps({
   x = {
     ["<leader>p"] = { '"_dP', desc = "Paste w/o copying replaced content" },
     ["<C-r"] = {'"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection"},
+  },
+  t = {
+    ["<Esc>"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
   },
 })
 

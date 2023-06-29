@@ -20,7 +20,7 @@ return {
     "TSUpdateSync",
   },
   opts = {
-    -- "all",
+    -- ensure_installed = 'all',
     ensure_installed = {
       "lua",
       "http",
@@ -58,9 +58,10 @@ return {
       "vue",
       "yaml",
     },
-    auto_install = true,
+    auto_install = false,
     highlight = {
       enable = true,
+      use_languagetree = true,
 			-- disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
       additional_vim_regex_highlighting = false,
     },
@@ -74,4 +75,7 @@ return {
       max_file_lines = nil,
     },
   },
+    "nvim-treesitter/playground",
 }
+
+

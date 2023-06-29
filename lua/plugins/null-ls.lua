@@ -35,7 +35,7 @@ return {
       null_ls.builtins.formatting.prettier,
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.formatting.rustfmt,
-      null_ls.builtins.formatting.python,
+      -- null_ls.builtins.formatting.python,
       -- null_ls.builtins.code_actions.proselint, -- TODO looks interesting
       null_ls.builtins.code_actions.cspell.with {
         config = {

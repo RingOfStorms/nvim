@@ -32,3 +32,10 @@ vim.api.nvim_create_autocmd("BufRead", {
     vim.cmd.CccHighlighterEnable()
   end,
 })
+
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function ()
+    local ts_avail, parsers = pcall(require, "nvim-treesitter.parsers")
+    if ts_avail and parsers.has_parser() then vim.cmd.TSBufEnable "highlight" end
+  end,
+})

@@ -128,7 +128,6 @@ return {
     }
 
 		config.lua_ls.setup(lsp.nvim_lua_ls())
-		config.stylua.setup(default {})
 
 		config.rust_analyzer.setup(default {})
 
@@ -137,12 +136,13 @@ return {
 		})
 		config.html.setup(default {})
 		config.eslint.setup(default {})
-		config.deno.setup(default {})
 		config.cssls.setup(default {})
 		config.cssmodules_ls.setup(default {})
-		config.prettier.setup(default {})
 
 		config.pyright.setup(default {})
+
+		config.dockerls.setup(default {})
+		config.docker_compose_language_service.setup(default {})
 
 		lsp.setup()
 
