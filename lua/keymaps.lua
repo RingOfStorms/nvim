@@ -1,6 +1,7 @@
 -- Remap space as leader key
 vim.keymap.set("", "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Modes
 --   normal_mode = "n",
@@ -32,15 +33,11 @@ require('util').keymaps({
     ["<C-j>"] = { "<C-w>j", desc = "Move window below current" },
     ["<C-k>"] = { "<C-w>k", desc = "Move window above current" },
     ["<C-l>"] = { "<C-w>l", desc = "Move window right current" },
-    -- reformat outside of LSP attachment
-    ["<leader>lf"] = { function() vim.lsp.buf.format() end, desc = "Reformat file" }
-
-
-    -- ["<leader>,j"] = { name = " Jest Tests" },
-    -- ["<leader>,jr"] = { function() require("jester").run() end, desc = "Run test under cursor" },
-    -- ["<leader>,jf"] = { function() require("jester").run_file() end, desc = "Run tests for file" },
-    -- ["<leader>,jl"] = { function() require("jester").run_last() end, desc = "Run last ran test" },
-    -- ["<leader>lz"] = { ":LspRestart<CR>", desc = "Restart LSP Server" },
+    -- reformat LSP
+    ["<leader>lf"] = { function() vim.lsp.buf.format() end, desc = "Reformat file" },
+    ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Show diagnostic message"},
+    ["<leader>ll"] = { function() vim.diagnostic.setloclist() end, desc = "Show diagnostic list"},
+    ["<leader>lz"] = { ":LspRestart<CR>", desc = "Restart LSP Server" },
   },
   v = {
     ["y"] = { '"*y', desc = "Copy to system clipboard" },

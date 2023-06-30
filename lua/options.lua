@@ -2,7 +2,7 @@
 -- vim.opt.clipboard = "unnamedplus"
 
 -- allow use of mouse
-vim.opt.mouse = 'a'
+vim.opt.mouse = "a"
 
 -- line numbering, relative
 vim.opt.number = true
@@ -22,15 +22,15 @@ vim.opt.breakindent = true
 vim.opt.smartindent = true
 
 -- set tab length
-vim.opt.tabstop = 2;
-vim.opt.softtabstop = 2;
-vim.opt.shiftwidth = 2;
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- Dont use swap files, use undotree
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
 -- Search settings
@@ -41,3 +41,8 @@ vim.opt.incsearch = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = "menuone,noselect"
+vim.diagnostic.config{
+  float={border="single"}
+}
