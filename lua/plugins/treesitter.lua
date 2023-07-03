@@ -1,9 +1,18 @@
+local auto = true
+local output = vim.fn.system({
+  "which",
+  "tree-sitter",
+})
+if output == nil or output == "" then
+  auto = false
+end
+
 return {
   "nvim-treesitter/nvim-treesitter",
-	dependencies = { "windwp/nvim-ts-autotag", "JoosepAlviste/nvim-ts-context-commentstring" },
+  dependencies = { "windwp/nvim-ts-autotag", "JoosepAlviste/nvim-ts-context-commentstring" },
   build = ":TSUpdate",
-	event = "BufRead",
-	cmd = {
+  event = "BufRead",
+  cmd = {
     "TSBufDisable",
     "TSBufEnable",
     "TSBufToggle",
@@ -57,24 +66,22 @@ return {
       "vue",
       "yaml",
     },
-    auto_install = false,
+    auto_install = auto,
     highlight = {
       enable = true,
       use_languagetree = true,
-			-- disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
+      -- disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
       additional_vim_regex_highlighting = false,
     },
-		incremental_selection = { enable = true },
+    incremental_selection = { enable = true },
     ident = { enable = true },
-		autotag = { enable = true },
-		context_commentstring = { enable = true, enable_autocmd = false },
+    autotag = { enable = true },
+    context_commentstring = { enable = true, enable_autocmd = false },
     rainbow = {
       enable = true,
       extended_mode = true,
       max_file_lines = nil,
     },
   },
-    "nvim-treesitter/playground",
+  "nvim-treesitter/playground",
 }
-
-
