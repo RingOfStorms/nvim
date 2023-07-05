@@ -52,6 +52,14 @@ return {
 		},
 	},
 	opts = {
+		pickers = {
+			buffers = {
+				sort_lastused = true,
+			},
+      find_files = {
+        sort_lastused = true,
+      }
+		},
 		defaults = {
 			vimgrep_arguments = {
 				"rg",

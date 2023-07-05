@@ -17,7 +17,7 @@ end
 return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		after = { "williamboman/mason.nvim" },
+		dependencies = { "williamboman/mason.nvim" },
 		opts = function(_, config)
 			-- config variable is the default definitions table for the setup function call
 			local null_ls = require("null-ls")

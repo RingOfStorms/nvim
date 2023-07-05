@@ -71,7 +71,13 @@ return {
 	{
 		-- Autocompletion
 		"hrsh7th/nvim-cmp",
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+		},
 	},
 	{
 		"williamboman/mason.nvim",
@@ -93,7 +99,7 @@ return {
 	{ "folke/neodev.nvim", opts = {} },
 	{
 		"neovim/nvim-lspconfig",
-		after = { "nvim-telescope/telescope.nvim" },
+		dependencies = { "nvim-telescope/telescope.nvim" },
 		config = function()
 			local config = require("lspconfig")
 			local util = require("lspconfig/util")
@@ -197,8 +203,24 @@ return {
 					end, { "i", "s" }),
 				}),
 				sources = {
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
+					{ name = "nvim_lsp", priority = 8 },
+					{ nane = "buffer", priority = 7 },
+					{ name = "luasnip", priority = 6 },
+					{ name = "path" },
+				},
+				sorting = {
+					priority_weight = 1,
+					comparators = {
+						cmp.config.compare.locality,
+						cmp.config.compare.recently_used,
+						cmp.config.compare.score,
+						cmp.config.compare.offset,
+						cmp.config.compare.order,
+					},
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
 				},
 			})
 		end,

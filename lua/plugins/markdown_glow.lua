@@ -1,7 +1,7 @@
 return {
 	"lnc3l0t/glow.nvim",
 	branch = "advanced_window",
-	config = {
+	opts = {
 		default_type = "keep",
 	},
 	cmd = "Glow",

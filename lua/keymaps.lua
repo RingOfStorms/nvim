@@ -3,7 +3,7 @@ vim.keymap.set("", "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Modes
+-- Modes  test
 --   normal_mode = "n",
 --   insert_mode = "i",
 --   visual_mode = "v",
@@ -55,12 +55,12 @@ require("util").keymaps({
 			desc = "Show diagnostic list",
 		},
 		["<leader>lz"] = { ":LspRestart<CR>", desc = "Restart LSP Server" },
+    ["<leader>,uu"] = { ':let @u = trim(tolower(system("uuidgen")))<cr>a<C-r>u', desc = "Generate and insert UUID" },
 	},
 	v = {
-		["y"] = { '"*y', desc = "Copy to system clipboard" },
-		["p"] = { '"*p', desc = "Paste from system clipboard" },
 		["J"] = { ":m '>+1<CR>gv=gv", desc = "Visually move block down" },
 		["K"] = { ":m '<-2<CR>gv=gv", desc = "Visually move block up" },
+    ["<leader>,uu"] = { 'd:let @u = trim(tolower(system("uuidgen")))<cr>i<C-r>u', desc = "Generate and replace UUID" },
 	},
 	i = {
 		["<C-k>"] = { "<Up>", desc = "Up" },
