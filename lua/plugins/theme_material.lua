@@ -2,7 +2,7 @@ return {
 	"marko-cerovac/material.nvim",
 	config = function()
 		vim.g.material_style = "darker"
-		require("material").setup {
+		require("material").setup({
 			plugins = {
 				"dashboard",
 				"gitsigns",
@@ -11,8 +11,8 @@ return {
 				"which-key",
 			},
 			high_visibility = {
-				darker = true
-			}
-		}
-	end
+				darker = true,
+			},
+		})
+	end,
 }

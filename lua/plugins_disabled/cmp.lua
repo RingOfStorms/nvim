@@ -35,10 +35,8 @@ return {
 			{ "hrsh7th/cmp-nvim-lsp" },
 		},
 		config = function()
-
 			vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 			vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-
 
 			local cmp = require("cmp")
 			local snip_status_ok, luasnip = pcall(require, "luasnip")
@@ -131,8 +129,8 @@ return {
 			})
 		end,
 	},
-  {
-    "folke/neodev.nvim",
-    opts = {}
-  }
+	{
+		"folke/neodev.nvim",
+		opts = {},
+	},
 }

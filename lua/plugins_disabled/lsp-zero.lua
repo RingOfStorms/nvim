@@ -16,7 +16,7 @@ return {
 				"MasonLog",
 			},
 			build = ":MasonUpdate",
-      event = "BufRead",
+			event = "BufRead",
 		},
 		{ "williamboman/mason-lspconfig.nvim" },
 		-- Autocompletion
@@ -61,7 +61,6 @@ return {
 		local config = require("lspconfig")
 		local util = require("lspconfig/util")
 
-
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		capabilities = vim.tbl_deep_extend("keep", capabilities, vim.lsp.protocol.make_client_capabilities())
 		capabilities.textDocument.completion.completionItem = {
@@ -88,65 +87,67 @@ return {
 
 			lsp.default_keymaps({ buffer = bufnr })
 
-      local opts = { buffer = bufnr }
-      local bind = function(map, cmd, mode) vim.keymap.set('n', map, cmd, opts) end
+			local opts = { buffer = bufnr }
+			local bind = function(map, cmd, mode)
+				vim.keymap.set("n", map, cmd, opts)
+			end
 
-      -- diagnostics
-      bind("<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>")
-      bind("<leader>[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
-      bind("<leader>]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
+			-- diagnostics
+			bind("<leader>ld", "<cmd>lua vim.diagnostic.open_float()<CR>")
+			bind("<leader>[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+			bind("<leader>]d", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 
-      bind("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+			bind("<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 		end
 
 		lsp.on_attach(on_attach)
-    local servers = {
+		local servers = {
 			--      -- https://github.com/williamboman/mason-lspconfig.nvim#available-lsp-servers
-      -- lua
+			-- lua
 			"lua_ls",
-      -- rust
+			-- rust
 			"rust_analyzer",
-      -- ts/js | web
+			-- ts/js | web
 			"tsserver",
-      "html",
+			"html",
 			"eslint",
 			"cssls",
 			"cssmodules_ls",
 
-      -- python
+			-- python
 			"pyright",
 
-      -- docker
+			-- docker
 			"dockerls",
 			"docker_compose_language_service",
 		}
 		lsp.ensure_installed(servers)
 
-    local default = require('util').spread {
-      on_attach = on_attach,
+		local default = require("util").spread({
+			on_attach = on_attach,
 			capabilities = capabilities,
-    }
+		})
 
 		config.lua_ls.setup(lsp.nvim_lua_ls())
 
-		config.rust_analyzer.setup(default {})
+		config.rust_analyzer.setup(default({}))
 
-		config.tsserver.setup(default {
-					root_dir = util.root_pattern("tsconfig.json", ".git"),
-		})
-		config.html.setup(default {})
-		config.eslint.setup(default {})
-		config.cssls.setup(default {})
-		config.cssmodules_ls.setup(default {})
+		config.tsserver.setup(default({
+			root_dir = util.root_pattern("tsconfig.json", ".git"),
+		}))
+		config.html.setup(default({}))
+		config.eslint.setup(default({}))
+		config.cssls.setup(default({}))
+		config.cssmodules_ls.setup(default({}))
 
-		config.pyright.setup(default {})
+		config.pyright.setup(default({}))
 
-		config.dockerls.setup(default {})
-		config.docker_compose_language_service.setup(default {})
+		config.dockerls.setup(default({}))
+		config.docker_compose_language_service.setup(default({}))
 
 		lsp.setup()
 
-    local cmp = require("cmp")
+		local cmp = require("cmp")
 		local cmp_action = require("lsp-zero").cmp_action()
 
 		cmp.setup({

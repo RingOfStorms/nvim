@@ -1,4 +1,4 @@
-local M = {};
+local M = {}
 
 function M.keymaps(mappings)
 	for mode, maps in pairs(mappings) do
@@ -21,18 +21,17 @@ function M.keymaps(mappings)
 end
 
 function M.spread(template)
-    local result = {}
-    for key, value in pairs(template) do
-        result[key] = value
-    end
+	local result = {}
+	for key, value in pairs(template) do
+		result[key] = value
+	end
 
-    return function(table)
-        for key, value in pairs(table) do
-            result[key] = value
-        end
-        return result
-    end
+	return function(table)
+		for key, value in pairs(table) do
+			result[key] = value
+		end
+		return result
+	end
 end
 
 return M
-

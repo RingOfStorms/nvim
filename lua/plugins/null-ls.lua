@@ -19,7 +19,6 @@ return {
 		"jose-elias-alvarez/null-ls.nvim",
 		after = { "williamboman/mason.nvim" },
 		opts = function(_, config)
-
 			-- config variable is the default definitions table for the setup function call
 			local null_ls = require("null-ls")
 
@@ -51,10 +50,10 @@ return {
 			return config
 		end,
 	},
-  {
-    "jay-babu/mason-null-ls.nvim",
-    opts = {
-      ensure_installed = { "rustfmt", "stylelua", "prettier", "black" }
-    }
-  }
+	{
+		"jay-babu/mason-null-ls.nvim",
+		opts = {
+			ensure_installed = { "rustfmt", "stylelua", "prettier", "black" },
+		},
+	},
 }
