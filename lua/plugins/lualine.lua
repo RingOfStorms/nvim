@@ -4,6 +4,7 @@ local function lsp_clients()
     clients[#clients + 1] = client.name
   end
 
+  table.sort(clients)
   return table.concat(clients, " • "), " "
 end
 
@@ -21,6 +22,7 @@ local function langs()
     end
   end
 
+  table.sort(langs)
   return table.concat(langs, " • "), " "
 end
 
@@ -55,6 +57,9 @@ return {
           },
         },
       },
+      lualine_b = {
+        "mode"
+      }
     },
     inactive_winbar = {
       lualine_a = {

@@ -54,7 +54,7 @@ require("util").keymaps({
 			end,
 			desc = "Show diagnostic list",
 		},
-		["<leader>lz"] = { ":LspRestart<CR>", desc = "Restart LSP Server" },
+		["<leader>lz"] = { "<cmd>e<CR>", desc = "Edit current file again / Restart LSP Server" },
 		["<leader>,uu"] = { ':let @u = trim(tolower(system("uuidgen")))<cr>a<C-r>u', desc = "Generate and insert UUID" },
 		["<leader>b"] = { "<cmd>b#<cr>", desc = "Switch to last buffer" },
 	},
