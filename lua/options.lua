@@ -1,6 +1,9 @@
 -- allow use of system keyboard
 -- vim.opt.clipboard = "unnamedplus"
 
+-- global status line
+vim.opt.laststatus = 3
+
 -- allow use of mouse
 vim.opt.mouse = "a"
 

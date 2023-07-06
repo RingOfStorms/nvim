@@ -60,17 +60,5 @@ return {
         sort_lastused = true,
       }
 		},
-		defaults = {
-			vimgrep_arguments = {
-				"rg",
-				"-L",
-				"--color=never",
-				"--no-heading",
-				"--with-filename",
-				"--line-number",
-				"--column",
-				"--smart-case",
-			},
-		},
 	},
 }

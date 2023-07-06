@@ -55,12 +55,16 @@ require("util").keymaps({
 			desc = "Show diagnostic list",
 		},
 		["<leader>lz"] = { ":LspRestart<CR>", desc = "Restart LSP Server" },
-    ["<leader>,uu"] = { ':let @u = trim(tolower(system("uuidgen")))<cr>a<C-r>u', desc = "Generate and insert UUID" },
+		["<leader>,uu"] = { ':let @u = trim(tolower(system("uuidgen")))<cr>a<C-r>u', desc = "Generate and insert UUID" },
+		["<leader>b"] = { "<cmd>b#<cr>", desc = "Switch to last buffer" },
 	},
 	v = {
 		["J"] = { ":m '>+1<CR>gv=gv", desc = "Visually move block down" },
 		["K"] = { ":m '<-2<CR>gv=gv", desc = "Visually move block up" },
-    ["<leader>,uu"] = { 'd:let @u = trim(tolower(system("uuidgen")))<cr>i<C-r>u', desc = "Generate and replace UUID" },
+		["<leader>,uu"] = {
+			'd:let @u = trim(tolower(system("uuidgen")))<cr>i<C-r>u',
+			desc = "Generate and replace UUID",
+		},
 	},
 	i = {
 		["<C-k>"] = { "<Up>", desc = "Up" },
