@@ -1,4 +1,3 @@
-
 # Neovim config
 
 Backup existing config:
@@ -19,10 +18,7 @@ rm -rf ~/.local/state/nvim
 ```
 git clone https://github.com/RingOfStorms/nvim ~/.config/nvim
 nvim --headless "+Lazy! sync" +qa
-hyperfine "nvim --headless +qa"
 ```
-
-
 
 ## Useful links
 - [Lazy Events](https://github.com/folke/lazy.nvim#-user-events)
