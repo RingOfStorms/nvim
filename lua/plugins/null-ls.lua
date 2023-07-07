@@ -1,23 +1,24 @@
--- npm install -g cspell@latest
-
-local output = vim.fn.system({
-	"which",
-	"cspell",
-})
-if output == nil or output == "" then
-	-- if v:shell_error != 0 then
-	vim.fn.system({
-		"npm",
-		"install",
-		"-g",
-		"cspell@latest",
+function prereqs()
+	local output = vim.fn.system({
+		"which",
+		"cspell",
 	})
+	if output == nil or output == "" then
+		print("Installing cspell globally with npm")
+		vim.fn.system({
+			"npm",
+			"install",
+			"-g",
+			"cspell@latest",
+		})
+	end
 end
 
 return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		dependencies = { "williamboman/mason.nvim" },
+    build = prereqs,
 		opts = function(_, config)
 			-- config variable is the default definitions table for the setup function call
 			local null_ls = require("null-ls")

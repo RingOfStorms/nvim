@@ -26,3 +26,5 @@ require("lazy").setup("plugins", {
 vim.cmd("colorscheme material")
 require("tools")
 require("autocommands")
+
+print("DONE")
