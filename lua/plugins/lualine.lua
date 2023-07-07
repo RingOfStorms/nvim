@@ -74,8 +74,5 @@ return {
         },
       },
     },
-    tabline = {
-      lualine_a = { "filename" }
-    },
   },
 }
