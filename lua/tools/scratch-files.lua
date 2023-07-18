@@ -29,7 +29,7 @@ require("util").keymaps({
 			function()
 				scratch(".txt")
 			end,
-			desc = "New text scratch file",
+			desc = "New [t]e[xt] scratch file",
 		},
 		["<leader>sn"] = {
 			function()
@@ -41,7 +41,7 @@ require("util").keymaps({
 			function()
 				scratch(".md")
 			end,
-			desc = "New markdown scratch file",
+			desc = "New [m]ark[d]own scratch file",
 		},
 		["<leader>sq"] = {
 			function()
@@ -53,19 +53,25 @@ require("util").keymaps({
 			function()
 				scratch(".ts")
 			end,
-			desc = "New ts scratch file",
+			desc = "New [t]ype[s]cript scratch file",
 		},
 		["<leader>sb"] = {
 			function()
 				scratch(".sh")
 			end,
-			desc = "New shell scratch file",
+			desc = "New [sh]ell scratch file",
 		},
 		["<leader>sj"] = {
 			function()
 				scratch(".js")
 			end,
-			desc = "New js scratch file",
+			desc = "New [j]ava[s]cript scratch file",
+		},
+		["<leader>sr"] = {
+			function()
+				scratch(".rs")
+			end,
+			desc = "New [r]u[s]t scratch file",
 		},
 	},
 })

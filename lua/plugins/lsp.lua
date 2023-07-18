@@ -101,6 +101,13 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local gen_capabilities = function(cmp)
+  -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities = cmp.default_capabilities(capabilities)
+end
+
+
 return {
   {
     "lvimuser/lsp-inlayhints.nvim",
@@ -146,8 +153,7 @@ return {
 
       -- LSP
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+      local capabilities = gen_capabilities(require("cmp_nvim_lsp"));
 
       -- Install servers used
       mason_lspconfig.setup({
@@ -238,9 +244,13 @@ return {
     build = prereqs,
     opts = {
       server = {
-        on_attach = on_attach
+        on_attach = on_attach,
       },
     },
+    config = function(_, opts)
+      opts.server.capabilities = gen_capabilities(require("cmp_nvim_lsp"));
+      require('rust-tools').setup(opts)
+    end
     --config = function(_, opts)
     --require('rust-tools').setup(opts)
     --end
