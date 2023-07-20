@@ -27,7 +27,7 @@ require("util").keymaps({
     ["<C-d>"] = { "<C-d>zz", desc = "Vertical half page down and center cursor" },
     ["<C-u>"] = { "<C-u>zz", desc = "Vertical half page up and center cursor" },
     ["<leader>y"] = { '"*y', desc = "Copy to system clipboard" },
-    ["<Leader>p"] = { '"*p', desc = "Paste from system clipboard" },
+    ["<leader>p"] = { '"*p', desc = "Paste from system clipboard" },
     ["<leader>Q"] = { ":qa<CR>", desc = "Quit all" },
     ["J"] = { "mzJ`z", desc = "Move line below onto this line" },
     -- window navigation
@@ -66,7 +66,9 @@ require("util").keymaps({
       desc = "Generate and replace UUID",
     },
     ["<leader>y"] = { '"*y', desc = "Copy to system clipboard" },
-    ["<Leader>p"] = { '"*p', desc = "Paste from system clipboard" },
+    ["<leader>p"] = { '"*p', desc = "Paste from system clipboard" },
+    ["p"] = { '"_dP', desc = "Paste without yanking replaced content" },
+    ["<C-r>"] = { '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection" },
   },
   i = {
     ["<C-k>"] = { "<Up>", desc = "Up" },
@@ -83,10 +85,6 @@ require("util").keymaps({
     ["<C-l>"] = { "<Right>", desc = "Right" },
     ["<C-4>"] = { "<End>", desc = "End" },
     ["<C-6>"] = { "<Home>", desc = "Home" },
-  },
-  x = {
-    ["<leader>p"] = { '"_dP', desc = "Paste w/o copying replaced content" },
-    ["<C-r"] = { '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection" },
   },
   t = {
     ["<Esc>"] = { "<C-\\><C-n>", desc = "Escape the terminal" },

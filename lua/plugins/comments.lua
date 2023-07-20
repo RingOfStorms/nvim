@@ -1,4 +1,6 @@
 vim.g.NERDCreateDefaultMappings = 0
+vim.g.NERDDefaultAlign = 'both'
+vim.g.NERDSpaceDelims = 1
 vim.cmd("filetype plugin on")
 
 return {
