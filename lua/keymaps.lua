@@ -38,6 +38,7 @@ require("util").keymaps({
     -- reformat LSP
     ["<leader>lf"] = {
       function()
+        vim.cmd "SqlMagic"
         vim.lsp.buf.format()
       end,
       desc = "Reformat file",

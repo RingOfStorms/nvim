@@ -25,8 +25,17 @@ local servers = {
   lua_ls = {
     -- lua
     Lua = {
-      workspace = { checkThirdParty = false },
+      runtime = {
+        version = "LuaJIT",
+      },
+      workspace = { checkThirdParty = false, library = vim.api.nvim_get_runtime_file("", true) },
       telemetry = { enable = false },
+      diagnostics = {
+        globals = {
+          "vim",
+          "require"
+        },
+      },
     },
   },
   bashls = {
@@ -138,6 +147,7 @@ return {
     build = ":MasonUpdate",
     opts = {},
   },
+  { "folke/neodev.nvim",  opts = {} }, -- lua stuff
   {
     "williamboman/mason-lspconfig.nvim",
   },
@@ -238,8 +248,7 @@ return {
       })
     end,
   },
-  { "folke/neodev.nvim",  opts = {} }, -- lua stuff
-  {                                    -- Rust tools
+  { -- Rust tools
     "simrat39/rust-tools.nvim",
     build = prereqs,
     opts = {
