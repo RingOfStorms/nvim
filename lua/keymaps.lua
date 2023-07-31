@@ -38,11 +38,12 @@ require("util").keymaps({
     -- reformat LSP
     ["<leader>lf"] = {
       function()
-        vim.cmd "SqlMagic"
+        -- vim.cmd "SqlxFormat"
         vim.lsp.buf.format()
       end,
       desc = "Reformat file",
     },
+    ["<leader>lsf"] = { "<cmd>SqlxFormat<cr>", desc = "Format sqlx queries in rust raw string literals." },
     ["<leader>ld"] = {
       function()
         vim.diagnostic.open_float()
