@@ -33,11 +33,11 @@ vim.api.nvim_create_autocmd("BufRead", {
   end,
 })
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
-  callback = function ()
-    if vim.bo.filetype == 'neo-tree' then
-      vim.api.nvim_command("stopinsert")
-    end
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+  callback = function()
+    -- if vim.bo.filetype == 'neo-tree' then
+    vim.api.nvim_command("stopinsert")
+    -- end
   end
 })
 
