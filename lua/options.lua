@@ -49,3 +49,6 @@ vim.o.completeopt = "menuone,noselect"
 vim.diagnostic.config({
 	float = { border = "single" },
 })
+
+-- Turn on new diff
+vim.opt.diffopt:append("linematch:20")

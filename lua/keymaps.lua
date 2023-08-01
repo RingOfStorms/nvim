@@ -22,6 +22,8 @@ require("util").keymaps({
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>cq"] = { "<cmd>bd<cr>", desc = "Close current buffer" },
+    ["<leader>tn"] = { "<cmd>tabnew<cr>", desc = "" },
+    ["<leader>tq"] = { "<cmd>tabclose<cr>", desc = "Close current tab" },
     ["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" },
     ["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" },
     ["<C-d>"] = { "<C-d>zz", desc = "Vertical half page down and center cursor" },
@@ -35,6 +37,9 @@ require("util").keymaps({
     ["<C-j>"] = { "<C-w>j", desc = "Move window below current" },
     ["<C-k>"] = { "<C-w>k", desc = "Move window above current" },
     ["<C-l>"] = { "<C-w>l", desc = "Move window right current" },
+    -- tab navigation
+    ["<C-y>"] = { "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
+    ["<C-o>"] = { "<cmd>tabnext<cr>", desc = "Move to next tab" },
     -- reformat LSP
     ["<leader>lf"] = {
       function()

@@ -1,4 +1,4 @@
-function prereqs()
+local function prereqs()
 	local output = vim.fn.system({
 		"which",
 		"lazygit",

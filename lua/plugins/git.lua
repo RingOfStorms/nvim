@@ -19,10 +19,11 @@ return {
         delay = 0,
         ignore_whitespace = false,
       },
-      -- on_attach = function()
-      --   local gs = package.loaded.gitsigns
-      --   set_nmap('<leader>tb', gs.toggle_current_line_blame)
-      -- end
+      on_attach = function()
+        vim.keymap.set("n", "<leader>gb", function()
+          package.loaded.gitsigns.toggle_current_line_blame()
+        end, { desc = "Toggle git blame on current line" })
+      end
     }
   },
   {
@@ -93,6 +94,9 @@ return {
           height = 16,
         },
       },
-    }
+    },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Opens git diff view." },
+    },
   }
 }

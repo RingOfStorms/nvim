@@ -1,4 +1,4 @@
-function prereqs()
+local function prereqs()
   local output_cspell = vim.fn.system({
     "which",
     "cspell",

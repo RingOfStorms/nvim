@@ -1,4 +1,4 @@
-function prereqs()
+local function prereqs()
   local output = vim.fn.system({
     "which",
     "rust-analyzer",
@@ -172,7 +172,7 @@ return {
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local config = require("lspconfig")
-      local util = require("lspconfig/util")
+      -- local util = require("lspconfig/util")
       local mason_lspconfig = require("mason-lspconfig")
       local cmp = require("cmp")
       local luasnip = require("luasnip")
