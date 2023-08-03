@@ -9,7 +9,10 @@ local function prereqs()
   if output == nil or output == "" or string.find(output, "not installed for the toolchain") then
     print("Installing rust-analyzer globally with rustup")
     vim.fn.system({
-      "rustup", "component", "add", "rust-analyzer"
+      "rustup",
+      "component",
+      "add",
+      "rust-analyzer",
     })
   end
 end
@@ -33,7 +36,7 @@ local servers = {
       diagnostics = {
         globals = {
           "vim",
-          "require"
+          "require",
         },
       },
     },
@@ -76,15 +79,11 @@ local servers = {
   },
 }
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-      vim.lsp.diagnostic.on_publish_diagnostics,
-      {
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true
-      }
-    )
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = true,
+  signs = true,
+  update_in_insert = true,
+})
 
 local signs = { "Error", "Warn", "Hint", "Info" }
 for _, type in pairs(signs) do
@@ -132,7 +131,6 @@ local gen_capabilities = function(cmp)
   capabilities = cmp.default_capabilities(capabilities)
 end
 
-
 return {
   {
     "lvimuser/lsp-inlayhints.nvim",
@@ -147,6 +145,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       --"Saecki/crates.nvim", -- SEE plugins/rust-tools.lua
+      "zbirenbaum/copilot-cmp",
     },
   },
   {
@@ -179,7 +178,7 @@ return {
 
       -- LSP
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-      local capabilities = gen_capabilities(require("cmp_nvim_lsp"));
+      local capabilities = gen_capabilities(require("cmp_nvim_lsp"))
 
       -- Install servers used
       mason_lspconfig.setup({
@@ -241,6 +240,7 @@ return {
           end, { "i", "s" }),
         }),
         sources = {
+          { name = "copilot",  priority = 9 },
           { name = "nvim_lsp", priority = 8 },
           { nane = "buffer",   priority = 7 },
           { name = "luasnip",  priority = 6 },
@@ -273,9 +273,9 @@ return {
       },
     },
     config = function(_, opts)
-      opts.server.capabilities = gen_capabilities(require("cmp_nvim_lsp"));
-      require('rust-tools').setup(opts)
-    end
+      opts.server.capabilities = gen_capabilities(require("cmp_nvim_lsp"))
+      require("rust-tools").setup(opts)
+    end,
     --config = function(_, opts)
     --require('rust-tools').setup(opts)
     --end

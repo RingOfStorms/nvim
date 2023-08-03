@@ -38,8 +38,8 @@ require("util").keymaps({
     ["<C-k>"] = { "<C-w>k", desc = "Move window above current" },
     ["<C-l>"] = { "<C-w>l", desc = "Move window right current" },
     -- tab navigation
-    ["<C-y>"] = { "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
-    ["<C-o>"] = { "<cmd>tabnext<cr>", desc = "Move to next tab" },
+    ["H"] = { "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
+    ["L"] = { "<cmd>tabnext<cr>", desc = "Move to next tab" },
     -- reformat LSP
     ["<leader>lf"] = {
       function()
