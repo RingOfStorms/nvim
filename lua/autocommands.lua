@@ -13,32 +13,37 @@
 --})
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = ".env*",
-  command = "set filetype=sh",
+	pattern = ".env*",
+	command = "set filetype=sh",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = ".*rc",
-  command = "set filetype=sh",
+	pattern = ".*rc",
+	command = "set filetype=sh",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  pattern = "Dockerfile.*",
-  command = "set filetype=dockerfile",
+	pattern = "Dockerfile.*",
+	command = "set filetype=dockerfile",
 })
 
 vim.api.nvim_create_autocmd("BufRead", {
-  callback = function()
-    vim.cmd.CccHighlighterEnable()
-  end,
+	callback = function()
+		vim.cmd.CccHighlighterEnable()
+	end,
 })
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  callback = function()
-    -- if vim.bo.filetype == 'neo-tree' then
-    vim.api.nvim_command("stopinsert")
-    -- end
-  end
+	callback = function()
+		-- if vim.bo.filetype == 'neo-tree' then
+		vim.api.nvim_command("stopinsert")
+		-- end
+	end,
+})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = "*.http",
+	command = "set filetype=http",
 })
 
 --vim.api.nvim_create_autocmd('BufEnter', {
