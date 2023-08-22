@@ -12,17 +12,18 @@ return {
 		close_if_last_window = true,
 		sources = { "filesystem" },
 		filesystem = {
-			follow_current_file = true,
+			follow_current_file = false,
 			group_empty_dirs = true,
 			filtered_items = {
 				visible = true,
 				hide_dotfiles = false,
 				hide_gitignored = false,
-				hide_by_name = {
+				never_show = {
 					".DS_Store",
 				},
 			},
 		},
+		use_libuv_file_watcher = true,
 		nesting_rules = {
 			["ts"] = { ".cjs", ".cjs.map", ".d.ts", ".d.ts.map", ".js", ".js.map", ".mjs", ".mjs.map", ".test.ts" },
 			["js"] = { ".cjs", ".cjs.map", ".d.js", ".d.js.map", ".js", ".js.map", ".mjs", ".mjs.map", ".test.js" },
@@ -38,7 +39,7 @@ return {
 				if vim.bo.filetype == "neo-tree" then
 					vim.cmd.wincmd("p")
 				else
-					vim.cmd.Neotree("focus")
+					vim.cmd.Neotree("reveal")
 				end
 			end,
 			desc = "Toggle Explorer Focus",
