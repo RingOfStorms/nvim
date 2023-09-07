@@ -47,8 +47,12 @@ vim.opt.splitright = true
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noselect"
 vim.diagnostic.config({
-	float = { border = "single" },
+  float = { border = "single" },
 })
 
 -- Turn on new diff
 vim.opt.diffopt:append("linematch:20")
+
+-- Set screen mode
+vim.o.noequalalways = true
+vim.o.equalalways = false
