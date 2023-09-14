@@ -8,6 +8,9 @@ return {
 	pin = true,
 	tag = "2.56",
 	opts = {
+    window = {
+      position = "float",
+    },
 		auto_clean_after_session_restore = true,
 		close_if_last_window = true,
 		sources = { "filesystem" },
