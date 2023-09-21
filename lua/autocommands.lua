@@ -33,11 +33,12 @@ vim.api.nvim_create_autocmd("BufRead", {
 	end,
 })
 
+-- AUto exit insert mode whenever we switch screens
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	callback = function()
-		-- if vim.bo.filetype == 'neo-tree' then
-		vim.api.nvim_command("stopinsert")
-		-- end
+		if vim.bo.filetype ~= "TelescopePrompt" and vim.bo.filetype ~= nil and vim.bo.filetype ~= "" then
+			vim.api.nvim_command("stopinsert")
+		end
 	end,
 })
 
