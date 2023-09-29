@@ -1,3 +1,7 @@
+local highlight = require('util').highlight
+-- Dull Version
+highlight("GitGutterUntracked", { fg = "#688066", gui = "nocombine" })
+
 return {
   {
     "lewis6991/gitsigns.nvim",
@@ -11,7 +15,8 @@ return {
         change = { hl = "GitGutterChange" },
         delete = { hl = "GitGutterDelete" },
         topdelete = { hl = "GitGutterDelete" },
-        changedelete = { hl = "GitGutterChangeDelete" }
+        changedelete = { hl = "GitGutterChangeDelete" },
+        untracked = { hl = "GitGutterUntracked" },
       },
       current_line_blame_opts = {
         virt_text = true,
