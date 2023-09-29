@@ -23,8 +23,8 @@ return {
     scope          = {
       enabled = true,
       char = "┊",
-      show_start = true,
-      show_end = true,
+      show_start = false,
+      show_end = false,
       highlight = {
         "IndentBlanklineScope1",
         "IndentBlanklineScope2",
