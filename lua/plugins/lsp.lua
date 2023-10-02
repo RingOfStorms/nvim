@@ -130,6 +130,15 @@ return {
     "lvimuser/lsp-inlayhints.nvim",
   },
   {
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp",
+    opts = {
+      history = true,
+      region_check_events = "InsertEnter",
+      delete_check_events = "TextChanged,InsertLeave",
+    }
+  },
+  {
     -- Autocompletion
     "hrsh7th/nvim-cmp",
     dependencies = {
