@@ -20,7 +20,7 @@ require("util").keymaps({
     ["<return>"] = { ":noh<CR><return>", desc = "Clear search on return" },
     ["<leader>a"] = { "ggVG", desc = "Select all" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
-    ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
+    ["<leader>qq"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>bq"] = { "<cmd>bp|bd #<cr>", desc = "Close current buffer only" },
     ["<leader>tn"] = { "<cmd>tabnew<cr>", desc = "Create new tab" },
     ["<leader>tq"] = { "<cmd>tabclose<cr>", desc = "Close current tab" },
@@ -31,6 +31,7 @@ require("util").keymaps({
     ["<leader>y"] = { '"*y', desc = "Copy to system clipboard" },
     ["<leader>p"] = { '"*p', desc = "Paste from system clipboard" },
     ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
+    ["<leader>q<leader>"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
     ["J"] = { "mzJ`z", desc = "Move line below onto this line" },
     ["<S-Tab>"] = { "<C-o>", desc = "Go back <C-o>" },
     -- window navigation
