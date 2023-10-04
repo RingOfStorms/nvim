@@ -10,6 +10,6 @@ return {
 		vim.notify = require("notify")
 	end,
 	keys = {
-		{ "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Telescope search notifications" },
+		{ "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Telescope search notifications", mode ={"n", "v", "x"} },
 	},
 }

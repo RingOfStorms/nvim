@@ -85,7 +85,7 @@ return {
 			function()
 				require("telescope.builtin").lsp_references()
 			end,
-			desc = "Find References",
+			desc = "Find References", mode ={"n", "v", "x"} 
 		},
 	},
 	opts = {
