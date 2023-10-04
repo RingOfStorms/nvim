@@ -1,8 +1,9 @@
 return {
 	"rcarriga/nvim-notify",
+  event = "VeryLazy",
 	opts = {
-    top_down = false,
-  },
+		top_down = false,
+	},
 	config = function(_, opts)
 		require("notify").setup(opts)
 

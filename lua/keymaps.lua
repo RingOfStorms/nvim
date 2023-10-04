@@ -42,14 +42,14 @@ require("util").keymaps({
     ["H"] = { "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
     ["L"] = { "<cmd>tabnext<cr>", desc = "Move to next tab" },
     -- reformat LSP
-    ["<leader>lf"] = {
+    ["<leader>l<leader>"] = {
       function()
         -- vim.cmd "SqlxFormat"
         vim.lsp.buf.format()
       end,
       desc = "Reformat file",
     },
-    ["<leader>lsf"] = { "<cmd>SqlxFormat<cr>", desc = "Format sqlx queries in rust raw string literals." },
+    ["<leader>ls<leader>"] = { "<cmd>SqlxFormat<cr>", desc = "Format sqlx queries in rust raw string literals." },
     ["<leader>ld"] = {
       function()
         vim.diagnostic.open_float()
