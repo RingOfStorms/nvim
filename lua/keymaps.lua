@@ -82,6 +82,8 @@ require("util").keymaps({
     ["<leader>p"] = { '"*p', desc = "Paste from system clipboard" },
     ["p"] = { '"_dP', desc = "Paste without yanking replaced content" },
     ["<C-r>"] = { '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection" },
+    [">"] = { "> gv", desc = "Indent selection" },
+    ["<"] = { "< gv", desc = "Outdent selection" },
   },
   i = {
     ["<C-k>"] = { "<Up>", desc = "Up" },
