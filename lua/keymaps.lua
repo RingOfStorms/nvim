@@ -30,8 +30,9 @@ require("util").keymaps({
     ["<C-u>"] = { "<C-u>zz", desc = "Vertical half page up and center cursor" },
     ["<leader>y"] = { '"*y', desc = "Copy to system clipboard" },
     ["<leader>p"] = { '"*p', desc = "Paste from system clipboard" },
-    ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
+    -- ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
     ["<leader>q<leader>"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
+    ["<leader>qq<leader>"] = { "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>", desc = "Quit all, no session saved" },
     ["J"] = { "mzJ`z", desc = "Move line below onto this line" },
     ["<S-Tab>"] = { "<C-o>", desc = "Go back <C-o>" },
     -- window navigation
