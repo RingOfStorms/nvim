@@ -34,7 +34,7 @@ return {
           to_stdin = true,
         }),
       }
-      -- ╰─ cat src/main.rs| rustfmt --emit=stdout --edition=2021 --color=never
+      -- $ cat src/main.rs| rustfmt --emit=stdout --edition=2021 --color=never
       local rust_formatter_rustfmt = {
         name = "rust_formatter_rustfmt",
         method = null_ls.methods.FORMATTING,
@@ -79,12 +79,12 @@ return {
         null_ls.builtins.code_actions.cspell.with({
           config = {
             find_json = function()
-              return vim.fn.findfile("cspell.json", vim.fn.environ().HOME .. "/.config/nvim/lua/user/;")
+              return vim.fn.findfile("cspell.json", vim.fn.environ().HOME .. "/.config/nvim/;")
             end,
           },
         }),
         null_ls.builtins.diagnostics.cspell.with({
-          extra_args = { "--config", "~/.config/nvim/lua/user/cspell.json" },
+          extra_args = { "--config", "~/.config/nvim/cspell.json" },
         }),
       }
 
