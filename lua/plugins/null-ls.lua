@@ -30,7 +30,7 @@ return {
         filetypes = { "rust" },
         generator = null_ls.formatter({
           command = "genemichaels",
-          args = { '-q' },
+          args = { "-q" },
           to_stdin = true,
         }),
       }
@@ -41,8 +41,11 @@ return {
         filetypes = { "rust" },
         generator = null_ls.formatter({
           command = "rustfmt",
-          args = { '--emit=stdout', "--edition=$(grep edition Cargo.toml | awk '{print substr($3,2,length($3)-2)}')",
-            '--color=never' },
+          args = {
+            "--emit=stdout",
+            "--edition=$(grep edition Cargo.toml | awk '{print substr($3,2,length($3)-2)}')",
+            "--color=never",
+          },
           to_stdin = true,
         }),
       }
@@ -69,9 +72,11 @@ return {
       -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
       config.sources = {
         null_ls.builtins.formatting.prettier, -- typescript/javascript
-        null_ls.builtins.formatting.stylua,   -- lua
+        null_ls.builtins.formatting.stylua.with({
+          extra_args = { "--indent-type", "spaces", "--indent-width", "2" },
+        }),                          -- lua
         --null_ls.builtins.formatting.rustfmt, -- rust
-        rust_formatter_genemichaels,          -- order matters, run genemichaels first then rustfmt
+        rust_formatter_genemichaels, -- order matters, run genemichaels first then rustfmt
         rust_formatter_rustfmt,
         -- rust_formatter_sqlx, -- see tools/sqlx-format.lua
         null_ls.builtins.formatting.black, -- python
@@ -85,6 +90,11 @@ return {
         }),
         null_ls.builtins.diagnostics.cspell.with({
           extra_args = { "--config", "~/.config/nvim/cspell.json" },
+          diagnostics_postprocess = function(diagnostic)
+            -- vim.notify(vim.inspect(diagnostic))
+            diagnostic.message = diagnostic.user_data.misspelled
+            diagnostic.severity = vim.diagnostic.severity.HINT
+          end,
         }),
       }
 
