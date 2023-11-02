@@ -27,4 +27,3 @@ vim.cmd("colorscheme material")
 require("tools")
 require("autocommands")
 
-print("DONE")
