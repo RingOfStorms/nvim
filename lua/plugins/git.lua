@@ -1,4 +1,4 @@
-local highlight = require('util').highlight
+local highlight = require("util").highlight
 -- Dull Version
 highlight("GitGutterUntracked", { fg = "#688066", gui = "nocombine" })
 
@@ -8,7 +8,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
       watch_gitdir = {
-        interval = 100
+        interval = 100,
       },
       signs = {
         add = { hl = "GitGutterAdd" },
@@ -20,7 +20,7 @@ return {
       },
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
         delay = 0,
         ignore_whitespace = false,
       },
@@ -28,8 +28,8 @@ return {
         vim.keymap.set("n", "<leader>gb", function()
           package.loaded.gitsigns.toggle_current_line_blame()
         end, { desc = "Toggle git blame on current line" })
-      end
-    }
+      end,
+    },
   },
   {
     "Neogitorg/neogit",
@@ -38,17 +38,20 @@ return {
     },
     opts = {
       integrations = {
-        diffview = true
+        diffview = true,
       },
       sections = {
-        recent = false
-      }
+        recent = false,
+      },
     },
     keys = {
-      { "<leader>gs", function()
-        require('neogit').open({ kind = "vsplit" })
-      end }
-    }
+      {
+        "<leader>gs",
+        function()
+          require("neogit").open({ kind = "vsplit" })
+        end,
+      },
+    },
   },
   {
 
@@ -92,7 +95,7 @@ return {
             multi_file = {
               diff_merges = "first-parent",
             },
-          }
+          },
         },
         win_config = {
           position = "bottom",
@@ -103,5 +106,5 @@ return {
     keys = {
       { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Opens git diff view." },
     },
-  }
+  },
 }

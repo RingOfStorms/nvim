@@ -105,7 +105,6 @@ require("util").keymaps({
     ["<C-r>"] = { '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection" },
     [">"] = { "> gv", desc = "Indent selection" },
     ["<"] = { "< gv", desc = "Outdent selection" },
-
   },
   i = {
     ["<C-k>"] = { "<Up>", desc = "Up" },

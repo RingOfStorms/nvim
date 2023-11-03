@@ -184,7 +184,7 @@ return {
     build = ":MasonUpdate",
     opts = {},
   },
-  { "folke/neodev.nvim",  opts = {} }, -- lua stuff
+  { "folke/neodev.nvim", opts = {} }, -- lua stuff
   {
     "williamboman/mason-lspconfig.nvim",
   },
@@ -276,8 +276,8 @@ return {
             end,
           },
           { name = "nvim_lsp", priority = 9 },
-          { nane = "buffer",   priority = 7 },
-          { name = "luasnip",  priority = 6 },
+          { nane = "buffer", priority = 7 },
+          { name = "luasnip", priority = 6 },
           { name = "path" },
           { name = "crates" },
         },

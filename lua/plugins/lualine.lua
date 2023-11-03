@@ -15,7 +15,7 @@ local function langs()
     if client.name == "pyright" then
       out = vim.fn.system({ "python", "-V" })
     elseif client.name == "tsserver" then
-      out = 'node ' .. vim.fn.system({ "node", "--version" })
+      out = "node " .. vim.fn.system({ "node", "--version" })
     end
     if out ~= nil and out ~= "" then
       langs[#langs + 1] = vim.trim(out)
@@ -58,8 +58,8 @@ return {
         },
       },
       lualine_b = {
-        "mode"
-      }
+        "mode",
+      },
     },
     inactive_winbar = {
       lualine_a = {

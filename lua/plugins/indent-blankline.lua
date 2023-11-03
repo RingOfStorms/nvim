@@ -1,10 +1,10 @@
 vim.opt.list = true
 -- vim.opt.listchars = ''
 -- vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
-vim.opt.listchars:append "tab: >"
+vim.opt.listchars:append("eol:↴")
+vim.opt.listchars:append("tab: >")
 
-local highlight = require('util').highlight
+local highlight = require("util").highlight
 highlight("NonText", { fg = "#303030", gui = "nocombine" })
 
 return {
@@ -20,7 +20,7 @@ return {
     -- char = '.',
     -- char = '¦',
     use_treesitter = true,
-    scope          = {
+    scope = {
       enabled = true,
       char = "┊",
       show_start = false,
@@ -31,10 +31,10 @@ return {
         "IndentBlanklineScope3",
         "IndentBlanklineScope4",
         "IndentBlanklineScope5",
-      }
+      },
     },
-    indent         = {
-      char = '│',
+    indent = {
+      char = "│",
       highlight = {
         "IndentBlanklineIndent1",
         "IndentBlanklineIndent2",
@@ -42,10 +42,10 @@ return {
         "IndentBlanklineIndent4",
         "IndentBlanklineIndent5",
       },
-    }
+    },
   },
   config = function(_, opts)
-    local hooks = require "ibl.hooks"
+    local hooks = require("ibl.hooks")
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
       vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#915053" })
       vim.api.nvim_set_hl(0, "IndentBlanklineIndent2", { fg = "#A27F3E" })
@@ -60,6 +60,6 @@ return {
       vim.api.nvim_set_hl(0, "IndentBlanklineScope5", { fg = "#917DC0" })
     end)
 
-    require('ibl').setup(opts)
-  end
+    require("ibl").setup(opts)
+  end,
 }

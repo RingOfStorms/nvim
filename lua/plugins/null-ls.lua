@@ -74,7 +74,7 @@ return {
         null_ls.builtins.formatting.prettier, -- typescript/javascript
         null_ls.builtins.formatting.stylua.with({
           extra_args = { "--indent-type", "spaces", "--indent-width", "2" },
-        }),                          -- lua
+        }), -- lua
         --null_ls.builtins.formatting.rustfmt, -- rust
         rust_formatter_genemichaels, -- order matters, run genemichaels first then rustfmt
         rust_formatter_rustfmt,
