@@ -19,6 +19,7 @@ return {
   dependencies = {
     { "nvim-lua/plenary.nvim" },
     { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable("make") == 1, build = "make" },
+    { "nvim-telescope/telescope-ui-select.nvim" },
   },
   build = prereqs,
   cmd = "Telescope",
@@ -91,18 +92,32 @@ return {
       mode = { "n", "v", "x" },
     },
   },
-  opts = {
-    pickers = {
-      buffers = {
-        sort_lastused = true,
+  opts = function()
+    return {
+      pickers = {
+        buffers = {
+          sort_lastused = true,
+        },
+        find_files = {
+          hidden = true,
+          sort_lastused = true,
+        },
       },
-      find_files = {
-        hidden = true,
-        sort_lastused = true,
+      defaults = {
+        file_ignore_patterns = { "node_modules", "package-lock.json", "target" },
       },
-    },
-    defaults = {
-      file_ignore_patterns = { "node_modules", "package-lock.json", "target" },
-    },
-  },
+      extensions = {
+        ["ui-select"] = {
+          require('telescope.themes').get_cursor {
+
+          }
+        },
+      },
+    }
+  end,
+  config = function(_, opts)
+    local ts = require("telescope")
+    ts.setup(opts)
+    ts.load_extension("ui-select")
+  end,
 }
