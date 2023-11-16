@@ -67,7 +67,7 @@ return {
         "vue",
         "yaml",
       },
-      auto_install = auto,
+      -- auto_install = auto,
       highlight = {
         enable = true,
         use_languagetree = true,

@@ -52,7 +52,8 @@ require("util").keymaps({
       "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
       desc = "Quit all, no session saved",
     },
-    ["<leader><leader>q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
+    -- ["<leader><leader>q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
+    ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
     ["J"] = { "mzJ`z", desc = "Move line below onto this line" },
     ["<S-Tab>"] = { "<C-o>", desc = "Go back <C-o>" },
     -- window navigation
