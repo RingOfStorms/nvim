@@ -71,13 +71,12 @@ return {
       highlight = {
         enable = true,
         use_languagetree = true,
-        -- disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
+        disable = function(_, bufnr) return vim.api.nvim_buf_line_count(bufnr) > 10000 end,
         -- additional_vim_regex_highlighting = false,
       },
       incremental_selection = { enable = true },
       ident = { enable = true },
       autotag = { enable = true },
-      context_commentstring = { enable = true, enable_autocmd = false },
       rainbow = {
         enable = true,
         extended_mode = true,
@@ -85,6 +84,8 @@ return {
       },
     },
     config = function(_, opts)
+      vim.g.skip_ts_context_commentstring_module = true
+      require('ts_context_commentstring').setup({})
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
