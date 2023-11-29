@@ -43,7 +43,7 @@ return {
       lualine_z = { "location" },
     },
     refresh = {
-      statusline = 200,
+      -- statusline = 200,
     },
     winbar = {
       lualine_a = {
