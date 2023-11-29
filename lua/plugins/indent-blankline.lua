@@ -19,7 +19,6 @@ return {
     -- char = '┊',
     -- char = '.',
     -- char = '¦',
-    use_treesitter = true,
     scope = {
       enabled = true,
       char = "┊",
