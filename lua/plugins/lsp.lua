@@ -265,7 +265,7 @@ return {
         sources = {
           {
             name = "copilot",
-            priority = 8,
+            priority = 9,
             keyword_length = 1,
             filter = function(keyword)
               -- Check if keyword length is some number and not just whitespace
@@ -275,7 +275,7 @@ return {
               return true
             end,
           },
-          { name = "nvim_lsp", priority = 9 },
+          { name = "nvim_lsp", priority = 8 },
           { nane = "buffer", priority = 7 },
           { name = "luasnip", priority = 6 },
           { name = "path" },

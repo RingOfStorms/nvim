@@ -15,9 +15,12 @@ if not vim.loop.fs_stat(lazypath) then
     vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
   end
 end
-vim.opt.rtp:prepend(lazypath)
+vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+  spec = {
+    { import = "plugins" },
+  },
   change_detection = {
     enabled = false,
   },
