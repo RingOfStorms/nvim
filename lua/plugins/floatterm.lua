@@ -8,7 +8,17 @@ return {
       desc = "Run selected as command in float terminal",
       mode = "v",
     },
-    { "<C-x>", "<cmd>FloatermToggle Terminal<cr>", desc = "Toggle float terminal" },
-    { "<C-z>", "<cmd>FloatermNew --disposable<cr>", desc = "Toggle disposable float terminal", mode = { "v", "n" } },
+    {
+      "<C-x>",
+      "<cmd>FloatermToggle<cr>",
+      desc = "Toggle float terminal",
+      mode = { "n", "i", "v", "x", "c", "t" },
+    },
+    {
+      "<C-z>",
+      "<cmd>FloatermNew --disposable<cr>",
+      desc = "Toggle disposable float terminal",
+      mode = { "v", "n", "i", "x", "c" },
+    },
   },
 }

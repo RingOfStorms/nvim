@@ -6,7 +6,7 @@ local scratch = function(extension)
   vim.cmd("execute 'edit " .. filepath .. "'")
 end
 
-require("util").keymaps({
+require("util").keymaps_old({
   n = {
     ["<leader>fsw"] = {
       function()

@@ -11,119 +11,136 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
+local nvx = { "n", "v", "x" }
+
 require("util").keymaps({
-  n = {
-    [";"] = { ":", desc = "No shift command mode" },
-    ["n"] = { "nzzzv", desc = "Next search result centered" },
-    ["N"] = { "Nzzzv", desc = "Previous search result centered" },
-    ["<esc>"] = { ":noh<CR><esc>", desc = "Clear search on escape" },
-    ["<return>"] = { ":noh<CR><return>", desc = "Clear search on return" },
-    ["<leader>a"] = { "ggVG", desc = "Select all" },
-    ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
-    ["<leader>qq"] = {
-      function()
-        -- Use to have this which always closed and quit ont he last screen: "<cmd>confirm q<cr>"
-        -- Instead I want this behavior:
-        -- if only 1 screen is open then close all buffers, resulting in a blank unamed buffer window similar to fresh session
-        -- else if more than 1 screen, confirm q to close that screen
-        -- Check the number of screens
-        if vim.fn.winnr("$") == 1 then
-          -- If only 1 screen is open then close all buffers, resulting in a blank unnamed buffer window similar to fresh session
-          vim.cmd("bufdo bd")
-          vim.cmd("SessionDelete")
-        else
-          -- If more than 1 screen, confirm q to close that screen
-          vim.cmd("confirm q")
-        end
-      end,
-      desc = "Quit",
-    },
-    ["<leader>bq"] = { "<cmd>bp|bd #<cr>", desc = "Close current buffer only" },
-    ["<leader>tn"] = { "<cmd>tabnew<cr>", desc = "Create new tab" },
-    ["<leader>tq"] = { "<cmd>tabclose<cr>", desc = "Close current tab" },
-    ["|"] = { "<cmd>vsplit<cr>", desc = "Vertical Split" },
-    ["\\"] = { "<cmd>split<cr>", desc = "Horizontal Split" },
-    ["<C-d>"] = { "<C-d>zz", desc = "Vertical half page down and center cursor" },
-    ["<C-u>"] = { "<C-u>zz", desc = "Vertical half page up and center cursor" },
-    ["<leader>y"] = { '"+y', desc = "Copy to system clipboard" },
-    ["<leader>p"] = { '"+p', desc = "Paste from system clipboard" },
-    -- ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
-    ["<leader><leader>sq"] = {
-      "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
-      desc = "Quit all, no session saved",
-    },
-    -- ["<leader><leader>q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
-    ["<leader>Q"] = { "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all" },
-    ["J"] = { "mzJ`z", desc = "Move line below onto this line" },
-    ["<S-Tab>"] = { "<C-o>", desc = "Go back <C-o>" },
-    -- window navigation
-    ["<C-h>"] = { "<C-w>h", desc = "Move window left current" },
-    ["<C-j>"] = { "<C-w>j", desc = "Move window below current" },
-    ["<C-k>"] = { "<C-w>k", desc = "Move window above current" },
-    ["<C-l>"] = { "<C-w>l", desc = "Move window right current" },
-    -- tab navigation
-    ["H"] = { "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
-    ["L"] = { "<cmd>tabnext<cr>", desc = "Move to next tab" },
-    -- reformat LSP
-    ["<leader>l<leader>"] = {
-      function()
-        -- vim.cmd "SqlxFormat"
-        vim.lsp.buf.format()
-      end,
-      desc = "Reformat file",
-    },
-    ["<leader>ls<leader>"] = { "<cmd>SqlxFormat<cr>", desc = "Format sqlx queries in rust raw string literals." },
-    ["<leader>ld"] = {
-      function()
-        vim.diagnostic.open_float()
-      end,
-      desc = "Show diagnostic message",
-    },
-    ["<leader>ll"] = {
-      function()
-        vim.diagnostic.setloclist()
-      end,
-      desc = "Show diagnostic list",
-    },
-    ["<leader>lz"] = { "<cmd>e<CR>", desc = "Edit current file again / Restart LSP Server" },
-    ["<leader>,uu"] = { ':let @u = trim(tolower(system("uuidgen")))<cr>a<C-r>u', desc = "Generate and insert UUID" },
-    ["B"] = { "<cmd>b#<cr>", desc = "Switch to last buffer" },
-    ["<leader>S"] = {
-      "<cmd>set equalalways<cr><cmd>set noequalalways<cr>",
-      desc = "Equalize/resize screens evenly",
-    },
+  -- =============
+  -- n/v/x
+  -- =============
+  { ";", ":", desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
+  { "<leader>a", "<esc>ggVG", desc = "Select all", mode = nvx },
+  { "<leader>w", "<cmd>w<cr>", desc = "Save", mode = nvx },
+  {
+    "<leader>q",
+    function()
+      -- Use to have this which always closed and quit ont he last screen: "<cmd>confirm q<cr>"
+      -- Instead I want this behavior:
+      -- if only 1 screen is open then close all buffers, resulting in a blank unnamed buffer window similar to fresh session
+      -- else if more than 1 screen, confirm q to close that screen
+      -- Check the number of screens
+      if vim.fn.winnr("$") == 1 then
+        -- If only 1 screen is open then close all buffers, resulting in a blank unnamed buffer window similar to fresh session
+        vim.cmd("bufdo bd")
+        vim.cmd("SessionDelete")
+      else
+        -- If more than 1 screen, confirm q to close that screen
+        vim.cmd("confirm q")
+      end
+    end,
+    desc = "Quit",
+    mode = nvx,
   },
-  v = {
-    ["J"] = { ":m '>+1<CR>gv=gv", desc = "Visually move block down" },
-    ["K"] = { ":m '<-2<CR>gv=gv", desc = "Visually move block up" },
-    ["<leader>,uu"] = {
-      'd:let @u = trim(tolower(system("uuidgen")))<cr>i<C-r>u',
-      desc = "Generate and replace UUID",
-    },
-    ["<leader>y"] = { '"+y', desc = "Copy to system clipboard" },
-    ["<leader>p"] = { '"+p', desc = "Paste from system clipboard" },
-    ["p"] = { '"_dP', desc = "Paste without yanking replaced content" },
-    ["<C-r>"] = { '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection" },
-    [">"] = { "> gv", desc = "Indent selection" },
-    ["<"] = { "< gv", desc = "Outdent selection" },
+  { "Q", "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
+  {
+    "<leader>QQ",
+    "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
+    desc = "Quit all, no session saved",
+    mode = nvx,
   },
-  i = {
-    ["<C-k>"] = { "<Up>", desc = "Up" },
-    ["<C-j>"] = { "<Down>", desc = "Down" },
-    ["<C-h>"] = { "<Left>", desc = "Left" },
-    ["<C-l>"] = { "<Right>", desc = "Right" },
-    ["<C-4>"] = { "<End>", desc = "End" },
-    ["<C-6>"] = { "<Home>", desc = "Home" },
+  { "<leader>y", '"+y', desc = "Copy to system clipboard", mode = nvx },
+  { "<leader>p", '"+p', desc = "Paste from system clipboard", mode = nvx },
+  { "<leader>bq", "<cmd>bp|bd #<cr>", desc = "Close current buffer only", mode = nvx },
+  { "<leader>tn", "<cmd>tabnew<cr>", desc = "Create new tab", mode = nvx },
+  { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close current tab", mode = nvx },
+  { "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab", mode = nvx },
+  { "L", "<cmd>tabnext<cr>", desc = "Move to next tab", mode = nvx },
+  { "|", "<cmd>vsplit<cr>", desc = "Vertical Split", mode = nvx },
+  { "\\", "<cmd>split<cr>", desc = "Horizontal Split", mode = nvx },
+  {
+    "<leader>S",
+    "<cmd>set equalalways<cr><cmd>set noequalalways<cr>",
+    desc = "Equalize/resize screens evenly",
+    mode = nvx,
   },
-  c = {
-    ["<C-h>"] = { "<Left>", desc = "Left" },
-    ["<C-j>"] = { "<Down>", desc = "Down" },
-    ["<C-k>"] = { "<Up>", desc = "Up" },
-    ["<C-l>"] = { "<Right>", desc = "Right" },
-    ["<C-4>"] = { "<End>", desc = "End" },
-    ["<C-6>"] = { "<Home>", desc = "Home" },
+  { "<C-h>", "<C-w>h", desc = "Move window left current", mode = nvx },
+  { "<C-j>", "<C-w>j", desc = "Move window below current", mode = nvx },
+  { "<C-k>", "<C-w>k", desc = "Move window above current", mode = nvx },
+  { "<C-l>", "<C-w>l", desc = "Move window right current", mode = nvx },
+  { "B", "<cmd>b#<cr>", desc = "Switch to last buffer", mode = nvx },
+  {
+    "<leader>l<leader>",
+    function()
+      -- vim.cmd "SqlxFormat"
+      vim.lsp.buf.format()
+    end,
+    desc = "Reformat file",
+    mode = nvx,
   },
-  t = {
-    ["<Esc>"] = { "<C-\\><C-n>", desc = "Escape the terminal" },
+  {
+    "<leader>ls<leader>",
+    "<cmd>SqlxFormat<cr>",
+    desc = "Format sqlx queries in rust raw string literals.",
+    mode = nvx,
   },
+  {
+    "<leader>ld",
+    function()
+      vim.diagnostic.open_float()
+    end,
+    desc = "Show diagnostic message",
+    mode = nvx,
+  },
+  {
+    "<leader>ll",
+    function()
+      vim.diagnostic.setloclist()
+    end,
+    desc = "Show diagnostic list",
+    mode = nvx,
+  },
+
+  -- =============
+  -- VISUAL
+  -- =============
+  {
+    "J",
+    ":m '>+1<CR>gv=gv",
+    desc = "Visually move block down",
+    mode = "v",
+  },
+  {
+    "K",
+    ":m '<-2<CR>gv=gv",
+    desc = "Visually move block up",
+    mode = "v",
+  },
+  {
+    "<leader>,uu",
+    'd:let @u = trim(tolower(system("uuidgen")))<cr>i<C-r>u',
+    desc = "Generate and replace UUID",
+    mode = "v",
+  },
+  { "p", '"_dP', desc = "Paste without yanking replaced content", mode = "v" },
+  { "<C-r>", '"hy:%s/<C-r>h//g<left><left>', desc = "Replace current selection", mode = "v" },
+  { ">", "> gv", desc = "Indent selection", mode = "v" },
+  { "<", "< gv", desc = "Outdent selection", mode = "v" },
+
+  -- =============
+  -- insert / command
+  -- =============
+  { "<C-k>", "<Up>", desc = "Up", mode = { "i", "c" } },
+  { "<C-j>", "<Down>", desc = "Down", mode = { "i", "c" } },
+  { "<C-h>", "<Left>", desc = "Left", mode = { "i", "c" } },
+  { "<C-l>", "<Right>", desc = "Right", mode = { "i", "c" } },
+  { "<C-4>", "<End>", desc = "End", mode = { "i", "c" } },
+  { "<C-6>", "<Home>", desc = "Home", mode = { "i", "c" } },
+  -- =============
+  -- command
+  -- =============
+  -- { mode = "c" }
+  -- =============
+  -- terminal
+  -- =============
+  { "<Esc>", "<C-\\><C-n>", desc = "Escape the terminal", mode = "t" },
 })

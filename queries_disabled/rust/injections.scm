@@ -1,4 +1,4 @@
-; ==== SQLX syntax highlighting
+  ==== SQLX syntax highlighting
 ; query macro
 (macro_invocation
    (scoped_identifier
