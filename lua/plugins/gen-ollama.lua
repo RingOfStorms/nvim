@@ -13,6 +13,11 @@ return {
       end,
     })
   end,
+  opts = {
+    model = "wizard-vicuna-uncensored",
+    -- show_prompt = true,
+    show_model = true,
+  },
   config = function(_, opts)
     local g = require("gen")
     g.setup(opts)
@@ -28,12 +33,14 @@ return {
     g.prompts = {
       -- https://github.com/David-Kunz/gen.nvim/blob/main/lua/gen/prompts.lua
       Prompt_Code_Completion = {
-        prompt = "Write code that meets these requirements: $input\nOnly output the result in format ```$filetype\n...\n```",
+        prompt =
+        "Write code that meets these requirements: $input\nOnly output the result in format ```$filetype\n...\n```",
         replace = true,
         extract = "```$filetype\n(.-)```",
       },
       Replace_Code_Completion = {
-        prompt = "Rewrite the following code, follow any comment instructions.\nOnly output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+        prompt =
+        "Rewrite the following code, follow any comment instructions.\nOnly output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
         replace = true,
         extract = "```$filetype\n(.-)```",
       },
@@ -71,7 +78,7 @@ return {
       mode = { "n", "v", "x" },
     },
     {
-      "<leader>xcc",
+      "<leader>xi",
       "<cmd>Gen Prompt_And_Answer_Inline<cr>",
       desc = "Prompt and answer inline at cursor",
       mode = { "n", "v", "x" },
