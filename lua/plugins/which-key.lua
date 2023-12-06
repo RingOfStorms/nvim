@@ -26,6 +26,7 @@ return {
       ["<leader>Q"] = { name = "+Q Quit and remove session" },
       ["<leader>s"] = { name = "Scratch Files" },
       ["<leader>t"] = { name = "Tabs" },
+      ["<leader>x"] = { name = "Generative AI, Ollama" },
     })
   end,
 }

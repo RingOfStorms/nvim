@@ -1,12 +1,3 @@
-local auto = true
-local output = vim.fn.system({
-  "which",
-  "tree-sitter",
-})
-if output == nil or output == "" then
-  auto = false
-end
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -67,7 +58,6 @@ return {
         "vue",
         "yaml",
       },
-      -- auto_install = auto,
       highlight = {
         enable = true,
         use_languagetree = true,

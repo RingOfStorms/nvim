@@ -1,24 +1,10 @@
-local function prereqs()
-  local output_cspell = vim.fn.system({
-    "which",
-    "cspell",
-  })
-  if output_cspell == nil or output_cspell == "" or output_cspell == "cspell not found" then
-    print("Installing cspell globally with npm")
-    vim.fn.system({
-      "npm",
-      "install",
-      "-g",
-      "cspell",
-    })
-  end
-end
+local U = require("util")
+local cspell = U.cmd_executable("cspell")
 
 return {
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    build = prereqs,
     opts = function(_, config)
       -- config variable is the default definitions table for the setup function call
       local null_ls = require("null-ls")
@@ -74,29 +60,40 @@ return {
         null_ls.builtins.formatting.prettier, -- typescript/javascript
         null_ls.builtins.formatting.stylua.with({
           extra_args = { "--indent-type", "spaces", "--indent-width", "2" },
-        }), -- lua
+        }),                          -- lua
         --null_ls.builtins.formatting.rustfmt, -- rust
         rust_formatter_genemichaels, -- order matters, run genemichaels first then rustfmt
         rust_formatter_rustfmt,
         -- rust_formatter_sqlx, -- see tools/sqlx-format.lua
         null_ls.builtins.formatting.black, -- python
         -- null_ls.builtins.code_actions.proselint, -- TODO looks interesting
-        null_ls.builtins.code_actions.cspell.with({
-          config = {
-            find_json = function()
-              return vim.fn.findfile("cspell.json", vim.fn.environ().HOME .. "/.config/nvim/;")
-            end,
-          },
-        }),
-        null_ls.builtins.diagnostics.cspell.with({
-          extra_args = { "--config", "~/.config/nvim/cspell.json" },
-          diagnostics_postprocess = function(diagnostic)
-            -- vim.notify(vim.inspect(diagnostic))
-            diagnostic.message = diagnostic.user_data.misspelled
-            diagnostic.severity = vim.diagnostic.severity.HINT
-          end,
-        }),
       }
+
+      if cspell then
+        table.insert(
+          config.sources,
+          null_ls.builtins.code_actions.cspell.with({
+            config = {
+              find_json = function()
+                return vim.fn.findfile("cspell.json", vim.fn.environ().HOME .. "/.config/nvim/;")
+              end,
+            },
+          })
+        )
+        table.insert(
+          config.sources,
+          null_ls.builtins.diagnostics.cspell.with({
+            extra_args = { "--config", "~/.config/nvim/cspell.json" },
+            diagnostics_postprocess = function(diagnostic)
+              -- vim.notify(vim.inspect(diagnostic))
+              diagnostic.message = diagnostic.user_data.misspelled
+              diagnostic.severity = vim.diagnostic.severity.HINT
+            end,
+          })
+        )
+      else
+        vim.notify("cspell is missing, spelling suggestions will not work", 2)
+      end
 
       config.update_in_insert = true
       config.debug = true

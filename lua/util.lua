@@ -1,23 +1,30 @@
 local M = {}
 
-function M.keymaps_old(mappings)
-  for mode, maps in pairs(mappings) do
-    for keymap, options in pairs(maps) do
-      if options then
-        local cmd = options
-        local keymap_opts = {}
-        if type(options) == "table" then
-          cmd = options[1]
-          keymap_opts = vim.tbl_deep_extend("force", keymap_opts, options)
-          keymap_opts[1] = nil
-        end
+function M.cmd_executable(cmd, callback)
+  local executable = vim.fn.executable(cmd) == 1
+  -- Check if a callback is provided and it is a function
+  if executable and callback and type(callback) == "function" then
+    callback()
+  end
 
-        if mode and keymap and cmd and keymap_opts then
-          vim.keymap.set(mode, keymap, cmd, keymap_opts)
-        end
+  -- Check if a callback is provided and it is a table
+  if type(callback) == "table" then
+    if executable and (callback[1] or callback[true]) then
+      -- Call the function associated with key 1 or true if the command is executable
+      local func = callback[1] or callback[true]
+      if type(func) == "function" then
+        func()
+      end
+    elseif not executable and (callback[2] or callback[false]) then
+      -- Call the function associated with key 2 or false if the command is not executable
+      local func = callback[2] or callback[false]
+      if type(func) == "function" then
+        func()
       end
     end
   end
+
+  return executable
 end
 
 --     [1]: (string) lhs (required)

@@ -1,17 +1,4 @@
-local function prereqs()
-  local output = vim.fn.system({
-    "which",
-    "rg",
-  })
-  if output == nil or output == "" or string.find(output, "not installed for the toolchain") then
-    print("Installing ripgrep globally with rtx")
-    vim.fn.system({
-      "rtx",
-      "global",
-      "ripgrep@latest",
-    })
-  end
-end
+local U = require("util")
 
 return {
   "nvim-telescope/telescope.nvim",
@@ -21,7 +8,13 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", enabled = vim.fn.executable("make") == 1, build = "make" },
     { "nvim-telescope/telescope-ui-select.nvim" },
   },
-  build = prereqs,
+  init = function()
+    U.cmd_executable("rg", {
+      [false] = function()
+        vim.notify("rg not installed, live grep will not function.", 2)
+      end,
+    })
+  end,
   cmd = "Telescope",
   keys = {
     { "<leader>f", "<Nop>", desc = "Find ..." },
@@ -53,11 +46,15 @@ return {
     {
       "<leader>fw",
       function()
-        if vim.fn.executable("rg") == 0 then
-          vim.notify("rg not installed, live grep will not function.", 3)
-        end
-        require("telescope.builtin").live_grep({
-          hidden = true,
+        U.cmd_executable("rg", {
+          function()
+            require("telescope.builtin").live_grep({
+              hidden = true,
+            })
+          end,
+          function()
+            vim.notify("rg not installed, live grep will not function.", 3)
+          end,
         })
       end,
       desc = "Find Words",
