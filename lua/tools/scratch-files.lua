@@ -27,8 +27,8 @@ U.keymaps({
     end,
     desc = "Find Scratches",
   },
-  { "<leader>s", "<Nop>", desc = "Scratch File" },
-  ["<leader>ss"] = {
+  {
+    "<leader>ss",
     function()
       scratch(".txt")
     end,
