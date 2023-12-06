@@ -56,3 +56,6 @@ vim.opt.diffopt:append("linematch:20")
 -- Set screen mode
 vim.o.noequalalways = true
 vim.o.equalalways = false
+
+-- enable colors for opacity changes
+vim.o.termguicolors = true

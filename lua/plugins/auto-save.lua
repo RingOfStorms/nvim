@@ -1,6 +1,9 @@
 return {
   "Pocco81/auto-save.nvim",
   event = "BufEnter",
+  init = function()
+    vim.notify("test")
+  end,
   opts = {
     trigger_events = { "InsertLeave", "TextChanged", "TextChangedI", "BufLeave" },
     condition = function(buf)
