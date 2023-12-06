@@ -105,12 +105,16 @@ return {
       },
       defaults = {
         file_ignore_patterns = { "node_modules", "package-lock.json", "target" },
+        mappings = {
+          i = {
+            ["<C-j>"] = "move_selection_next",
+            ["<C-k>"] = "move_selection_previous",
+          },
+        },
       },
       extensions = {
         ["ui-select"] = {
-          require('telescope.themes').get_cursor {
-
-          }
+          require("telescope.themes").get_cursor(),
         },
       },
     }
