@@ -2,6 +2,7 @@ local U = require("util")
 
 return {
   "David-Kunz/gen.nvim",
+  lazy = false,
   enabled = function()
     return U.cmd_executable("ollama", {
       [false] = function()
@@ -14,7 +15,7 @@ return {
     })
   end,
   opts = {
-    model = "wizard-vicuna-uncensored",
+    model = "codellama",
     -- show_prompt = true,
     show_model = true,
   },
@@ -33,14 +34,12 @@ return {
     g.prompts = {
       -- https://github.com/David-Kunz/gen.nvim/blob/main/lua/gen/prompts.lua
       Prompt_Code_Completion = {
-        prompt =
-        "Write code that meets these requirements: $input\nOnly output the result in format ```$filetype\n...\n```",
+        prompt = "Write code that meets these requirements: $input\nOnly output the result in format ```$filetype\n...\n```",
         replace = true,
         extract = "```$filetype\n(.-)```",
       },
-      Replace_Code_Completion = {
-        prompt =
-        "Rewrite the following code, follow any comment instructions.\nOnly output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+      Inline_Selection_Code_Completion = {
+        prompt = "Rewrite the following code, follow any comment instructions.\nRemove any instruction comments but keep comments about the code. Only output the result with no explanation in format ```$filetype\n...\n```:n```$filetype\n$text\n```",
         replace = true,
         extract = "```$filetype\n(.-)```",
       },
@@ -53,45 +52,54 @@ return {
     }
   end,
   keys = {
+    -- For some reason selections don't work well when using keys from lazy + which key installed when using `<cmd>` MUST use `:` for command
+    {
+      "<leader>x<leader>",
+      ":Gen<cr>",
+      desc = "Show Menu",
+      mode = { "n", "v", "x" },
+    },
     {
       "<leader>xm",
-      "<cmd>Gen<cr>",
+      function()
+        require("gen").select_model()
+      end,
       desc = "Show Menu",
       mode = { "n", "v", "x" },
     },
     {
       "<leader>xx",
-      "<cmd>Gen Prompt_Code_Completion<cr>",
+      ":Gen Prompt_Code_Completion<cr>",
       desc = "Input and generate",
       mode = { "n" },
     },
     {
       "<leader>xx",
-      "<cmd>'<,'>Gen Replace_Code_Completion<cr>",
+      ":'<,'>Gen Inline_Selection_Code_Completion<cr>",
       desc = "Replace selected code",
       mode = { "v", "x" },
     },
     {
       "<leader>xc",
-      "<cmd>Gen Prompt_And_Answer_Float<cr>",
+      ":Gen Prompt_And_Answer_Float<cr>",
       desc = "Prompt and answer in float window",
       mode = { "n", "v", "x" },
     },
     {
       "<leader>xi",
-      "<cmd>Gen Prompt_And_Answer_Inline<cr>",
+      ":Gen Prompt_And_Answer_Inline<cr>",
       desc = "Prompt and answer inline at cursor",
       mode = { "n", "v", "x" },
     },
     {
       "<leader>xs",
-      "<cmd>'<,'>Gen Summarize_Selection_Float<cr>",
+      ":'<,'>Gen Summarize_Selection_Float<cr>",
       desc = "Summarize selection in float window",
       mode = { "v", "x" },
     },
     {
       "<leader>xa",
-      "<cmd>'<,'>Gen Ask_Selection_Float<cr>",
+      ":'<,'>Gen Ask_Selection_Float<cr>",
       desc = "Ask question about selection in float window",
       mode = { "v", "x" },
     },

@@ -104,7 +104,7 @@ return {
       },
     },
     keys = {
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Opens git diff view." },
+      { "<leader>gd", ":DiffviewOpen<cr>", desc = "Opens git diff view." },
     },
   },
 }

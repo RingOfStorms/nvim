@@ -7,6 +7,6 @@ return {
     require("telescope").load_extension("textcase")
   end,
   keys = {
-    { "<leader>,c", "<cmd>TextCaseOpenTelescope<cr>", desc = "Change case of selection", mode = { "n", "v" } },
+    { "<leader>,c", ":TextCaseOpenTelescope<cr>", desc = "Change case of selection", mode = { "n", "v" } },
   },
 }

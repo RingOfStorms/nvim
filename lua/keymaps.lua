@@ -19,11 +19,11 @@ require("util").keymaps({
   -- =============
   { ";",         ":",          desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
   { "<leader>a", "<esc>ggVG",  desc = "Select all",                                                  mode = nvx },
-  { "<leader>w", "<cmd>w<cr>", desc = "Save",                                                        mode = nvx },
+  { "<leader>w", ":w<cr>", desc = "Save",                                                        mode = nvx },
   {
     "<leader>q",
     function()
-      -- Use to have this which always closed and quit ont he last screen: "<cmd>confirm q<cr>"
+      -- Use to have this which always closed and quit ont he last screen: ":confirm q<cr>"
       -- Instead I want this behavior:
       -- if only 1 screen is open then close all buffers, resulting in a blank unnamed buffer window similar to fresh session
       -- else if more than 1 screen, confirm q to close that screen
@@ -40,26 +40,26 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  { "Q",         "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q",         ":Neotree close<cr>:qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>",                             mode = nvx }, -- don't do normal Q quit
   {
     "<leader>QQ",
-    "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
+    ":Neotree close<cr>:SessionDelete<cr>:qa<CR>",
     desc = "Quit all, no session saved",
     mode = nvx,
   },
   { "<leader>y",  '"+y',                  desc = "Copy to system clipboard",    mode = nvx },
   { "<leader>p",  '"+p',                  desc = "Paste from system clipboard", mode = nvx },
-  { "<leader>bq", "<cmd>bp|bd #<cr>",     desc = "Close current buffer only",   mode = nvx },
-  { "<leader>tn", "<cmd>tabnew<cr>",      desc = "Create new tab",              mode = nvx },
-  { "<leader>tq", "<cmd>tabclose<cr>",    desc = "Close current tab",           mode = nvx },
-  { "H",          "<cmd>tabprevious<cr>", desc = "Move to previous tab",        mode = nvx },
-  { "L",          "<cmd>tabnext<cr>",     desc = "Move to next tab",            mode = nvx },
-  { "|",          "<cmd>vsplit<cr>",      desc = "Vertical Split",              mode = nvx },
-  { "\\",         "<cmd>split<cr>",       desc = "Horizontal Split",            mode = nvx },
+  { "<leader>bq", ":bp|bd #<cr>",     desc = "Close current buffer only",   mode = nvx },
+  { "<leader>tn", ":tabnew<cr>",      desc = "Create new tab",              mode = nvx },
+  { "<leader>tq", ":tabclose<cr>",    desc = "Close current tab",           mode = nvx },
+  { "H",          ":tabprevious<cr>", desc = "Move to previous tab",        mode = nvx },
+  { "L",          ":tabnext<cr>",     desc = "Move to next tab",            mode = nvx },
+  { "|",          ":vsplit<cr>",      desc = "Vertical Split",              mode = nvx },
+  { "\\",         ":split<cr>",       desc = "Horizontal Split",            mode = nvx },
   {
     "<leader>S",
-    "<cmd>set equalalways<cr><cmd>set noequalalways<cr>",
+    ":set equalalways<cr>:set noequalalways<cr>",
     desc = "Equalize/resize screens evenly",
     mode = nvx,
   },
@@ -67,7 +67,7 @@ require("util").keymaps({
   { "<C-j>", "<C-w>j",      desc = "Move window below current", mode = nvx },
   { "<C-k>", "<C-w>k",      desc = "Move window above current", mode = nvx },
   { "<C-l>", "<C-w>l",      desc = "Move window right current", mode = nvx },
-  { "B",     "<cmd>b#<cr>", desc = "Switch to last buffer",     mode = nvx },
+  { "B",     ":b#<cr>", desc = "Switch to last buffer",     mode = nvx },
   {
     "<leader>l<leader>",
     function()
@@ -79,7 +79,7 @@ require("util").keymaps({
   },
   {
     "<leader>ls<leader>",
-    "<cmd>SqlxFormat<cr>",
+    ":SqlxFormat<cr>",
     desc = "Format sqlx queries in rust raw string literals.",
     mode = nvx,
   },
