@@ -181,7 +181,7 @@ return {
       "MasonUninstallAll",
       "MasonLog",
     },
-    build = ":MasonUpdate",
+    build = "<cmd>MasonUpdate",
     opts = {},
   },
   { "folke/neodev.nvim",  opts = {} }, -- lua stuff

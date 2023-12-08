@@ -36,7 +36,7 @@ return {
     },
   },
   keys = {
-    { "<leader>e", ":Neotree toggle<CR>", desc = "Toggle Explorer" },
+    { "<leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle Explorer" },
     {
       "<leader>o",
       function()

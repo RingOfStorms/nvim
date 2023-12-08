@@ -2,7 +2,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { "windwp/nvim-ts-autotag", "JoosepAlviste/nvim-ts-context-commentstring" },
-    build = ":TSUpdate",
+    build = "<cmd>TSUpdate",
     event = "BufRead",
     cmd = {
       "TSBufDisable",

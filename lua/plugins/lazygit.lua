@@ -25,6 +25,6 @@ return {
   },
   build = prereqs,
   keys = {
-    { "<leader>gg", ":LazyGit<cr>", desc = "Open lazy git ui" },
+    { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open lazy git ui" },
   },
 }

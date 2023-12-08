@@ -4,19 +4,19 @@ return {
   keys = {
     {
       "<leader>xx",
-      "::'<,'>FloatermNew --autoclose=2<cr>",
+      "<cmd>'<,'>FloatermNew --autoclose=2<cr>",
       desc = "Run selected as command in float terminal",
       mode = "v",
     },
     {
       "<C-x>",
-      ":FloatermToggle<cr>",
+      "<cmd>FloatermToggle<cr>",
       desc = "Toggle float terminal",
       mode = { "n", "i", "v", "x", "c", "t" },
     },
     {
       "<C-z>",
-      ":FloatermNew --disposable<cr>",
+      "<cmd>FloatermNew --disposable<cr>",
       desc = "Toggle disposable float terminal",
       mode = { "v", "n", "i", "x", "c" },
     },

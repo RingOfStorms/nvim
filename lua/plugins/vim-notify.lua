@@ -13,6 +13,6 @@ return {
     require('telescope').load_extension("notify")
   end,
   keys = {
-    { "<leader>fn", ":Telescope notify<cr>", desc = "Telescope search notifications", mode = { "n", "v", "x" } },
+    { "<leader>fn", "<cmd>Telescope notify<cr>", desc = "Telescope search notifications", mode = { "n", "v", "x" } },
   },
 }

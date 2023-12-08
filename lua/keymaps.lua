@@ -17,13 +17,13 @@ require("util").keymaps({
   -- =============
   -- n/v/x
   -- =============
-  { ";",         ":",          desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
+  { ";",         "<cmd>",          desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
   { "<leader>a", "<esc>ggVG",  desc = "Select all",                                                  mode = nvx },
-  { "<leader>w", ":w<cr>", desc = "Save",                                                        mode = nvx },
+  { "<leader>w", "<cmd>w<cr>", desc = "Save",                                                        mode = nvx },
   {
     "<leader>q",
     function()
-      -- Use to have this which always closed and quit ont he last screen: ":confirm q<cr>"
+      -- Use to have this which always closed and quit ont he last screen: "<cmd>confirm q<cr>"
       -- Instead I want this behavior:
       -- if only 1 screen is open then close all buffers, resulting in a blank unnamed buffer window similar to fresh session
       -- else if more than 1 screen, confirm q to close that screen
@@ -40,26 +40,26 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  { "Q",         ":Neotree close<cr>:qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q",         "<cmd>Neotree close<cr>:qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>",                             mode = nvx }, -- don't do normal Q quit
   {
     "<leader>QQ",
-    ":Neotree close<cr>:SessionDelete<cr>:qa<CR>",
+    "<cmd>Neotree close<cr>:SessionDelete<cr>:qa<CR>",
     desc = "Quit all, no session saved",
     mode = nvx,
   },
   { "<leader>y",  '"+y',                  desc = "Copy to system clipboard",    mode = nvx },
   { "<leader>p",  '"+p',                  desc = "Paste from system clipboard", mode = nvx },
-  { "<leader>bq", ":bp|bd #<cr>",     desc = "Close current buffer only",   mode = nvx },
-  { "<leader>tn", ":tabnew<cr>",      desc = "Create new tab",              mode = nvx },
-  { "<leader>tq", ":tabclose<cr>",    desc = "Close current tab",           mode = nvx },
-  { "H",          ":tabprevious<cr>", desc = "Move to previous tab",        mode = nvx },
-  { "L",          ":tabnext<cr>",     desc = "Move to next tab",            mode = nvx },
-  { "|",          ":vsplit<cr>",      desc = "Vertical Split",              mode = nvx },
-  { "\\",         ":split<cr>",       desc = "Horizontal Split",            mode = nvx },
+  { "<leader>bq", "<cmd>bp|bd #<cr>",     desc = "Close current buffer only",   mode = nvx },
+  { "<leader>tn", "<cmd>tabnew<cr>",      desc = "Create new tab",              mode = nvx },
+  { "<leader>tq", "<cmd>tabclose<cr>",    desc = "Close current tab",           mode = nvx },
+  { "H",          "<cmd>tabprevious<cr>", desc = "Move to previous tab",        mode = nvx },
+  { "L",          "<cmd>tabnext<cr>",     desc = "Move to next tab",            mode = nvx },
+  { "|",          "<cmd>vsplit<cr>",      desc = "Vertical Split",              mode = nvx },
+  { "\\",         "<cmd>split<cr>",       desc = "Horizontal Split",            mode = nvx },
   {
     "<leader>S",
-    ":set equalalways<cr>:set noequalalways<cr>",
+    "<cmd>set equalalways<cr>:set noequalalways<cr>",
     desc = "Equalize/resize screens evenly",
     mode = nvx,
   },
@@ -67,7 +67,7 @@ require("util").keymaps({
   { "<C-j>", "<C-w>j",      desc = "Move window below current", mode = nvx },
   { "<C-k>", "<C-w>k",      desc = "Move window above current", mode = nvx },
   { "<C-l>", "<C-w>l",      desc = "Move window right current", mode = nvx },
-  { "B",     ":b#<cr>", desc = "Switch to last buffer",     mode = nvx },
+  { "B",     "<cmd>b#<cr>", desc = "Switch to last buffer",     mode = nvx },
   {
     "<leader>l<leader>",
     function()
@@ -79,7 +79,7 @@ require("util").keymaps({
   },
   {
     "<leader>ls<leader>",
-    ":SqlxFormat<cr>",
+    "<cmd>SqlxFormat<cr>",
     desc = "Format sqlx queries in rust raw string literals.",
     mode = nvx,
   },
@@ -105,8 +105,8 @@ require("util").keymaps({
   -- =============
   { "n",        "nzzzv",            desc = "Next search result centered" },
   { "N",        "Nzzzv",            desc = "Previous search result centered" },
-  { "<esc>",    ":noh<CR><esc>",    desc = "Clear search on escape" },
-  { "<return>", ":noh<CR><return>", desc = "Clear search on return" },
+  { "<esc>",    "<cmd>noh<CR><esc>",    desc = "Clear search on escape" },
+  { "<return>", "<cmd>noh<CR><return>", desc = "Clear search on return" },
   { "<C-d>",    "<C-d>zz",          desc = "Vertical half page down and center cursor" },
   { "<C-u>",    "<C-u>zz",          desc = "Vertical half page up and center cursor" },
   { "J",        "mzJ`z",            desc = "Move line below onto this line" },
@@ -117,13 +117,13 @@ require("util").keymaps({
   -- =============
   {
     "J",
-    ":m '>+1<CR>gv=gv",
+    "<cmd>m '>+1<CR>gv=gv",
     desc = "Visually move block down",
     mode = "v",
   },
   {
     "K",
-    ":m '<-2<CR>gv=gv",
+    "<cmd>m '<-2<CR>gv=gv",
     desc = "Visually move block up",
     mode = "v",
   },

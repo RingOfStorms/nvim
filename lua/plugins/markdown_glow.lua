@@ -7,6 +7,6 @@ return {
   cmd = "Glow",
   keys = {
     { "<leader>m", "<Nop>", desc = " Markdown" },
-    { "<leader>mp", ":Glow <CR>", desc = "Markdown preview" },
+    { "<leader>mp", "<cmd>Glow <CR>", desc = "Markdown preview" },
   },
 }
