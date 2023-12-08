@@ -2,7 +2,6 @@ local U = require("util")
 
 return {
   "David-Kunz/gen.nvim",
-  lazy = false,
   enabled = function()
     return U.cmd_executable("ollama", {
       [false] = function()

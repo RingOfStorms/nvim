@@ -4,7 +4,7 @@ return {
   keys = {
     {
       "<leader>xx",
-      "<cmd>'<,'>FloatermNew --autoclose=2<cr>",
+      "<cmd>:'<,'>FloatermNew --autoclose=2<cr>",
       desc = "Run selected as command in float terminal",
       mode = "v",
     },

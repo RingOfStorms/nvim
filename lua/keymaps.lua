@@ -17,7 +17,7 @@ require("util").keymaps({
   -- =============
   -- n/v/x
   -- =============
-  { ";",         "<cmd>",          desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
+  { ";",         ":",          desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
   { "<leader>a", "<esc>ggVG",  desc = "Select all",                                                  mode = nvx },
   { "<leader>w", "<cmd>w<cr>", desc = "Save",                                                        mode = nvx },
   {
@@ -40,11 +40,11 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  { "Q",         "<cmd>Neotree close<cr>:qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q",         "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>",                             mode = nvx }, -- don't do normal Q quit
   {
     "<leader>QQ",
-    "<cmd>Neotree close<cr>:SessionDelete<cr>:qa<CR>",
+    "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
     desc = "Quit all, no session saved",
     mode = nvx,
   },
@@ -59,7 +59,7 @@ require("util").keymaps({
   { "\\",         "<cmd>split<cr>",       desc = "Horizontal Split",            mode = nvx },
   {
     "<leader>S",
-    "<cmd>set equalalways<cr>:set noequalalways<cr>",
+    "<cmd>set equalalways<cr><cmd>set noequalalways<cr>",
     desc = "Equalize/resize screens evenly",
     mode = nvx,
   },
@@ -105,8 +105,8 @@ require("util").keymaps({
   -- =============
   { "n",        "nzzzv",            desc = "Next search result centered" },
   { "N",        "Nzzzv",            desc = "Previous search result centered" },
-  { "<esc>",    "<cmd>noh<CR><esc>",    desc = "Clear search on escape" },
-  { "<return>", "<cmd>noh<CR><return>", desc = "Clear search on return" },
+  { "<esc>",    ":noh<CR><esc>",    desc = "Clear search on escape" },
+  { "<return>", ":noh<CR><return>", desc = "Clear search on return" },
   { "<C-d>",    "<C-d>zz",          desc = "Vertical half page down and center cursor" },
   { "<C-u>",    "<C-u>zz",          desc = "Vertical half page up and center cursor" },
   { "J",        "mzJ`z",            desc = "Move line below onto this line" },
@@ -117,13 +117,13 @@ require("util").keymaps({
   -- =============
   {
     "J",
-    "<cmd>m '>+1<CR>gv=gv",
+    ":m '>+1<CR>gv=gv",
     desc = "Visually move block down",
     mode = "v",
   },
   {
     "K",
-    "<cmd>m '<-2<CR>gv=gv",
+    ":m '<-2<CR>gv=gv",
     desc = "Visually move block up",
     mode = "v",
   },
