@@ -54,10 +54,7 @@ require("util").keymaps({
   { "<leader>bn", "<cmd>enew<cr>", desc = "Open a new buffer in current screen", mode = nvx },
   { "<leader>tn", "<cmd>tabnew<cr>", desc = "Create new tab", mode = nvx },
   { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close current tab", mode = nvx },
-  { "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab", mode = nvx },
-  { "L", "<cmd>tabnext<cr>", desc = "Move to next tab", mode = nvx },
-  { "|", "<cmd>vsplit<cr>", desc = "Vertical Split", mode = nvx },
-  { "\\", "<cmd>split<cr>", desc = "Horizontal Split", mode = nvx },
+
   {
     "<leader>S",
     "<cmd>set equalalways<cr><cmd>set noequalalways<cr>",
@@ -104,6 +101,10 @@ require("util").keymaps({
   -- =============
   -- normal mode
   -- =============
+  { "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
+  { "L", "<cmd>tabnext<cr>", desc = "Move to next tab" },
+  { "|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
+  { "\\", "<cmd>split<cr>", desc = "Horizontal Split" },
   { "n", "nzzzv", desc = "Next search result centered" },
   { "N", "Nzzzv", desc = "Previous search result centered" },
   { "<esc>", ":noh<CR><esc>", desc = "Clear search on escape" },
