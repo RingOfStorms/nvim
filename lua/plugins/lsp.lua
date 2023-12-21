@@ -45,6 +45,7 @@ local servers = {
         globals = {
           "vim",
           "require",
+          -- Hammerspoon
           "hs",
         },
       },
