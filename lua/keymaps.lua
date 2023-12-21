@@ -52,6 +52,7 @@ require("util").keymaps({
   { "<leader>p", '"+p', desc = "Paste from system clipboard", mode = nvx },
   { "<leader>bq", "<cmd>bp|bd #<cr>", desc = "Close current buffer only", mode = nvx },
   { "<leader>bn", "<cmd>enew<cr>", desc = "Open a new buffer in current screen", mode = nvx },
+  { "<leader>bt", "<cmd>terminal<cr>i", desc = "Open a terminal in current screen", mode = nvx },
   { "<leader>tn", "<cmd>tabnew<cr>", desc = "Create new tab", mode = nvx },
   { "<leader>tq", "<cmd>tabclose<cr>", desc = "Close current tab", mode = nvx },
   { "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab", mode = nvx },
