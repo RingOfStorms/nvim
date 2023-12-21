@@ -15,7 +15,7 @@ local nvx = { "n", "v", "x" }
 
 require("util").keymaps({
   -- =============
-  -- n/v/x
+  -- n/v/x (normal + visual modes)
   -- =============
   { ";", ":", desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
   { "<leader>a", "<esc>ggVG", desc = "Select all", mode = nvx },
@@ -40,7 +40,8 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  { "Q", "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  -- { "Q", "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
   {
     "<leader>QQ",
@@ -102,6 +103,7 @@ require("util").keymaps({
   -- =============
   -- normal mode
   -- =============
+  -- { "", "", desc = "" },
   { "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
   { "L", "<cmd>tabnext<cr>", desc = "Move to next tab" },
   { "|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
