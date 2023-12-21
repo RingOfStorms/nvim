@@ -1,7 +1,12 @@
 local function lsp_clients()
   local clients = {}
   for _, client in pairs(vim.lsp.buf_get_clients(0)) do
-    clients[#clients + 1] = client.name
+    local name = client.name
+    -- TODO revisit this doesn't work
+    if not client.initialized then
+      name = name .. " (loading)"
+    end
+    clients[#clients + 1] = name
   end
 
   table.sort(clients)

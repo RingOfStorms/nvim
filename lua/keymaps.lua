@@ -114,6 +114,20 @@ require("util").keymaps({
   { "<C-u>", "<C-u>zz", desc = "Vertical half page up and center cursor" },
   { "J", "mzJ`z", desc = "Move line below onto this line" },
   { "<S-Tab>", "<C-o>", desc = "Go back <C-o>" },
+  {
+    "]d",
+    function()
+      vim.diagnostic.goto_next()
+    end,
+    desc = "Go to next diagnostic",
+  },
+  {
+    "[d",
+    function()
+      vim.diagnostic.goto_prev()
+    end,
+    desc = "Go to next diagnostic",
+  },
 
   -- =============
   -- VISUAL
