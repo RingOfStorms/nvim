@@ -40,12 +40,12 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  -- { "Q", "<cmd>Neotree close<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
-  { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q", "<cmd>NvimTreeClose<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  -- { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
   {
     "<leader>QQ",
-    "<cmd>Neotree close<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
+    "<cmd>NvimTreeClose<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
     desc = "Quit all, no session saved",
     mode = nvx,
   },

@@ -15,12 +15,9 @@ return {
       group_empty = true,
     },
     filters = {
-      dotfiles = true,
+      dotfiles = false,
     },
   },
-  -- config = function()
-  --   require("nvim-tree").setup({})
-  -- end,
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<cr>",          desc = "Open file browser" },
     { "<leader>o", "<cmd>NvimTreeFindFile<cr>", desc = "Open file browser at current buffer" },
