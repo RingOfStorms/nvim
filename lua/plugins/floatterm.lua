@@ -3,7 +3,7 @@ return {
   cmd = { "FloatermNew", "FloatermToggle" },
   keys = {
     {
-      "<leader>xx",
+      "<leader>cx",
       "<cmd>:'<,'>FloatermNew --autoclose=2<cr>",
       desc = "Run selected as command in float terminal",
       mode = "v",
