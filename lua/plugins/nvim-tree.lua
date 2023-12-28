@@ -53,13 +53,6 @@ return {
           },
         },
       },
-      diagnostics = {
-        enable = true,
-        severity = {
-          min = vim.diagnostic.severity.ERROR,
-          max = vim.diagnostic.severity.ERROR,
-        }
-      },
       filters = {
         dotfiles = false,
         git_ignored = false,

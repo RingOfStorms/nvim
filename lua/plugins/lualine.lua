@@ -14,7 +14,7 @@ local function lsp_clients()
 end
 
 local function langs()
-  local langs = {}
+  local l = {}
   for _, client in pairs(vim.lsp.buf_get_clients(0)) do
     local out = nil
     if client.name == "pyright" then
@@ -23,12 +23,12 @@ local function langs()
       out = "node " .. vim.fn.system({ "node", "--version" })
     end
     if out ~= nil and out ~= "" then
-      langs[#langs + 1] = vim.trim(out)
+      l[#l + 1] = vim.trim(out)
     end
   end
 
-  table.sort(langs)
-  return table.concat(langs, " • "), " "
+  table.sort(l)
+  return table.concat(l, " • "), " "
 end
 
 return {

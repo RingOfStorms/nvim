@@ -77,6 +77,15 @@ function M.spread(template)
   end
 end
 
+function M.table_contains(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+
 -- From https://github.com/lukas-reineke/onedark.nvim/blob/master/lua/onedark.lua
 function M.highlight(group, options)
   local guifg = options.fg or "NONE"

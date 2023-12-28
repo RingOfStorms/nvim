@@ -85,7 +85,6 @@ return {
           null_ls.builtins.diagnostics.cspell.with({
             extra_args = { "--config", "~/.config/nvim/cspell.json" },
             diagnostics_postprocess = function(diagnostic)
-              -- vim.notify(vim.inspect(diagnostic))
               diagnostic.message = diagnostic.user_data.misspelled
               diagnostic.severity = vim.diagnostic.severity.HINT
             end,
@@ -97,6 +96,17 @@ return {
 
       config.update_in_insert = true
       config.debug = true
+
+      -- Don't run this on these buffer types
+      local ignored_filetypes = { "NvimTree", "terminal" }
+      config.on_attach = function(client, bufnr)
+        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        if U.table_contains(ignored_filetypes, ft) then
+          if client.resolved_capabilities ~= nil and next(client.resolved_capabilities) ~= nil then
+            client.resolved_capabilities.code_action = false
+          end
+        end
+      end
 
       return config
     end,
