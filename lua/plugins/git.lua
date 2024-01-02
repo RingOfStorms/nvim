@@ -1,35 +1,40 @@
-local highlight = require("util").highlight
--- Dull Version
-highlight("GitGutterUntracked", { fg = "#688066", gui = "nocombine" })
-
 return {
   {
     "lewis6991/gitsigns.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      watch_gitdir = {
-        interval = 100,
-      },
-      signs = {
-        add = { hl = "GitGutterAdd" },
-        change = { hl = "GitGutterChange" },
-        delete = { hl = "GitGutterDelete" },
-        topdelete = { hl = "GitGutterDelete" },
-        changedelete = { hl = "GitGutterChangeDelete" },
-        untracked = { hl = "GitGutterUntracked" },
-      },
-      current_line_blame_opts = {
-        virt_text = true,
-        virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-        delay = 0,
-        ignore_whitespace = false,
-      },
-      on_attach = function()
-        vim.keymap.set("n", "<leader>gb", function()
-          package.loaded.gitsigns.toggle_current_line_blame()
-        end, { desc = "Toggle git blame on current line" })
-      end,
-    },
+    opts = function()
+      local highlight = require("util").highlight
+      highlight("GitGutterAdd", { fg = "#688066", gui = "nocombine" })
+      highlight("GitGutterUntracked", { fg = "#688066", gui = "nocombine" })
+      highlight("GitGutterChange", { fg = "#666f80", gui = "nocombine" })
+      highlight("GitGutterDelete", { fg = "#806666", gui = "nocombine" })
+      highlight("GitGutterChangeDelete", { fg = "#806666", gui = "nocombine" })
+
+      return {
+        watch_gitdir = {
+          interval = 100,
+        },
+        signs = {
+          add = { hl = "GitGutterAdd" },
+          change = { hl = "GitGutterChange" },
+          delete = { hl = "GitGutterDelete" },
+          topdelete = { hl = "GitGutterDelete" },
+          changedelete = { hl = "GitGutterChangeDelete" },
+          untracked = { hl = "GitGutterUntracked" },
+        },
+        current_line_blame_opts = {
+          virt_text = true,
+          virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+          delay = 0,
+          ignore_whitespace = false,
+        },
+        on_attach = function()
+          vim.keymap.set("n", "<leader>gb", function()
+            package.loaded.gitsigns.toggle_current_line_blame()
+          end, { desc = "Toggle git blame on current line" })
+        end,
+      }
+    end,
   },
   {
     "Neogitorg/neogit",
