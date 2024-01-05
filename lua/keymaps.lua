@@ -40,7 +40,7 @@ require("util").keymaps({
     desc = "Quit",
     mode = nvx,
   },
-  { "Q", "<cmd>NvimTreeClose<cr><cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
   -- { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
   { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
   {

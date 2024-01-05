@@ -53,3 +53,16 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 --    if ts_avail and parsers.has_parser() then vim.cmd.TSBufEnable "highlight" end
 --  end,
 --})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    vim.cmd("NvimTreeClose")
+    -- Close all buffers with the 'httpResult' type
+    local buffers = vim.api.nvim_list_bufs()
+    for _, bufnr in ipairs(buffers) do
+      if vim.bo[bufnr].filetype == "httpResult" then
+        vim.api.nvim_buf_delete(bufnr, { force = true })
+      end
+    end
+  end,
+})
