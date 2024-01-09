@@ -66,6 +66,106 @@ return {
           },
         },
       },
+      on_attach = function(bufnr)
+        -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#modify-you-on_attach-function-to-have-ability-to-operate-multiple-files-at-once
+        local api = require("nvim-tree.api")
+        local opts = function(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+        -- mark operation
+        local mark_move_j = function()
+          api.marks.toggle()
+          vim.cmd("norm j")
+        end
+        local mark_move_k = function()
+          api.marks.toggle()
+          vim.cmd("norm k")
+        end
+
+        -- marked files operation
+        local mark_remove = function()
+          local marks = api.marks.list()
+          if #marks == 0 then
+            table.insert(marks, api.tree.get_node_under_cursor())
+          end
+          vim.ui.input({ prompt = string.format("Remove/Delete %s files? [y/n] ", #marks) }, function(input)
+            if input == "y" then
+              for _, node in ipairs(marks) do
+                api.fs.remove(node)
+              end
+              api.marks.clear()
+              api.tree.reload()
+            end
+          end)
+        end
+
+        local mark_copy = function()
+          local marks = api.marks.list()
+          if #marks == 0 then
+            table.insert(marks, api.tree.get_node_under_cursor())
+          end
+          for _, node in pairs(marks) do
+            api.fs.copy.node(node)
+          end
+          api.marks.clear()
+          api.tree.reload()
+        end
+
+        local mark_cut = function()
+          local marks = api.marks.list()
+          if #marks == 0 then
+            table.insert(marks, api.tree.get_node_under_cursor())
+          end
+          for _, node in pairs(marks) do
+            api.fs.cut(node)
+          end
+          api.marks.clear()
+          api.tree.reload()
+        end
+
+        local mark_move_to_cursor = function()
+          local marks = api.marks.list()
+          if #marks == 0 then
+            table.insert(marks, api.tree.get_node_under_cursor())
+          end
+          for _, node in pairs(marks) do
+            api.fs.cut(node)
+          end
+          api.marks.clear()
+          api.fs.paste()
+          api.tree.reload()
+        end
+
+        vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
+        vim.keymap.set("n", "J", mark_move_j, opts("Toggle Bookmark Down"))
+        vim.keymap.set("n", "K", mark_move_k, opts("Toggle Bookmark Up"))
+
+        vim.keymap.set("n", "x", mark_cut, opts("Cut File(s)"))
+        vim.keymap.set("n", "d", mark_remove, opts("Remove File(s)"))
+        vim.keymap.set("n", "y", mark_copy, opts("Copy File(s)"))
+
+        vim.keymap.set("n", "<leader>mv", mark_move_to_cursor, opts("Move Bookmarked"))
+        vim.keymap.set("n", "M", api.marks.clear, opts("Clear Bookmarks"))
+
+        -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#refactoring-of-on_attach-generated-code
+        vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+        vim.keymap.set("n", "<esc>", api.tree.close, opts("Close"))
+        vim.keymap.set("n", "<leader>o", api.tree.close, opts("Close"))
+        vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+        vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
+        vim.keymap.set("n", "a", api.fs.create, opts("Create"))
+        vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
+        vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
+        vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
+
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+
+        vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+      end,
     }
   end,
   keys = {
