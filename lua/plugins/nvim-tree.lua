@@ -44,7 +44,7 @@ return {
       },
       renderer = {
         group_empty = true,
-        indent_width = 1,
+        indent_width = 3,
         icons = {
           glyphs = {
             git = {
