@@ -99,6 +99,9 @@ return {
           hidden = true,
           sort_lastused = true,
         },
+        live_grep = {
+          hidden = true,
+        },
       },
       defaults = {
         file_ignore_patterns = { "node_modules", "package-lock.json", "target" },
@@ -107,6 +110,16 @@ return {
             ["<C-j>"] = "move_selection_next",
             ["<C-k>"] = "move_selection_previous",
           },
+        },
+        vimgrep_arguments = {
+          "rg",
+          "--hidden",
+          "--color=never",
+          "--no-heading",
+          "--with-filename",
+          "--line-number",
+          "--column",
+          "--smart-case",
         },
       },
       extensions = {
