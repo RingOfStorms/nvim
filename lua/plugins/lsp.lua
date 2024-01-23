@@ -185,7 +185,7 @@ return {
     build = "<cmd>MasonUpdate",
     opts = {},
   },
-  { "folke/neodev.nvim",  opts = {} }, -- lua stuff
+  { "folke/neodev.nvim", opts = {} }, -- lua stuff
   {
     "williamboman/mason-lspconfig.nvim",
   },
@@ -288,11 +288,11 @@ return {
           -- TODO I am getting lag sometimes I think this may be the cause, limiting to 100 for a while to see what happens
           { name = "nvim_lsp", priority = 8, max_item_count = 100 },
           -- This source integrates with LuaSnip, a snippet engine for Neovim. It suggests snippets that you can insert into your code
-          { name = "luasnip",  priority = 7 },
+          { name = "luasnip", priority = 7 },
           -- This source provides file path completions, helping you to complete file paths in your code
-          { name = "path",     priority = 7 },
+          { name = "path", priority = 7 },
           -- This source provides completion items from the current buffer, meaning it suggests words that have already been typed in the same file.
-          { name = "buffer",   priority = 6 },
+          { name = "buffer", priority = 6 },
           -- Rust crates.io integration
           { name = "crates" },
         },
