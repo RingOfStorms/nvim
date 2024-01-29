@@ -26,6 +26,7 @@ require("lazy").setup({
   },
 })
 
-vim.cmd("colorscheme material")
+-- vim.cmd("colorscheme material")
+vim.cmd("colorscheme catppuccin")
 require("tools")
 require("autocommands")
