@@ -3,7 +3,7 @@ return {
   config = true,
   event = "VeryLazy",
   opts = {
-    retirementAgeMins = 3,
+    retirementAgeMins = 1,
     -- notificationOnAutoClose = true,
     -- deleteBufferWhenFileDeleted = true,
   },
