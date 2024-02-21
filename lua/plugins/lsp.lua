@@ -113,6 +113,7 @@ local on_attach = function(client, bufnr)
     layout_config = { width = 0.25, height = 0.35 },
   }
 
+  nmap("<leader>lR", "<cmd>LspRestart<cr>", "Restart LSP")
   nmap("<leader>lr", vim.lsp.buf.rename, "[R]ename")
   nmap("<leader>la", vim.lsp.buf.code_action, "Code [A]ction")
 

@@ -1,5 +1,14 @@
+local U = require("util")
+
 return {
   "rest-nvim/rest.nvim",
+  enabled = function()
+    return U.cmd_executable("curl", {
+      [false] = function()
+        vim.notify("curl not installed, http rest disabled", 2)
+      end,
+    })
+  end,
   event = "BufEnter *.http",
   dependencies = { "nvim-lua/plenary.nvim" },
   opts = {
