@@ -1,4 +1,4 @@
-vim.o.sessionoptions = "blank,curdir,folds,tabpages,winsize,winpos" -- `buffers` excluded will only save buffers in windows (add in for hidden/etc)
+vim.o.sessionoptions = "blank,buffers,curdir,folds,tabpages,winsize,winpos,terminal,localoptions"
 
 return {
   "rmagatti/auto-session",
