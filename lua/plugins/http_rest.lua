@@ -14,6 +14,9 @@ return {
   opts = {
     encode_url = false,
   },
+  config = function(_, opts)
+    require("rest-nvim").setup(opts)
+  end,
   keys = {
     {
       "<leader>r",
