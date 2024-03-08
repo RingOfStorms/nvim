@@ -27,11 +27,13 @@ vim.api.nvim_create_autocmd("BufRead", {
   command = "set filetype=dockerfile",
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
-  callback = function()
-    vim.cmd.CccHighlighterEnable()
-  end,
-})
+if vim.fn.exists(":CccHighlighterEnable") ~= 0 then
+  vim.api.nvim_create_autocmd("BufRead", {
+    callback = function()
+      vim.cmd.CccHighlighterEnable()
+    end,
+  })
+end
 
 -- AUto exit insert mode whenever we switch screens
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
