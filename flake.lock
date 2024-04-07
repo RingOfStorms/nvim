@@ -33,10 +33,44 @@
         "type": "indirect"
       }
     },
+    "nvim_plugin-catppuccin/nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711706907,
+        "narHash": "sha256-GQjxE8lQj52pheJtHCS+9v2lsJY7wMj2IXVCoNRmQSQ=",
+        "owner": "catppuccin",
+        "repo": "nvim",
+        "rev": "aebe43db9cb26e1c70fc5b2fd4158169c405e720",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-folke/lazy.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711740527,
+        "narHash": "sha256-MyJfQS80so7COsN87aGtd6DSrDKUme6SaFGWpaQ1ZHk=",
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "rev": "31ddbea7c10b6920c9077b66c97951ca8682d5c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nvim_plugin-catppuccin/nvim": "nvim_plugin-catppuccin/nvim",
+        "nvim_plugin-folke/lazy.nvim": "nvim_plugin-folke/lazy.nvim"
       }
     },
     "systems": {

@@ -1,1 +1,4 @@
-print("NIX FLAKE NVIM")
+NVIM_PLUGIN_PATHS = NVIM_PLUGIN_PATHS or {}
+
+
+require("options")
