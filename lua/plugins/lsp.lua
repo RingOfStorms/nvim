@@ -25,6 +25,9 @@ local servers = {
       checkJs = true,
     },
   },
+  tailwindcss = {
+    -- tailwind css
+  },
   pyright = {
     -- python
   },
