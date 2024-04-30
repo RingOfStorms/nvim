@@ -1,11 +1,9 @@
-print("LOADING... is nix: " .. vim.inspect(IS_NIX))
-
-if IS_NIX then
+if NIX then
   -- Add my lua dir to the path. THIS IS NOT RECURSIVE!
   -- For recursive we can do something like this: https://github.com/RingOfStorms/nvim/blob/0b833d555c69e88b450a10eec4e39a782bad1037/init.lua#L1-L17
-  -- However this pollutes the path, it oculd be limited to just init files but this approach here one level deep is adequate for my own needs
-  package.path = package.path .. ";" .. NVIM_CONFIG_STORE_PATH .. "/lua/?.lua"
-  package.path = package.path .. ";" .. NVIM_CONFIG_STORE_PATH .. "/lua/?/init.lua"
+  -- However this pollutes the path, it could be limited to just init files but this approach here one level deep is adequate for my own needs
+  package.path = package.path .. ";" .. NIX.storePath .. "/lua/?.lua"
+  package.path = package.path .. ";" .. NIX.storePath .. "/lua/?/init.lua"
 end
 
 require("options")
@@ -14,7 +12,7 @@ require("keymaps")
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(lazypath) then
-  if IS_NIX then
+  if NIX then
     error("LAZY environment variable to nix store was not found: " .. vim.env.LAZY)
     return
   end
@@ -34,17 +32,40 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy
+local function ensure_table(object)
+  return type(object) == "table" and object or { object }
+end
 function getSpec()
-  if IS_NIX then
+  if NIX then
+    -- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
+    function convertPluginToNixStore(plugin)
+      local p = ensure_table(plugin)
+      local nixName = "nvim_plugin-" .. p[1]
+      if not NIX.pluginPaths[nixName] then
+        error("Plugin is missing in the nix store, ensure it is in the nix flake inputs: " .. p[1])
+      end
+      p.dir = NIX.pluginPaths[nixName]
+      p.name = p.name or p[1]
+      p.url = "not_used_in_nix"
+      if p.dependencies then
+        p.dependencies = ensure_table(p.dependencies)
+        for i, dep in ipairs(p.dependencies) do
+          p.dependencies[i] = convertPluginToNixStore(dep)
+        end
+      end
+      return p
+    end
+
     local plugins = {}
     local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
     for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
       local plugin = string.sub(file, 0, -5)
-      table.insert(plugins, require("plugins." .. plugin))
+      table.insert(plugins, convertPluginToNixStore(require("plugins." .. plugin)))
     end
+    print("PLUGINS" .. vim.inspect(plugins))
     return plugins
   else
-    -- TODO I want this to work in the nixos version
+    -- TODO I want this to work in the nixos versionhttps://github.com/RingOfStorms/nvim/blob/nix-flake/init.lua#L39-L55
     -- but it is not resolving properly to the nix store.
     -- Will revisit at some point, instead we manually pull them
     -- in above with a directory scan.

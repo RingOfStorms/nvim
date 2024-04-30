@@ -6,6 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
 
+    # Names should always be `nvim_plugin-[lazy plugin name]`
     "nvim_plugin-folke/lazy.nvim" = {
       url = "github:folke/lazy.nvim";
       flake = false;
@@ -23,54 +24,31 @@
         pkgs = nixpkgs.legacyPackages.${system};
         lib = nixpkgs.lib;
 
-        # This will look at all inputs and grab any prefixed with `nvim_plugin-`
-        nvimPluginPaths = "NVIM_PLUGIN_PATHS=" + lib.generators.toLua
-          {
-            multiline = false;
-            indent = false;
-          }
-          (
-            builtins.foldl'
-              (dirs: name:
-                {
-                  "${name}" = inputs.${name}.outPath;
-                } // dirs)
-              { }
-              (builtins.filter
-                (n: builtins.substring 0 12 n == "nvim_plugin-")
-                (builtins.attrNames inputs))
-          )
-        ;
-        nvimConfigStorePath = ''NVIM_CONFIG_STORE_PATH="${./.}"'';
+        # This will be how we put any nix related stuff into our lua config
+        luaNixGlobal = "NIX=" + lib.generators.toLua { multiline = false; indent = false; } ({
+          storePath = "${./.}";
+          # This will look at all inputs and grab any prefixed with `nvim_plugin-`
+          pluginPaths = builtins.foldl'
+            (dirs: name:
+              {
+                "${name}" = inputs.${name}.outPath;
+              } // dirs)
+            { }
+            (builtins.filter
+              (n: builtins.substring 0 12 n == "nvim_plugin-")
+              (builtins.attrNames inputs));
+        });
 
         runtimeDependencies = with pkgs; [
-          ripgrep
-          curl
-          cowsay
+          ripgrep # search
+          fd # search
+          fzf # search fuzzy
+          curl # http requests
+          glow # markdown renderer
           nodePackages.cspell
-        ];
+        ] ++ builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins;
 
-        treesitterParsers = builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins;
-
-        # https://zimbatm.com/notes/1000-instances-of-nixpkgs
-        # Read article for why we don't do the below version
-        # pkgs = import nixpkgs {
-        #   inherit system;
-        # };
-
-        # TODO
-        # cpsell = pkgs.nodePackages.cpsell;
-
-        # source = nixpkgs.lib.cleanSourceWith {
-        #   src = self;
-        #   filter = name: type:
-        #     let
-        #       base = baseNameOf name;
-        #     in
-        #     nixpkgs.lib.cleanSourceFilter
-        #       name
-        #       type && (base != ".git") && (base != "flake.nix") && (base != "flake.lock");
-        # };
+        # treesitterParsers = builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins;
       in
       {
         packages = {
@@ -81,12 +59,10 @@
               (pkgs.neovimUtils.makeNeovimConfig {
                 withPython3 = false;
                 customRC = ''
-                  lua IS_NIX=true
-                  lua ${nvimPluginPaths}
-                  lua ${nvimConfigStorePath}
+                  lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
-                  set runtimepath^=${builtins.concatStringsSep "," treesitterParsers}
                 '';
+                # set runtimepath^=${builtins.concatStringsSep "," treesitterParsers}
               })
             ).overrideAttrs
               (old: {
