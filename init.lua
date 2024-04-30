@@ -38,13 +38,18 @@ print("TEST")
 -- Setup lazy
 function getSpec()
   if NVIM_CONFIG_STORE_PATH then
-    -- TODO use same strategy as the tools/init.lua to auto import these
-    return { require("plugins.catppuccin") }
+    local plugins = {}
+    local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
+    for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
+      local plugin = string.sub(file, 0, -5)
+      table.insert(plugins, require("plugins." .. plugin))
+    end
+    return plugins
   else
     -- TODO I want this to work in the nixos version
-    -- but it is not resolving properly  to the nix store.
+    -- but it is not resolving properly to the nix store.
     -- Will revisit at some point, instead we manually pull them
-    -- in above.
+    -- in above with a directory scan.
     return { { import = "plugins" } }
   end
 end
