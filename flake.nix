@@ -78,42 +78,16 @@
           neovim =
             (pkgs.wrapNeovimUnstable
               pkgs.neovim-unwrapped
-              (pkgs.neovimUtils.makeNeovimConfig
-                {
-                  withPython3 = false;
-                  customRC = ''
-                    lua ${nvimPluginPaths}
-                    lua ${nvimConfigStorePath}
-                    luafile ${./.}/init.lua
-                    set runtimepath^=${builtins.concatStringsSep "," treesitterParsers}
-                  '';
-                  # lua package.path = package.path .. ";${./.}/lua/?.lua"
-                  #   lua print("HELLO WORLD 123! TEST")
-                  #   lua print("${./.}")
-                  # -- lua package.runtimepath = "${./.}`
-                  # plugins = [
-                  #   pkgs.vimPlugins.nvim-treesitter.withAllGrammars
-                  # ];
-                  # customRC = import ./lua { inherit lib self; };
-                  # wrapperArgs = [
-                  #   # Add runtime dependencies to neovim path
-                  #   "--prefix"
-                  #   "PATH"
-                  #   ":"
-                  #   "${lib.makeBinPath runtimeDependencies}"
-                  #   # Set the LAZY env path to the nix store
-                  #   "--set"
-                  #   "LAZY"
-                  #   "${inputs.nvim_plugin-folke/lazy.nvim}"
-                  #   # Use custom XDG_CONFIG_HOME so it doesn't use the user's real one
-                  #   # TODO do I need to set all the XDG_ env vars? - or should I remove this entirely?
-                  #   "--set"
-                  #   "XDG_CONFIG_HOME"
-                  #   "${./.}"
-                  # ];
-                }
-
-              )
+              (pkgs.neovimUtils.makeNeovimConfig {
+                withPython3 = false;
+                customRC = ''
+                  lua IS_NIX=true
+                  lua ${nvimPluginPaths}
+                  lua ${nvimConfigStorePath}
+                  luafile ${./.}/init.lua
+                  set runtimepath^=${builtins.concatStringsSep "," treesitterParsers}
+                '';
+              })
             ).overrideAttrs
               (old: {
                 generatedWrapperArgs = old.generatedWrapperArgs or [ ] ++ [
@@ -122,12 +96,12 @@
                   "PATH"
                   ":"
                   "${lib.makeBinPath runtimeDependencies}"
-                  # Set the LAZY env path to the nix store
+                  # Set the LAZY env path to the nix store, see init.lua for how it is used
                   "--set"
                   "LAZY"
                   "${inputs."nvim_plugin-folke/lazy.nvim"}"
-                  # Use custom XDG_CONFIG_HOME so it doesn't use the user's real one
-                  # TODO do I need to set all the XDG_ env vars? - or should I remove this entirely?
+                  # Don't use default directories to not collide with another neovim config
+                  # All things at runtime should be deletable since we are using nix to handle downloads and bins.
                   "--set"
                   "XDG_CONFIG_HOME"
                   "/tmp/nvim_flaked/config"

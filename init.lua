@@ -1,4 +1,6 @@
-if NVIM_CONFIG_STORE_PATH then
+print("LOADING... is nix: " .. vim.inspect(IS_NIX))
+
+if IS_NIX then
   -- Add my lua dir to the path. THIS IS NOT RECURSIVE!
   -- For recursive we can do something like this: https://github.com/RingOfStorms/nvim/blob/0b833d555c69e88b450a10eec4e39a782bad1037/init.lua#L1-L17
   -- However this pollutes the path, it oculd be limited to just init files but this approach here one level deep is adequate for my own needs
@@ -12,8 +14,8 @@ require("keymaps")
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(lazypath) then
-  if vim.env.LAZY then
-    error("LAZY environment variable provided but it does not exist at path: " .. vim.env.LAZY)
+  if IS_NIX then
+    error("LAZY environment variable to nix store was not found: " .. vim.env.LAZY)
     return
   end
   -- For non nix systems, pull lazy stable to the normal XDG config path
@@ -31,13 +33,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-print("TEST")
--- local asd = require("plugins")
--- print("TEST2 " .. vim.inspect(asd))
-
 -- Setup lazy
 function getSpec()
-  if NVIM_CONFIG_STORE_PATH then
+  if IS_NIX then
     local plugins = {}
     local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
     for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
