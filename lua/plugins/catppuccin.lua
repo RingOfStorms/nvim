@@ -1,6 +1,6 @@
 return {
   "catppuccin/nvim",
-  dir = NVIM_PLUGIN_PATHS["nvim_plugin-catppuccin/nvim"] or nil,
+  dir = IS_NIX and NVIM_PLUGIN_PATHS["nvim_plugin-catppuccin/nvim"] or nil,
   opts = {
     flavour = "mocha", -- latte, frappe, macchiato, mocha (default)
     color_overrides = {
