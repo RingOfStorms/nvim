@@ -28,13 +28,13 @@ local servers = {
   tailwindcss = {
     -- tailwind css
     -- https://www.tailwind-variants.org/docs/getting-started#intellisense-setup-optional
-    tailwindCSS = {
-      experimental = {
-        classRegex = {
-          { "tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
-        },
-      },
-    },
+    -- tailwindCSS = {
+      -- experimental = {
+      --   classRegex = {
+      --     { "tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+      --   },
+      -- },
+    -- },
   },
   pyright = {
     -- python
