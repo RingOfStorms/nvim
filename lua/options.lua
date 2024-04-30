@@ -1,3 +1,6 @@
+-- allow use of system keyboard
+-- vim.opt.clipboard = "unnamedplus"
+
 -- global status line
 vim.opt.laststatus = 3
 
@@ -56,19 +59,3 @@ vim.opt.diffopt:append("linematch:20")
 
 -- enable colors for opacity changes
 vim.o.termguicolors = true
-
-function dump(o)
-   if type(o) == 'table' then
-      local s = '{ '
-      for k,v in pairs(o) do
-         if type(k) ~= 'number' then k = '"'..k..'"' end
-         s = s .. '['..k..'] = ' .. dump(v) .. ','
-      end
-      return s .. '} '
-   else
-      return tostring(o)
-   end
-end
-
-
-print("NIX FLAKE NVIM: nvim package count " .. dump(NVIM_PLUGIN_PATHS))
