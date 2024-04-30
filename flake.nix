@@ -130,16 +130,16 @@
                   # TODO do I need to set all the XDG_ env vars? - or should I remove this entirely?
                   "--set"
                   "XDG_CONFIG_HOME"
-                  "~/.config/nvim_flaked"
+                  "/tmp/nvim_flaked/config"
                   "--set"
                   "XDG_DATA_HOME"
-                  "~/.local/share/nvim_flaked"
+                  "/tmp/nvim_flaked/share"
                   "--set"
                   "XDG_RUNTIME_DIR"
-                  "/tmp/nvim.user/nvim_flaked/xxx"
+                  "/tmp/nvim_flaked/run"
                   "--set"
                   "XDG_STATE_HOME"
-                  "~/.local/state/nvim_flaked"
+                  "/tmp/nvim_flaked/state"
                 ];
               })
 

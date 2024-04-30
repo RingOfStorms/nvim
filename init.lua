@@ -1,25 +1,13 @@
 if NVIM_CONFIG_STORE_PATH then
-  -- Function to add subdirectories to package.path
-  local function add_lua_subdirs_to_path(base_dir)
-    local scan_dir
-    scan_dir = function(dir)
-      package.path = package.path .. ";" .. dir .. "?.lua"
-      package.path = package.path .. ";" .. dir .. "?/init.lua"
-      local paths = vim.fn.globpath(dir, '*/', 0, 1)
-      for _, subdir in ipairs(paths) do
-        scan_dir(subdir) -- Recursively add subdirectories
-      end
-    end
-    scan_dir(base_dir)
-  end
-  -- Call the function with the base directory of your Lua modules
-  add_lua_subdirs_to_path(NVIM_CONFIG_STORE_PATH .. "/lua/")
+  -- Add my lua dir to the path. THIS IS NOT RECURSIVE!
+  -- For recursive we can do something like this: https://github.com/RingOfStorms/nvim/blob/0b833d555c69e88b450a10eec4e39a782bad1037/init.lua#L1-L17
+  -- However this pollutes the path, it oculd be limited to just init files but this approach here one level deep is adequate for my own needs
+  package.path = package.path .. ";" .. NVIM_CONFIG_STORE_PATH .. "/lua/?.lua"
+  package.path = package.path .. ";" .. NVIM_CONFIG_STORE_PATH .. "/lua/?/init.lua"
 end
 
 require("options")
 require("keymaps")
-
-print("NIX FLAKE NVIM: nvim packages " .. vim.inspect(NVIM_PLUGIN_PATHS))
 
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
@@ -44,25 +32,32 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 print("TEST")
-local asd = require("catppuccin")
-print("TEST2 " .. vim.inspect(asd))
+-- local asd = require("plugins")
+-- print("TEST2 " .. vim.inspect(asd))
 
 -- Setup lazy
+function getSpec()
+  if NVIM_CONFIG_STORE_PATH then
+    -- TODO use same strategy as the tools/init.lua to auto import these
+    return { require("plugins.catppuccin") }
+  else
+    -- TODO I want this to work in the nixos version
+    -- but it is not resolving properly  to the nix store.
+    -- Will revisit at some point, instead we manually pull them
+    -- in above.
+    return { { import = "plugins" } }
+  end
+end
 require("lazy").setup({
-  spec = {
-    { import = "plugins" },
-  },
+  spec = getSpec(),
   change_detection = {
     enabled = false,
   },
   defaults = {
     -- lazy = true
   },
-  -- install = {
-  --   colorscheme = { "catppuccin" },
-  -- }
 })
 
--- vim.cmd("colorscheme catppuccin")
+vim.cmd("colorscheme catppuccin")
 require("tools")
 require("autocommands")
