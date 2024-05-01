@@ -63,6 +63,7 @@ function M.keymap(keymap)
   end
 end
 
+-- spread({})({})
 function M.spread(template)
   local result = {}
   for key, value in pairs(template) do
@@ -75,6 +76,14 @@ function M.spread(template)
     end
     return result
   end
+end
+
+-- assign({}, {})
+function M.assign(obj, assign)
+  for key, value in pairs(assign) do
+    obj[key] = value
+  end
+  return obj
 end
 
 function M.table_contains(table, element)
@@ -107,6 +116,32 @@ function M.highlight(group, options)
       blend
     )
   )
+end
+
+function M.safeRequire(module, func, errorFunc)
+  local ok, result = pcall(require, module)
+  if ok then
+    return func(result)
+  elseif errorFunc then
+    return errorFunc(result)
+  end
+  return nil
+end
+
+function M.fnFalse()
+  return false
+end
+
+function M.fnNil()
+  return nil
+end
+
+function M.fnEmptyStr()
+  return ""
+end
+
+function M.fnZero()
+  return 0
 end
 
 return M

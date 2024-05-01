@@ -4,8 +4,10 @@ if NIX then
   -- However this pollutes the path, it could be limited to just init files but this approach here one level deep is adequate for my own needs
   package.path = package.path .. ";" .. NIX.storePath .. "/lua/?.lua"
   package.path = package.path .. ";" .. NIX.storePath .. "/lua/?/init.lua"
+  print(vim.inspect(NIX))
 end
 
+U = require("util") -- NOTE global U[til]
 require("options")
 require("keymaps")
 
@@ -35,7 +37,7 @@ vim.opt.rtp:prepend(lazypath)
 local function ensure_table(object)
   return type(object) == "table" and object or { object }
 end
-function getSpec()
+local function getSpec()
   if NIX then
     -- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
     function convertPluginToNixStore(plugin)
@@ -85,8 +87,3 @@ require("lazy").setup({
 vim.cmd("colorscheme catppuccin")
 require("tools")
 require("autocommands")
-
--- - **LazyDone**when lazy has finished starting up and loaded your config
--- - **VeryLazy**triggered after `LazyDone` and processing `VimEnter` auto commands
--- - **LazyVimStarted**triggered after `UIEnter` when `require("lazy").stats().startuptime` has been calculated.
---     Useful to update the startuptime on your dashboard.

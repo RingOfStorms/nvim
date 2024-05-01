@@ -37,23 +37,24 @@ rm -rf ~/.local/state/nvim
 
 ## NOTES/TODOS
 
-
 - Checkout cargo-bloat, cargo-cache, cargo-outdated - memcache sccache
 - For scratches, just make an input box for custom extension rather than predefined list
 - for find files, ignore git, capital F for find all
 - better copilot alternatives? Local LLM usage only? etc?
-- blacklist for undofile? .age files... etc
+- generate command, like scratch open a popup of things that can be generated. UUID/other stuff?
+   - https://github.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50
 - TODO learn more about augroup in autocommands.
+- make my own session saving impl
+  - Only save visible buffers/tabs/splits
+  - per branch per directory
+  - something like https://github.com/gennaro-tedesco/nvim-possession/tree/main but fully managed
+
 
 - plugins to install:
-  - rmagatti/auto-session - session management
-    - TODO look for alternatives? I am not a huge fan of this as it causes some issues on startup sometimes. I really only care about window placements and I want the rest to load naturally
-  - preservim/nerdcommenter - [un]comment support
   - uga-rosa/ccc.nvim - color picker for hex codes etc
   - zbirenbaum/copilot.lua
     - Does github's work for me now? github/copilot.vim
     - zbirenbaum/copilot-cmp
-  - chrisgrieser/nvim-early-retirement - auto close buffers
   - voldikss/vim-floaterm
   - GIT
     - lewis6991/gitsigns.nvim
@@ -65,8 +66,6 @@ rm -rf ~/.local/state/nvim
   - RRethy/vim-illuminate - show token under cursor throughout file
   - lukas-reineke/indent-blankline.nvim - indent lines
     - TODO figure out tabs vs spaces thing with arrows vs bars.
-  - nvim-lualine/lualine.nvim
-    - TODO look at other buffer lines, is this still the best? What do others use?
   - LSP stuff... figure out from scratch using kickstart/lazynvim as an example
     - rust, ts, js, nix, lua, 
     - lvimuser/lsp-inlayhints.nvim L3MON4D3/LuaSnip hrsh7th/nvim-cmp williamboman/mason.nvim folke/neodev.nvim williamboman/mason-lspconfig.nvim neovim/nvim-lspconfig simrat39/rust-tools.nvim Saecki/crates.nvim
@@ -79,14 +78,10 @@ rm -rf ~/.local/state/nvim
   - Almo7aya/openingh.nvim
   - tpope/vim-surround
   - nvim-telescope/telescope-file-browser.nvim ?? do I want to keep this?
-  - nvim-telescope/telescope.nvim
-    - nvim-telescope/telescope-fzf-native.nvim
-    - nvim-telescope/telescope-ui-select.nvim (use this with scratch files?)
   - johmsalas/text-case.nvim
   - nvim-treesitter/nvim-treesitter
   - mbbill/undotree
   - nvim-lua/plenary.nvim
-  - rcarriga/nvim-notify ??? is this replaced by noice??
   - folke/which-key.nvim
 
 - check out

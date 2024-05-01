@@ -1,5 +1,5 @@
 -- Require all files in this tools dir, minus this init.lua file
-function script_path()
+local function script_path()
    return debug.getinfo(2, "S").source:sub(2):match("(.*/)")
 end
 -- Extract the directory name from the script path

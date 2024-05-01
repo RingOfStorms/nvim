@@ -1,11 +1,12 @@
 -- Function to remove item from quickfix list
-function RemoveQFItem()
-  local curqfidx = vim.fn.line(".") - 1
-  local qfall = vim.fn.getqflist()
-  table.remove(qfall, curqfidx + 1) -- Lua is 1-indexed
-  vim.fn.setqflist(qfall, "r")
-  vim.cmd(curqfidx .. "cfirst")
-  vim.cmd("copen")
+local function RemoveQFItem()
+  local currentIndex = vim.fn.line(".") - 1
+  local quickfixList = vim.fn.getqflist()
+  -- Remove current item and replace the quickfix list
+  table.remove(quickfixList, currentIndex + 1) -- Lua is 1-indexed
+  vim.fn.setqflist(quickfixList, "r")
+  -- Keep cursor on the line it was +1 (so it goes to next item rather than back up)
+  vim.cmd("cwindow | :" .. (currentIndex + 1))
 end
 
 -- Command to call the function

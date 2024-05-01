@@ -11,6 +11,10 @@
       url = "github:folke/lazy.nvim";
       flake = false;
     };
+    "nvim_plugin-nvim-lua/plenary.nvim" = {
+      url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
     "nvim_plugin-catppuccin/nvim" = {
       url = "github:catppuccin/nvim";
       flake = false;
@@ -35,11 +39,46 @@
       url = "github:folke/noice.nvim";
       flake = false;
     };
-# TODO TELESCOPE
     "nvim_plugin-declancm/cinnamon.nvim" = {
       url = "github:declancm/cinnamon.nvim";
       flake = false;
     };
+    "nvim_plugin-nvim-lualine/lualine.nvim" = {
+      url = "github:nvim-lualine/lualine.nvim";
+      flake = false;
+    };
+    "nvim_plugin-folke/which-key.nvim" = {
+      url = "github:folke/which-key.nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-telescope/telescope.nvim" = {
+      url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim" = {
+      url = "github:nvim-telescope/telescope-fzf-native.nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim" = {
+      url = "github:nvim-telescope/telescope-ui-select.nvim";
+      flake = false;
+    };
+    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring" = {
+      url = "github:JoosepAlviste/nvim-ts-context-commentstring";
+      flake = false;
+    };
+    "nvim_plugin-preservim/nerdcommenter" = {
+      url = "github:preservim/nerdcommenter";
+      flake = false;
+    };
+    "nvim_plugin-windwp/nvim-ts-autotag" = {
+      url = "github:windwp/nvim-ts-autotag";
+      flake = false;
+    };
+    # "nvim_plugin-nvim-treesitter/nvim-treesitter" = {
+    #   url = "github:nvim-treesitter/nvim-treesitter";
+    #   flake = false;
+    # };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
@@ -49,6 +88,9 @@
         pkgs = nixpkgs.legacyPackages.${system};
         lib = nixpkgs.lib;
 
+        nonFlakePluginPaths = {
+          "nvim_plugin-nvim-treesitter/nvim-treesitter" = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+        };
         # This will be how we put any nix related stuff into our lua config
         luaNixGlobal = "NIX=" + lib.generators.toLua { multiline = false; indent = false; } ({
           storePath = "${./.}";
@@ -58,7 +100,7 @@
               {
                 "${name}" = inputs.${name}.outPath;
               } // dirs)
-            { }
+            nonFlakePluginPaths
             (builtins.filter
               (n: builtins.substring 0 12 n == "nvim_plugin-")
               (builtins.attrNames inputs));
@@ -69,11 +111,10 @@
           fd # search
           fzf # search fuzzy
           curl # http requests
+          tree-sitter
           glow # markdown renderer
           nodePackages.cspell
-        ] ++ builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins;
-
-        # treesitterParsers = builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins;
+        ];
       in
       {
         packages = {
@@ -86,8 +127,8 @@
                 customRC = ''
                   lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
+                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
                 '';
-                # set runtimepath^=${builtins.concatStringsSep "," treesitterParsers}
               })
             ).overrideAttrs
               (old: {
@@ -116,27 +157,7 @@
                   "XDG_STATE_HOME"
                   "/tmp/nvim_flaked/state"
                 ];
-              })
-
-          ;
-          # neovim = pkgs.stdenv.mkDerivation {
-          #   name = "nvim";
-          #   nativeBuildInputs = with pkgs; [ makeWrapper rsync ];
-          #   buildInputs = with pkgs; [ neovim cowsay ];
-
-          #   unpackPhase = ":";
-          #   installPhase = ''
-          #     mkdir -p $out/bin
-          #     cp ${pkgs.neovim}/bin/nvim $out/bin/nvim
-          #     wrapProgram $out/bin/nvim --run "
-          #       export XDG_CONFIG_HOME=$out/config
-          #     "
-          #     mkdir -p $out/share/nvim
-          #     rsync -a ${source}/ $out/share/nvim
-          #     ln -s ${pkgs.cowsay}/bin/cowsay $out/bin/cowsay
-          #   '';
-          #   # ln -s ${cpsell}/bin/cpsell $out/bin/cpsell
-          # };
+              });
         };
       });
 

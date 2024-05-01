@@ -42,7 +42,7 @@ vim.opt.expandtab = true
 -- Dont use swap files, use undotree
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath("state") .. "/undodir"
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.

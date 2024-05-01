@@ -2,6 +2,11 @@ return {
   "Pocco81/auto-save.nvim",
   event = "BufEnter",
   opts = {
+    execution_message = {
+      message = function()
+        return ""
+      end,
+    },
     trigger_events = { "InsertLeave", "TextChanged", "TextChangedI", "BufLeave" },
     condition = function(buf)
       local disallowed_filetypes = { "TelescopePrompt", "quickfix", "terminal" }
