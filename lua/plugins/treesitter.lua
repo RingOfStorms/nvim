@@ -29,6 +29,7 @@ return {
     if not NIX then
       nonNixOpts = {
         ensure_installed = "all",
+        auto_install = true,
       }
     end
     return U.assign({
