@@ -110,10 +110,10 @@
           ripgrep # search
           fd # search
           fzf # search fuzzy
-          curl # http requests
+          # curl # http requests
           tree-sitter
-          glow # markdown renderer
-          nodePackages.cspell
+          # glow # markdown renderer
+          # nodePackages.cspell
         ];
       in
       {
