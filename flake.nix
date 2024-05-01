@@ -75,10 +75,18 @@
       url = "github:windwp/nvim-ts-autotag";
       flake = false;
     };
-    # "nvim_plugin-nvim-treesitter/nvim-treesitter" = {
-    #   url = "github:nvim-treesitter/nvim-treesitter";
-    #   flake = false;
-    # };
+    "nvim_plugin-rmagatti/auto-session" = {
+      url = "github:rmagatti/auto-session";
+      flake = false;
+    };
+    "nvim_plugin-nvim-tree/nvim-web-devicons" = {
+      url = "github:nvim-tree/nvim-web-devicons";
+      flake = false;
+    };
+    "nvim_plugin-nvim-tree/nvim-tree.lua" = {
+      url = "github:nvim-tree/nvim-tree.lua";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:

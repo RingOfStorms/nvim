@@ -257,6 +257,38 @@
         "type": "github"
       }
     },
+    "nvim_plugin-nvim-tree/nvim-tree.lua": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714440771,
+        "narHash": "sha256-yLWb3aKsab3Cqbp3RgP0maiLOQWtxbUdnkLy7sQygx0=",
+        "owner": "nvim-tree",
+        "repo": "nvim-tree.lua",
+        "rev": "347e1eb35264677f66a79466bb5e3d111968e12c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-tree",
+        "repo": "nvim-tree.lua",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-nvim-tree/nvim-web-devicons": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714371374,
+        "narHash": "sha256-gc+8GgFSM87dbcYUW8d9If3qY80xJMmy48vnVezNLPk=",
+        "owner": "nvim-tree",
+        "repo": "nvim-web-devicons",
+        "rev": "794bba734ec95eaff9bb82fbd112473be2087283",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-tree",
+        "repo": "nvim-web-devicons",
+        "type": "github"
+      }
+    },
     "nvim_plugin-preservim/nerdcommenter": {
       "flake": false,
       "locked": {
@@ -286,6 +318,22 @@
       "original": {
         "owner": "rcarriga",
         "repo": "nvim-notify",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-rmagatti/auto-session": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713075135,
+        "narHash": "sha256-wu/utBYr4o4BenybAumDxBTERBkRkcR1QzlfmnVbOTQ=",
+        "owner": "rmagatti",
+        "repo": "auto-session",
+        "rev": "9e0a169b6fce8791278abbd110717b921afe634d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rmagatti",
+        "repo": "auto-session",
         "type": "github"
       }
     },
@@ -323,8 +371,11 @@
         "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim": "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim",
         "nvim_plugin-nvim-telescope/telescope-ui-select.nvim": "nvim_plugin-nvim-telescope/telescope-ui-select.nvim",
         "nvim_plugin-nvim-telescope/telescope.nvim": "nvim_plugin-nvim-telescope/telescope.nvim",
+        "nvim_plugin-nvim-tree/nvim-tree.lua": "nvim_plugin-nvim-tree/nvim-tree.lua",
+        "nvim_plugin-nvim-tree/nvim-web-devicons": "nvim_plugin-nvim-tree/nvim-web-devicons",
         "nvim_plugin-preservim/nerdcommenter": "nvim_plugin-preservim/nerdcommenter",
         "nvim_plugin-rcarriga/nvim-notify": "nvim_plugin-rcarriga/nvim-notify",
+        "nvim_plugin-rmagatti/auto-session": "nvim_plugin-rmagatti/auto-session",
         "nvim_plugin-windwp/nvim-ts-autotag": "nvim_plugin-windwp/nvim-ts-autotag"
       }
     },

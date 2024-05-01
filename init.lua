@@ -4,7 +4,6 @@ if NIX then
   -- However this pollutes the path, it could be limited to just init files but this approach here one level deep is adequate for my own needs
   package.path = package.path .. ";" .. NIX.storePath .. "/lua/?.lua"
   package.path = package.path .. ";" .. NIX.storePath .. "/lua/?/init.lua"
-  print(vim.inspect(NIX))
 end
 
 U = require("util") -- NOTE global U[til]

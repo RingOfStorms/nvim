@@ -23,13 +23,6 @@ U.keymaps({
   { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
   { "<leader>a", "<esc>ggVG", desc = "Select all", mode = nvx },
   { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
-  -- {
-  --   "<leader>QQ",
-  --   -- TODO REVISIT is this session stuff still relevant?
-  --   "<cmd>NvimTreeClose<cr><cmd>SessionDelete<cr><cmd>qa<CR>",
-  --   desc = "Quit all, no session saved",
-  --   mode = nvx,
-  -- },
   { "<leader>y", '"+y', desc = "Copy to system clipboard", mode = nvx },
   { "<leader>p", '"+p', desc = "Paste from system clipboard", mode = nvx },
   { "<esc>", "<cmd>nohlsearch<CR><esc>", desc = "Clear search on escape" },
