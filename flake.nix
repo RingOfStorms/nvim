@@ -15,6 +15,31 @@
       url = "github:catppuccin/nvim";
       flake = false;
     };
+    "nvim_plugin-Pocco81/auto-save.nvim" = {
+      url = "github:Pocco81/auto-save.nvim";
+      flake = false;
+    };
+    "nvim_plugin-chrisgrieser/nvim-early-retirement" = {
+      url = "github:chrisgrieser/nvim-early-retirement";
+      flake = false;
+    };
+    "nvim_plugin-MunifTanjim/nui.nvim" = {
+      url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
+    "nvim_plugin-rcarriga/nvim-notify" = {
+      url = "github:rcarriga/nvim-notify";
+      flake = false;
+    };
+    "nvim_plugin-folke/noice.nvim" = {
+      url = "github:folke/noice.nvim";
+      flake = false;
+    };
+# TODO TELESCOPE
+    "nvim_plugin-declancm/cinnamon.nvim" = {
+      url = "github:declancm/cinnamon.nvim";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:

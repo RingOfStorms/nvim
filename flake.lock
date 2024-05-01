@@ -33,6 +33,38 @@
         "type": "indirect"
       }
     },
+    "nvim_plugin-MunifTanjim/nui.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710740032,
+        "narHash": "sha256-Zr5CNx6BIM6naCXW8YBc/Oj1qOtWV/3tuMoaaZjoSZA=",
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "rev": "cbd2668414331c10039278f558630ed19b93e69b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MunifTanjim",
+        "repo": "nui.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-Pocco81/auto-save.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1667329943,
+        "narHash": "sha256-bWGil73YiCKZEaY7IuUOIU4Q7k7qCMjSeQ4I+cAVe44=",
+        "owner": "Pocco81",
+        "repo": "auto-save.nvim",
+        "rev": "979b6c82f60cfa80f4cf437d77446d0ded0addf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Pocco81",
+        "repo": "auto-save.nvim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-catppuccin/nvim": {
       "flake": false,
       "locked": {
@@ -46,6 +78,38 @@
       "original": {
         "owner": "catppuccin",
         "repo": "nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-chrisgrieser/nvim-early-retirement": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1706108060,
+        "narHash": "sha256-5lpGqHg0jrLawr2A8mNwADHG62A92By6ZpZeqzd2uUs=",
+        "owner": "chrisgrieser",
+        "repo": "nvim-early-retirement",
+        "rev": "8d83da8a5e5dd29e35a291fcb1c47290df9b7699",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chrisgrieser",
+        "repo": "nvim-early-retirement",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-declancm/cinnamon.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714107684,
+        "narHash": "sha256-cMP9WRZzevxaWgpILyDh1JwNukm3Jl3JKJYPT2HnFns=",
+        "owner": "declancm",
+        "repo": "cinnamon.nvim",
+        "rev": "a011e84b624cd7b609ea928237505d31b987748a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "declancm",
+        "repo": "cinnamon.nvim",
         "type": "github"
       }
     },
@@ -65,12 +129,50 @@
         "type": "github"
       }
     },
+    "nvim_plugin-folke/noice.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711471279,
+        "narHash": "sha256-y6gHNkWVsIuwBf7MblCTKTZSqjGDxqeFeQZWexzwk94=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "0cbe3f88d038320bdbda3c4c5c95f43a13c3aa12",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-rcarriga/nvim-notify": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708161547,
+        "narHash": "sha256-xJYPOX4YLcWojMCdP1RO22/7FMrbcBQxqxrcVCE2TrU=",
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "rev": "5371f4bfc1f6d3adf4fe9d62cd3a9d44356bfd15",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rcarriga",
+        "repo": "nvim-notify",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
+        "nvim_plugin-MunifTanjim/nui.nvim": "nvim_plugin-MunifTanjim/nui.nvim",
+        "nvim_plugin-Pocco81/auto-save.nvim": "nvim_plugin-Pocco81/auto-save.nvim",
         "nvim_plugin-catppuccin/nvim": "nvim_plugin-catppuccin/nvim",
-        "nvim_plugin-folke/lazy.nvim": "nvim_plugin-folke/lazy.nvim"
+        "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
+        "nvim_plugin-declancm/cinnamon.nvim": "nvim_plugin-declancm/cinnamon.nvim",
+        "nvim_plugin-folke/lazy.nvim": "nvim_plugin-folke/lazy.nvim",
+        "nvim_plugin-folke/noice.nvim": "nvim_plugin-folke/noice.nvim",
+        "nvim_plugin-rcarriga/nvim-notify": "nvim_plugin-rcarriga/nvim-notify"
       }
     },
     "systems": {

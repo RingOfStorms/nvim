@@ -47,6 +47,7 @@ function getSpec()
       p.dir = NIX.pluginPaths[nixName]
       p.name = p.name or p[1]
       p.url = "not_used_in_nix"
+      p.pin = true
       if p.dependencies then
         p.dependencies = ensure_table(p.dependencies)
         for i, dep in ipairs(p.dependencies) do
@@ -62,7 +63,6 @@ function getSpec()
       local plugin = string.sub(file, 0, -5)
       table.insert(plugins, convertPluginToNixStore(require("plugins." .. plugin)))
     end
-    print("PLUGINS" .. vim.inspect(plugins))
     return plugins
   else
     -- TODO I want this to work in the nixos versionhttps://github.com/RingOfStorms/nvim/blob/nix-flake/init.lua#L39-L55
@@ -78,10 +78,15 @@ require("lazy").setup({
     enabled = false,
   },
   defaults = {
-    -- lazy = true
+    lazy = true,
   },
 })
 
 vim.cmd("colorscheme catppuccin")
 require("tools")
 require("autocommands")
+
+-- - **LazyDone**when lazy has finished starting up and loaded your config
+-- - **VeryLazy**triggered after `LazyDone` and processing `VimEnter` auto commands
+-- - **LazyVimStarted**triggered after `UIEnter` when `require("lazy").stats().startuptime` has been calculated.
+--     Useful to update the startuptime on your dashboard.

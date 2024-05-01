@@ -2,6 +2,7 @@
 
 Goals:
 - Works with or without nix
+- LSP integration with the current project's settings if available
 
 ## Running
 
@@ -41,10 +42,10 @@ rm -rf ~/.local/state/nvim
 - For scratches, just make an input box for custom extension rather than predefined list
 - for find files, ignore git, capital F for find all
 - better copilot alternatives? Local LLM usage only? etc?
+- blacklist for undofile? .age files... etc
+- TODO learn more about augroup in autocommands.
 
 - plugins to install:
-  - pocco81/auto-save.nvim
-  - folke/noice.nvim - messages/cmdline/popupmenu updates
   - rmagatti/auto-session - session management
     - TODO look for alternatives? I am not a huge fan of this as it causes some issues on startup sometimes. I really only care about window placements and I want the rest to load naturally
   - preservim/nerdcommenter - [un]comment support
@@ -74,6 +75,7 @@ rm -rf ~/.local/state/nvim
   - lnc3l0t/glow.nvim - markdown preview
   - null_ls replacement?? need a formater replacement, diff between lsp reformat?
     - cspell? vs built in spell check?
+    - Lets use https://github.com/mfussenegger/nvim-lint
   - Almo7aya/openingh.nvim
   - tpope/vim-surround
   - nvim-telescope/telescope-file-browser.nvim ?? do I want to keep this?
@@ -88,10 +90,7 @@ rm -rf ~/.local/state/nvim
   - folke/which-key.nvim
 
 - check out
-  - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-bufremove.md
-    - OR https://github.com/famiu/bufdelete.nvim
   - https://github.com/onsails/lspkind.nvim
-  - declancm/cinnamon.nvim - smooth scroll effect
   - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
 
 - plugins I decided to remove from my old config
