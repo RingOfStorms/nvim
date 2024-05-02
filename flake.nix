@@ -18,11 +18,13 @@
       flake = false;
     };
   };
-
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
     # Takes all top level attributes and changes them to `attribute.${system} = old value`
     flake-utils.lib.eachDefaultSystem (system:
       let
+        # Anytime there is a huge breaking change that old state files wont
+        # work then we make a new version name. Helps separate any files.
+        version = "hydrogen";
         pkgs = nixpkgs.legacyPackages.${system};
         lib = nixpkgs.lib;
 
@@ -135,19 +137,18 @@
                   "LAZY"
                   "${lazyPath}"
                   # Don't use default directories to not collide with another neovim config
-                  # All things at runtime should be deletable since we are using nix to handle downloads and bins.
-                  "--set"
-                  "XDG_CONFIG_HOME"
-                  "/tmp/nvim_flaked.USR_TODO/config" # TODO
-                  "--set"
-                  "XDG_DATA_HOME"
-                  "/tmp/nvim_flaked.USR_TODO/share"
-                  "--set"
-                  "XDG_RUNTIME_DIR"
-                  "/tmp/nvim_flaked.USR_TODO/run"
-                  "--set"
-                  "XDG_STATE_HOME"
-                  "/tmp/nvim_flaked.USR_TODO/state"
+                  # All things at runtime should be deletable since we are using nix to handle downloads and bins
+                  # so I've chosen to put everything into the local state directory.
+                  "--run"
+                  "export XDG_CONFIG_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/config\""
+                  "--run"
+                  "export XDG_DATA_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/share\""
+                  "--run"
+                  "export XDG_RUNTIME_DIR=\"$HOME/.local/state/nvim_ringofstorms_${version}/run\""
+                  "--run"
+                  "export XDG_STATE_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/state\""
+                  "--run"
+                  "export XDG_CACHE_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/cache\""
                 ];
               });
         };
