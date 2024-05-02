@@ -140,15 +140,17 @@
                   # All things at runtime should be deletable since we are using nix to handle downloads and bins
                   # so I've chosen to put everything into the local state directory.
                   "--run"
-                  "export XDG_CONFIG_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/config\""
+                  "export NVIM_FLAKE_BASE_DIR=\"\${XDG_STATE_HOME:-\$HOME/.local/state}\""
                   "--run"
-                  "export XDG_DATA_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/share\""
+                  "export XDG_CONFIG_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config\""
                   "--run"
-                  "export XDG_RUNTIME_DIR=\"$HOME/.local/state/nvim_ringofstorms_${version}/run\""
+                  "export XDG_DATA_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share\""
                   "--run"
-                  "export XDG_STATE_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/state\""
+                  "export XDG_RUNTIME_DIR=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run\""
                   "--run"
-                  "export XDG_CACHE_HOME=\"$HOME/.local/state/nvim_ringofstorms_${version}/cache\""
+                  "export XDG_STATE_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state\""
+                  "--run"
+                  "export XDG_CACHE_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache\""
                 ];
               });
         };
