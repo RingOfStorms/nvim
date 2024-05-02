@@ -10,10 +10,25 @@ Goals:
 ### With Nix
 
 ```sh
-nix run "."
+nix run 'github:ringofstorms/nvim/nix-flake'
 ```
 
+in NixOS
+```nix
+-- in flake.nix#inputs
+ringofstorms-nvim = {
+  url = "github:RingOfStorms/nvim/nix-flake";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
+-- in nix module
+environment.systemPackages = with pkgs; [
+  ringofstorms-nvim.packages.${settings.system.system}.neovim
+];
+```
+
+
 ### Without Nix
+TODO update this section
 
 - Must have all required programs installed and available on path
   - neovim >= 0.5
@@ -41,37 +56,19 @@ rm -rf ~/.local/state/nvim
 ## NOTES/TODOS
 
 FUTURE
-- Make my own session save plugin, I ONLY want window positioning/open buffers saved nothing else.
 - Make a new HTTP plugin for running curl commands from .http files
   - similar to est-nvim/rest.nvim but support streaming etc and show command output
 - Execute selected command and open output into a buffer/popup window? <leader>cx
 - generate command, like scratch open a popup of things that can be generated. UUID/other stuff?
 - https://github.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50
-
-- TODO figure out tabs vs spaces thing with arrows vs bars. indent plugin...
 - Checkout cargo-bloat, cargo-cache, cargo-outdated - memcache sccache
 - For scratches, just make an input box for custom extension rather than predefined list
-- TODO learn more about augroup in autocommands, apply to any other auto commands I have
 - freaking learn to use surround more often https://github.com/tpope/vim-surround/tree/master
 - make my own session saving impl
   - Only save visible buffers/tabs/splits
   - per branch per directory
   - something like https://github.com/gennaro-tedesco/nvim-possession/tree/main but fully managed
-
 - copilot? local llm?
-- lsp
-- null_ls replacements
-
-- plugins to install:
-  - LSP stuff... figure out from scratch using kickstart/lazynvim as an example
-    - rust, ts, js, nix, lua, 
-    - lvimuser/lsp-inlayhints.nvim L3MON4D3/LuaSnip hrsh7th/nvim-cmp williamboman/mason.nvim folke/neodev.nvim williamboman/mason-lspconfig.nvim neovim/nvim-lspconfig simrat39/rust-tools.nvim Saecki/crates.nvim
-    - how cna we do language specific tooling per project integrated with neovim here? Like different rust versions in current shell etc?
-    - MASON when not nix, otherwise yes
-  - null_ls replacement?? need a formater replacement, diff between lsp reformat?
-    - cspell? vs built in spell check?
-    - Lets use https://github.com/mfussenegger/nvim-lint
-
 - check out
   - https://github.com/onsails/lspkind.nvim
   - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
