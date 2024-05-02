@@ -63,6 +63,12 @@
           "nvim_plugin-mfussenegger/nvim-lint" = nvim-lint;
           "nvim_plugin-stevearc/conform.nvim" = conform-nvim;
           "nvim_plugin-neovim/nvim-lspconfig" = nvim-lspconfig;
+          "nvim_plugin-hrsh7th/nvim-cmp" = nvim-cmp;
+          "nvim_plugin-L3MON4D3/LuaSnip" = luasnip;
+          "nvim_plugin-saadparwaiz1/cmp_luasnip" = cmp_luasnip;
+          "nvim_plugin-hrsh7th/cmp-nvim-lsp" = cmp-nvim-lsp;
+          "nvim_plugin-hrsh7th/cmp-path" = cmp-path;
+          "nvim_plugin-folke/neodev.nvim" = neodev-nvim;
         };
         # This will be how we put any nix related stuff into our lua config
         luaNixGlobal = "NIX=" + lib.generators.toLua { multiline = false; indent = false; } ({
@@ -96,6 +102,7 @@
           # LSPs
           lua-language-server
           nodePackages.typescript-language-server
+          nodePackages.pyright
 
           # curl # http requests TODO 
           # nodePackages.cspell TODO

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 if NIX then
 	-- Add my lua dir to the path. THIS IS NOT RECURSIVE!
 	-- For recursive we can do something like this: https://github.com/RingOfStorms/nvim/blob/0b833d555c69e88b450a10eec4e39a782bad1037/init.lua#L1-L17
@@ -42,7 +43,7 @@ end
 local function getSpec()
 	if NIX then
 		-- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
-		function convertPluginToNixStore(plugin)
+		local function convertPluginToNixStore(plugin)
 			local p = ensure_table(plugin)
 			if p.enabled == false then
 				return plugin

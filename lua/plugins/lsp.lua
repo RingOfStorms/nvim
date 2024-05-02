@@ -7,13 +7,14 @@ return {
     { "williamboman/mason-lspconfig.nvim", enabled = not NIX },
     { "WhoIsSethDaniel/mason-tool-installer.nvim", enabled = not NIX },
 
+    -- TODO revisit if I want this or not, is this already solved?
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     -- { "j-hui/fidget.nvim", opts = {} },
 
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
-    -- { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim", opts = {}, main = "neodev" },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -35,10 +36,6 @@ return {
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        -- The following autocommand is used to enable inlay hints in your
-        -- code, if the language server you are using supports them
-        --
-        -- This may be unwanted, since they displace some of your code
         if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
           map("<leader>lth", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
@@ -56,9 +53,11 @@ return {
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- TODO
-    -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+    U.safeRequire("cmp_nvim_lsp", function(c)
+      capabilities = vim.tbl_deep_extend("force", capabilities, c.default_capabilities())
+    end)
 
+    -- TODO finish porting over lsp configs: https://github.com/RingOfStorms/nvim/blob/master/lua/plugins/lsp.lua
     local servers = {
       -- clangd = {},
       -- gopls = {},
@@ -70,8 +69,15 @@ return {
       --    https://github.com/pmizio/typescript-tools.nvim
       --
       -- But for many setups, the LSP (`tsserver`) will work just fine
-      tsserver = {},
-
+      tsserver = {
+        -- typescript/javascript
+        implicitProjectConfiguration = {
+          checkJs = true,
+        },
+      },
+      pyright = {
+        -- python
+      },
       lua_ls = {
         -- cmd = { ... },
         -- filetypes = { ...},
