@@ -2,7 +2,7 @@
   description = "RingOfStorms's Neovim configuration using nix flake for portability";
   # Nixpkgs / NixOS version to use.
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     # Names should always be `nvim_plugin-[lazy plugin name]`
