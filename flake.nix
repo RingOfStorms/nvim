@@ -62,6 +62,7 @@
           "nvim_plugin-tpope/vim-sleuth" = vim-sleuth;
           "nvim_plugin-mfussenegger/nvim-lint" = nvim-lint;
           "nvim_plugin-stevearc/conform.nvim" = conform-nvim;
+          "nvim_plugin-neovim/nvim-lspconfig" = nvim-lspconfig;
         };
         # This will be how we put any nix related stuff into our lua config
         luaNixGlobal = "NIX=" + lib.generators.toLua { multiline = false; indent = false; } ({
@@ -92,6 +93,10 @@
           # formatters
           stylua
           nodePackages.prettier
+          # LSPs
+          lua-language-server
+          nodePackages.typescript-language-server
+
           # curl # http requests TODO 
           # nodePackages.cspell TODO
         ];

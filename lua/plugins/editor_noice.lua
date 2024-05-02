@@ -1,7 +1,16 @@
 return {
   "folke/noice.nvim",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+    { "nvim-telescope/telescope.nvim", optional = true },
+  },
   event = "VeryLazy",
   opts = {
+    routes = {
+      -- I want telescope-ui-select to trigger here not noice
+      { filter = { event = "lsp", kind = "search_count" }, opts = { skip = true } },
+    },
     messages = {
       view = "mini", -- default view for messages
       view_error = "notify", -- view for errors
@@ -20,13 +29,8 @@ return {
   },
   config = function(_, opts)
     require("noice").setup(opts)
+    U.safeRequire("telescope", function(t)
+      t.load_extension("noice")
+    end)
   end,
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    "MunifTanjim/nui.nvim",
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    "rcarriga/nvim-notify",
-  },
 }

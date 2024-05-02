@@ -44,6 +44,9 @@ local function getSpec()
 		-- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
 		function convertPluginToNixStore(plugin)
 			local p = ensure_table(plugin)
+			if p.enabled == false then
+				return plugin
+			end
 			local nixName = "nvim_plugin-" .. p[1]
 			if not NIX.pluginPaths[nixName] then
 				error("Plugin is missing in the nix store, ensure it is in the nix flake inputs: " .. p[1])
