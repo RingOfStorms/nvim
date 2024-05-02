@@ -53,7 +53,7 @@ U.keymaps({
       -- * if non empty buffer, we will simply open a new empty buffer unless
       --     it is in the close always list
       -- * if empty buffer, then we will quit this buffer
-      local close_always = { "quickfix", "help", "nofile", "httpResult" }
+      local close_always = { "quickfix", "help", "nofile", "noice", "httpResult" }
       if
         U.table_contains(close_always, vim.bo.buftype)
         or (vim.api.nvim_buf_line_count(0) == 1 and vim.api.nvim_buf_get_lines(0, 0, 1, -1)[1] == "")
@@ -109,12 +109,6 @@ U.keymaps({
   { "L", "<cmd>tabnext<cr>", desc = "Move to next tab" },
 
   -- LSP/IDE/etc TODO move to lsp config file
-  {
-    "<leader>l<leader>",
-    vim.lsp.buf.format,
-    desc = "Reformat file",
-    mode = nvx,
-  },
   {
     "<leader>ld",
     vim.diagnostic.open_float,

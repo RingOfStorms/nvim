@@ -47,7 +47,7 @@ local function gitblame()
 
   if d then
     local ok, res = pcall(os.date, "%d %b %y", d.committer_time)
-    return d.committer .. " - " .. (ok and res or d.committer_time)
+    return d.committer:sub(1, 12) .. " - " .. (ok and res or d.committer_time)
   end
   return ""
 end
@@ -121,11 +121,13 @@ return {
       })
     end
 
+    local group = vim.api.nvim_create_augroup("myconfig-lua-line-group", { clear = true })
     vim.api.nvim_create_autocmd("RecordingEnter", {
+      group = group,
       callback = ref,
     })
-
     vim.api.nvim_create_autocmd("RecordingLeave", {
+      group = group,
       callback = function()
         local timer = vim.loop.new_timer()
         timer:start(50, 0, vim.schedule_wrap(ref))

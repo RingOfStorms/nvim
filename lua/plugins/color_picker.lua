@@ -5,6 +5,7 @@ return {
   config = function(_, opts)
     require("ccc").setup(opts)
     vim.api.nvim_create_autocmd("BufRead", {
+      group = vim.api.nvim_create_augroup("myconfig-color-picker-group", { clear = true }),
       callback = function()
         vim.cmd.CccHighlighterEnable()
       end,

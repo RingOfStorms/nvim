@@ -26,9 +26,10 @@ return {
       },
     },
   },
-  config = function(_, opts)
+  init = function()
     U.highlight("NonText", { fg = "#303030", gui = "nocombine" })
-
+  end,
+  config = function(_, opts)
     local hooks = require("ibl.hooks")
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
       vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#915053" })

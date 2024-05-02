@@ -48,7 +48,7 @@ function M.keymap(keymap)
   local lhs = keymap[1]
   local rhs = keymap[2]
   local mode = keymap["mode"] or "n"
-  local opts = {}
+  local opts = { silent = true }
   for key, value in pairs(keymap) do
     if type(key) ~= "number" and key ~= "mode" then
       opts[key] = value

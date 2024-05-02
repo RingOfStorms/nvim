@@ -81,11 +81,20 @@ return {
       desc = "Resume last telescope",
     },
     {
-      "<leader>fj",
+      "<leader>f/",
       function()
-        require("telescope.builtin").current_buffer_fuzzy_find()
+        require("telescope.builtin").current_buffer_fuzzy_find(
+          require("telescope.themes").get_dropdown({ winblend = 10, previewer = false })
+        )
       end,
       desc = "Fuzzy find/search in current buffer fuzzy.",
+    },
+    {
+      "<leader>fh",
+      function()
+        require("telescope.builtin").help_tags()
+      end,
+      desc = "Find help",
     },
     {
       "<leader>ff",
@@ -133,21 +142,21 @@ return {
       function()
         require("telescope.builtin").keymaps()
       end,
-      desc = "Find Commands",
+      desc = "Find Keymap",
     },
     {
       "<leader>fb",
       function()
         require("telescope.builtin").buffers()
       end,
-      desc = "Find Commands",
+      desc = "Find Buffer",
     },
     {
       "<leader>lfr",
       function()
         require("telescope.builtin").lsp_references()
       end,
-      desc = "Find References",
+      desc = "Find LSP References",
       mode = { "n", "v", "x" },
     },
   },

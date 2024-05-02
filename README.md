@@ -1,17 +1,20 @@
 # NVIM config
 
 Goals:
+
 - Works with or without nix
 - LSP integration with the current project's settings if available
 
 ## Running
 
 ### With Nix
+
 ```sh
 nix run "."
 ```
 
 ### Without Nix
+
 - Must have all required programs installed and available on path
   - neovim >= 0.5
   - Evertying listed in flake.nix `runtime dependencies` variable near the top of the file
@@ -72,3 +75,4 @@ FUTURE
 - check out
   - https://github.com/onsails/lspkind.nvim
   - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
+  - https://github.com/tpope/vim-abolish
