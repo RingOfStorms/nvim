@@ -128,6 +128,18 @@ function M.safeRequire(module, func, errorFunc)
   return nil
 end
 
+-- TODO remove if not needed
+-- local startup_time = vim.loop.now()
+-- function M.delayFromStartup(delay, func)
+--   local current_time = vim.loop.now()
+--   local diff = current_time - startup_time
+--   if diff >= delay then
+--     func()
+--   else
+--     vim.defer_fn(func, (delay - diff))
+--   end
+-- end
+
 function M.fnFalse()
   return false
 end

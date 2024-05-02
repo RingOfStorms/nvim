@@ -78,6 +78,7 @@ require("lazy").setup({
   change_detection = {
     enabled = false,
   },
+
   defaults = {
     lazy = true,
   },

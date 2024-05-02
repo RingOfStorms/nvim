@@ -21,6 +21,6 @@ return {
     vim.cmd("filetype plugin on")
   end,
   keys = {
-    { "<leader>/", "<Plug>NERDCommenterToggle<cr>k", mode = { "n", "x" } },
+    { "<leader>/", "<Plug>NERDCommenterToggle<cr>k", mode = { "n", "x" }, desc = "Toggle comments on line/selection" },
   },
 }

@@ -33,6 +33,22 @@
         "type": "indirect"
       }
     },
+    "nvim_plugin-Almo7aya/openingh.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710100117,
+        "narHash": "sha256-xGQdEO8Fjh4Tmv5WnYJFqaitH0wZnLlbYstwqsO0Oeg=",
+        "owner": "Almo7aya",
+        "repo": "openingh.nvim",
+        "rev": "613c18967d42202f3e2a9ac788caf62a402e7c1a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Almo7aya",
+        "repo": "openingh.nvim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring": {
       "flake": false,
       "locked": {
@@ -78,6 +94,22 @@
       "original": {
         "owner": "Pocco81",
         "repo": "auto-save.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-RRethy/vim-illuminate": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713467568,
+        "narHash": "sha256-o0D1edrsHkaljrzBFZXjdxiK/5ziCGJxM/kYNJgBI1E=",
+        "owner": "RRethy",
+        "repo": "vim-illuminate",
+        "rev": "e522e0dd742a83506db0a72e1ced68c9c130f185",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RRethy",
+        "repo": "vim-illuminate",
         "type": "github"
       }
     },
@@ -174,6 +206,86 @@
       "original": {
         "owner": "folke",
         "repo": "which-key.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-johmsalas/text-case.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708695777,
+        "narHash": "sha256-ROvmPMB3lMeehFtL7EsHGFkE+ZD9r/ines7yDmB+7Ag=",
+        "owner": "johmsalas",
+        "repo": "text-case.nvim",
+        "rev": "d62c63a4e9a996c7321885937ab89920fca2c1c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "johmsalas",
+        "repo": "text-case.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-lewis6991/gitsigns.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714557033,
+        "narHash": "sha256-IpYpya8z6e8t9Lf/ZFx97HsnVwaYLZ44D5rCKvOyybA=",
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "rev": "9cafac31a091267838e1e90fd6e083d37611f516",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lewis6991",
+        "repo": "gitsigns.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-lnc3l0t/glow.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693233815,
+        "narHash": "sha256-vdlwkIK2EkFviJmSiOqPWvc15xqJ9F2gHCC4ObJ5Qjk=",
+        "owner": "lnc3l0t",
+        "repo": "glow.nvim",
+        "rev": "5b38fb7b6e806cac62707a4aba8c10c5f14d5bb5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lnc3l0t",
+        "repo": "glow.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710388427,
+        "narHash": "sha256-Xp8ZQBz0in2MX3l0bnLUsSbH0lDPE+QvdmFpBFry5yY=",
+        "owner": "lukas-reineke",
+        "repo": "indent-blankline.nvim",
+        "rev": "3d08501caef2329aba5121b753e903904088f7e6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lukas-reineke",
+        "repo": "indent-blankline.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-mbbill/undotree": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713305700,
+        "narHash": "sha256-UIroW89ALMRdxSkNGU2VPeuXJxR+25wJ+AakRcjwx/s=",
+        "owner": "mbbill",
+        "repo": "undotree",
+        "rev": "56c684a805fe948936cda0d1b19505b84ad7e065",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mbbill",
+        "repo": "undotree",
         "type": "github"
       }
     },
@@ -337,6 +449,70 @@
         "type": "github"
       }
     },
+    "nvim_plugin-sindrets/diffview.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1700506468,
+        "narHash": "sha256-3EdnBUka9Rh5Brl6TWpN6GlD9z32mmY3Ip+wyiKob/8=",
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "rev": "3dc498c9777fe79156f3d32dddd483b8b3dbd95f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sindrets",
+        "repo": "diffview.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-tpope/vim-surround": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1666730476,
+        "narHash": "sha256-DZE5tkmnT+lAvx/RQHaDEgEJXRKsy56KJY919xiH1lE=",
+        "owner": "tpope",
+        "repo": "vim-surround",
+        "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-surround",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-uga-rosa/ccc.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1714299582,
+        "narHash": "sha256-QRq9hQF5vLnOTzQGbOWC2ykMdMsQDlDlb6XC17dJG7Q=",
+        "owner": "uga-rosa",
+        "repo": "ccc.nvim",
+        "rev": "f388f1981d222967c741fe9927edf9ba5fa3bcbe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "uga-rosa",
+        "repo": "ccc.nvim",
+        "type": "github"
+      }
+    },
+    "nvim_plugin-voldikss/vim-floaterm": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712535773,
+        "narHash": "sha256-wIgcBcdxJsT+qrsC5Boj6hp0xpp5gFeQFhK7yyC5a1o=",
+        "owner": "voldikss",
+        "repo": "vim-floaterm",
+        "rev": "4e28c8dd0271e10a5f55142fb6fe9b1599ee6160",
+        "type": "github"
+      },
+      "original": {
+        "owner": "voldikss",
+        "repo": "vim-floaterm",
+        "type": "github"
+      }
+    },
     "nvim_plugin-windwp/nvim-ts-autotag": {
       "flake": false,
       "locked": {
@@ -357,15 +533,22 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
+        "nvim_plugin-Almo7aya/openingh.nvim": "nvim_plugin-Almo7aya/openingh.nvim",
         "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring": "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring",
         "nvim_plugin-MunifTanjim/nui.nvim": "nvim_plugin-MunifTanjim/nui.nvim",
         "nvim_plugin-Pocco81/auto-save.nvim": "nvim_plugin-Pocco81/auto-save.nvim",
+        "nvim_plugin-RRethy/vim-illuminate": "nvim_plugin-RRethy/vim-illuminate",
         "nvim_plugin-catppuccin/nvim": "nvim_plugin-catppuccin/nvim",
         "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
         "nvim_plugin-declancm/cinnamon.nvim": "nvim_plugin-declancm/cinnamon.nvim",
         "nvim_plugin-folke/lazy.nvim": "nvim_plugin-folke/lazy.nvim",
         "nvim_plugin-folke/noice.nvim": "nvim_plugin-folke/noice.nvim",
         "nvim_plugin-folke/which-key.nvim": "nvim_plugin-folke/which-key.nvim",
+        "nvim_plugin-johmsalas/text-case.nvim": "nvim_plugin-johmsalas/text-case.nvim",
+        "nvim_plugin-lewis6991/gitsigns.nvim": "nvim_plugin-lewis6991/gitsigns.nvim",
+        "nvim_plugin-lnc3l0t/glow.nvim": "nvim_plugin-lnc3l0t/glow.nvim",
+        "nvim_plugin-lukas-reineke/indent-blankline.nvim": "nvim_plugin-lukas-reineke/indent-blankline.nvim",
+        "nvim_plugin-mbbill/undotree": "nvim_plugin-mbbill/undotree",
         "nvim_plugin-nvim-lua/plenary.nvim": "nvim_plugin-nvim-lua/plenary.nvim",
         "nvim_plugin-nvim-lualine/lualine.nvim": "nvim_plugin-nvim-lualine/lualine.nvim",
         "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim": "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim",
@@ -376,6 +559,10 @@
         "nvim_plugin-preservim/nerdcommenter": "nvim_plugin-preservim/nerdcommenter",
         "nvim_plugin-rcarriga/nvim-notify": "nvim_plugin-rcarriga/nvim-notify",
         "nvim_plugin-rmagatti/auto-session": "nvim_plugin-rmagatti/auto-session",
+        "nvim_plugin-sindrets/diffview.nvim": "nvim_plugin-sindrets/diffview.nvim",
+        "nvim_plugin-tpope/vim-surround": "nvim_plugin-tpope/vim-surround",
+        "nvim_plugin-uga-rosa/ccc.nvim": "nvim_plugin-uga-rosa/ccc.nvim",
+        "nvim_plugin-voldikss/vim-floaterm": "nvim_plugin-voldikss/vim-floaterm",
         "nvim_plugin-windwp/nvim-ts-autotag": "nvim_plugin-windwp/nvim-ts-autotag"
       }
     },

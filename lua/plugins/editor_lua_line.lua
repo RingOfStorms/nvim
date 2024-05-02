@@ -1,4 +1,5 @@
 -- TODO checkout https://github.com/nvim-lua/lsp-status.nvim
+-- https://www.reddit.com/r/neovim/comments/o4bguk/comment/h2kcjxa/
 local function lsp_clients()
   local clients = {}
   for _, client in pairs(vim.lsp.buf_get_clients(0)) do
@@ -32,16 +33,23 @@ local function langs()
   return table.concat(l, " • "), " "
 end
 
-local function latest_message()
-  return U.safeRequire("noice", function(n)
-    return n.api.status.message.get_hl
-  end, U.fnEmptyStr)
-end
+local last_blame = nil
+local last_blame_time = vim.loop.now()
+local function gitblame()
+  local d = vim.b.gitsigns_blame_line_dict
 
-local function latest_message_cond()
-  return U.safeRequire("noice", function(n)
-    return n.api.status.message.has
-  end, U.fnFalse)
+  if d then
+    last_blame = d
+    last_blame_time = vim.loop.now()
+  elseif vim.loop.now() - last_blame_time <= 2000 then
+    d = last_blame
+  end
+
+  if d then
+    local ok, res = pcall(os.date, "%d %b %y", d.committer_time)
+    return d.committer .. " - " .. (ok and res or d.committer_time)
+  end
+  return ""
 end
 
 return {
@@ -61,7 +69,7 @@ return {
         lualine_c = {
           { "filename", separator = { right = "" } },
           { "reg_recording", icon = { "󰻃" }, color = { fg = "#D37676" } },
-          { latest_message, cond = latest_message_cond },
+          { gitblame, color = { fg = "#696969" } },
         },
         lualine_x = {
           lsp_clients,

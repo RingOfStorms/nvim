@@ -37,60 +37,38 @@ rm -rf ~/.local/state/nvim
 
 ## NOTES/TODOS
 
+FUTURE
+- Make my own session save plugin, I ONLY want window positioning/open buffers saved nothing else.
+- Make a new HTTP plugin for running curl commands from .http files
+  - similar to est-nvim/rest.nvim but support streaming etc and show command output
+- Execute selected command and open output into a buffer/popup window? <leader>cx
+- generate command, like scratch open a popup of things that can be generated. UUID/other stuff?
+- https://github.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50
+
+- TODO figure out tabs vs spaces thing with arrows vs bars. indent plugin...
 - Checkout cargo-bloat, cargo-cache, cargo-outdated - memcache sccache
 - For scratches, just make an input box for custom extension rather than predefined list
-- for find files, ignore git, capital F for find all
-- better copilot alternatives? Local LLM usage only? etc?
-- generate command, like scratch open a popup of things that can be generated. UUID/other stuff?
-   - https://github.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50
-- TODO learn more about augroup in autocommands.
+- TODO learn more about augroup in autocommands, apply to any other auto commands I have
+- freaking learn to use surround more often https://github.com/tpope/vim-surround/tree/master
 - make my own session saving impl
   - Only save visible buffers/tabs/splits
   - per branch per directory
   - something like https://github.com/gennaro-tedesco/nvim-possession/tree/main but fully managed
 
+- copilot? local llm?
+- lsp
+- null_ls replacements
 
 - plugins to install:
-  - uga-rosa/ccc.nvim - color picker for hex codes etc
-  - zbirenbaum/copilot.lua
-    - Does github's work for me now? github/copilot.vim
-    - zbirenbaum/copilot-cmp
-  - voldikss/vim-floaterm
-  - GIT
-    - lewis6991/gitsigns.nvim
-    - Neogitorg/neogit ??? remove? I dont use this much...
-    - kdheepak/lazygit.nvim ?? remove?
-    - sindrets/diffview.nvim ? as long as this works without the above.
-  - rest-nvim/rest.nvim - http curl commands
-    - TODO I want a better alternative to this. One that shows streaming responses/curl as is. Can I just run curl myself easily?
-  - RRethy/vim-illuminate - show token under cursor throughout file
-  - lukas-reineke/indent-blankline.nvim - indent lines
-    - TODO figure out tabs vs spaces thing with arrows vs bars.
   - LSP stuff... figure out from scratch using kickstart/lazynvim as an example
     - rust, ts, js, nix, lua, 
     - lvimuser/lsp-inlayhints.nvim L3MON4D3/LuaSnip hrsh7th/nvim-cmp williamboman/mason.nvim folke/neodev.nvim williamboman/mason-lspconfig.nvim neovim/nvim-lspconfig simrat39/rust-tools.nvim Saecki/crates.nvim
     - how cna we do language specific tooling per project integrated with neovim here? Like different rust versions in current shell etc?
     - MASON when not nix, otherwise yes
-  - lnc3l0t/glow.nvim - markdown preview
   - null_ls replacement?? need a formater replacement, diff between lsp reformat?
     - cspell? vs built in spell check?
     - Lets use https://github.com/mfussenegger/nvim-lint
-  - Almo7aya/openingh.nvim
-  - tpope/vim-surround
-  - nvim-telescope/telescope-file-browser.nvim ?? do I want to keep this?
-  - johmsalas/text-case.nvim
-  - nvim-treesitter/nvim-treesitter
-  - mbbill/undotree
-  - nvim-lua/plenary.nvim
-  - folke/which-key.nvim
 
 - check out
   - https://github.com/onsails/lspkind.nvim
   - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-align.md
-
-- plugins I decided to remove from my old config
-  - jinh0/eyeliner.nvim
-  - David-Kunz/gen.nvim - ollama integration
-  - Neogitorg/neogit ??
-  - kdheepak/lazygit.nvim ??
-  - null_ls

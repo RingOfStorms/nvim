@@ -87,6 +87,50 @@
       url = "github:nvim-tree/nvim-tree.lua";
       flake = false;
     };
+    "nvim_plugin-uga-rosa/ccc.nvim" = {
+      url = "github:uga-rosa/ccc.nvim";
+      flake = false;
+    };
+    "nvim_plugin-voldikss/vim-floaterm" = {
+      url = "github:voldikss/vim-floaterm";
+      flake = false;
+    };
+    "nvim_plugin-lewis6991/gitsigns.nvim" = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+    "nvim_plugin-sindrets/diffview.nvim" = {
+      url = "github:sindrets/diffview.nvim";
+      flake = false;
+    };
+    "nvim_plugin-RRethy/vim-illuminate" = {
+      url = "github:RRethy/vim-illuminate";
+      flake = false;
+    };
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim" = {
+      url = "github:lukas-reineke/indent-blankline.nvim";
+      flake = false;
+    };
+    "nvim_plugin-lnc3l0t/glow.nvim" = {
+      url = "github:lnc3l0t/glow.nvim";
+      flake = false;
+    };
+    "nvim_plugin-Almo7aya/openingh.nvim" = {
+      url = "github:Almo7aya/openingh.nvim";
+      flake = false;
+    };
+    "nvim_plugin-tpope/vim-surround" = {
+      url = "github:tpope/vim-surround";
+      flake = false;
+    };
+    "nvim_plugin-johmsalas/text-case.nvim" = {
+      url = "github:johmsalas/text-case.nvim";
+      flake = false;
+    };
+    "nvim_plugin-mbbill/undotree" = {
+      url = "github:mbbill/undotree";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
@@ -120,7 +164,7 @@
           fzf # search fuzzy
           # curl # http requests
           tree-sitter
-          # glow # markdown renderer
+          glow # markdown renderer
           # nodePackages.cspell
         ];
       in

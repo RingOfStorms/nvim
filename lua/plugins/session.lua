@@ -2,7 +2,7 @@ return {
   "rmagatti/auto-session",
   lazy = false,
   init = function()
-    vim.o.sessionoptions = "blank,buffers,curdir,folds,tabpages,winsize,winpos,terminal,localoptions"
+    vim.o.sessionoptions = "blank,buffers,curdir,folds,tabpages,winsize,winpos,terminal"
   end,
   opts = {
     auto_session_use_git_branch = true,

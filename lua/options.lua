@@ -27,6 +27,9 @@ vim.opt.hlsearch = false
 -- Wrap lines in files
 vim.opt.wrap = true
 
+-- Keep signcolumn on by default
+vim.opt.signcolumn = "yes"
+
 -- preseve indentation of virtual wrapped lines
 vim.opt.breakindent = true
 
@@ -49,7 +52,7 @@ vim.opt.undofile = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣", eol = "↴" }
 -- TODO REVISIT IF I WANT THESE
 
 -- Search settings

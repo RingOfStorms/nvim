@@ -22,23 +22,23 @@ U.keymaps({
   { ";", ":", desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
   { "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
   { "<leader>a", "<esc>ggVG", desc = "Select all", mode = nvx },
-  { "Q", "<cmd>qa<CR>", desc = "Quit all", mode = nvx },
+  { "Q", "<cmd>SessionSave<cr><cmd>qa!<cr>", desc = "Quit all", mode = nvx },
   { "<leader>y", '"+y', desc = "Copy to system clipboard", mode = nvx },
   { "<leader>p", '"+p', desc = "Paste from system clipboard", mode = nvx },
-  { "<esc>", "<cmd>nohlsearch<CR><esc>", desc = "Clear search on escape" },
-  { "<return>", "<cmd>nohlsearch<CR><return>", desc = "Clear search on return" },
+  { "<esc>", "<cmd>nohlsearch<cr><esc>", desc = "Clear search on escape" },
+  { "<return>", "<cmd>nohlsearch<cr><return>", desc = "Clear search on return" },
   { "|", "<cmd>vsplit<cr>", desc = "Vertical Split" },
   { "\\", "<cmd>split<cr>", desc = "Horizontal Split" },
   { "<S-Tab>", "<C-o>", desc = "Go back <C-o>" },
   {
     "J",
-    ":m '>+1<CR>gv=gv",
+    ":m '>+1<cr>gv=gv",
     desc = "Visually move block down",
     mode = "v",
   },
   {
     "K",
-    ":m '<-2<CR>gv=gv",
+    ":m '<-2<cr>gv=gv",
     desc = "Visually move block up",
     mode = "v",
   },
@@ -53,7 +53,7 @@ U.keymaps({
       -- * if non empty buffer, we will simply open a new empty buffer unless
       --     it is in the close always list
       -- * if empty buffer, then we will quit this buffer
-      local close_always = { "quickfix", "help", "nofile" }
+      local close_always = { "quickfix", "help", "nofile", "httpResult" }
       if
         U.table_contains(close_always, vim.bo.buftype)
         or (vim.api.nvim_buf_line_count(0) == 1 and vim.api.nvim_buf_get_lines(0, 0, 1, -1)[1] == "")
