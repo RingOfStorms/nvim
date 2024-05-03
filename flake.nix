@@ -24,7 +24,7 @@
       # work then we make a new version name. Helps separate any files and
       # "version" my neovim flake
       # ==================
-      version = "helium";
+      version = "hydrogen";
       # ===================
 
       inherit (nixpkgs) lib;
