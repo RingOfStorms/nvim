@@ -84,7 +84,7 @@ U.keymaps({
 
 	-- Editor
 	{ "J", "mzJ`z", desc = "Move line below onto this line" },
-	{ -- TODO stay here, are these already mapped?
+	{
 		"]d",
 		vim.diagnostic.goto_next,
 		desc = "Go to next diagnostic message",
@@ -107,13 +107,12 @@ U.keymaps({
 	{ "<C-6>", "<Home>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
 
 	-- Tabs
-	-- TODO revisit, do I even need these tab things?
 	{ "<leader>tn", "<cmd>tabnew<cr>", desc = "Create new tab", mode = nvx },
 	{ "<leader>tq", "<cmd>tabclose<cr>", desc = "Close current tab", mode = nvx },
 	{ "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
 	{ "L", "<cmd>tabnext<cr>", desc = "Move to next tab" },
 
-	-- LSP/IDE/etc TODO move to lsp config file
+	-- LSP/IDE/
 	{
 		"<leader>ld",
 		vim.diagnostic.open_float,

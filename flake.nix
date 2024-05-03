@@ -87,7 +87,14 @@
           "nvim_plugin-saadparwaiz1/cmp_luasnip" = cmp_luasnip;
           "nvim_plugin-hrsh7th/cmp-nvim-lsp" = cmp-nvim-lsp;
           "nvim_plugin-hrsh7th/cmp-path" = cmp-path;
+          "nvim_plugin-hrsh7th/cmp-buffer" = cmp-buffer;
+          "nvim_plugin-zbirenbaum/copilot-cmp" = copilot-cmp;
+          "nvim_plugin-zbirenbaum/copilot.lua" = copilot-lua;
           "nvim_plugin-folke/neodev.nvim" = neodev-nvim;
+          "nvim_plugin-mrcjkb/rustaceanvim" = rustaceanvim;
+          "nvim_plugin-Saecki/crates.nvim" = crates-nvim;
+          "nvim_plugin-lvimuser/lsp-inlayhints.nvim" = lsp-inlayhints-nvim;
+          "nvim_plugin-rafamadriz/friendly-snippets" = friendly-snippets;
         };
         # This will be how we put any nix related stuff into our lua config
         luaNixGlobal =
@@ -113,6 +120,11 @@
           fzf # search fuzzy
           tree-sitter
           glow # markdown renderer
+          # curl # http requests TODO 
+          # nodePackages.cspell TODO
+        ];
+
+        defaultRuntimeDependencies = with pkgs; [
           # linters
           markdownlint-cli
           luajitPackages.luacheck
@@ -121,14 +133,23 @@
           stylua
           nixfmt-rfc-style
           nodePackages.prettier
+          rustywind
           markdownlint-cli2
           # LSPs
+          nil # nix
           lua-language-server
+          vscode-langservers-extracted # HTML/CSS/JSON/ESLint
           nodePackages.typescript-language-server
+          tailwindcss-language-server
           nodePackages.pyright
-
-          # curl # http requests TODO 
-          # nodePackages.cspell TODO
+          rust-analyzer
+          marksman # markdown
+          taplo #toml
+          yaml-language-server
+          lemminx # xml
+          # Other
+          # typescript
+          nodejs_20
         ];
       in
       {
@@ -152,6 +173,11 @@
                   "PATH"
                   ":"
                   "${lib.makeBinPath runtimeDependencies}"
+                  # Some we will suffix so we pick up the local dev shell intead and default to these otherwise
+                  "--suffix"
+                  "PATH"
+                  ":"
+                  "${lib.makeBinPath defaultRuntimeDependencies}"
                   # Set the LAZY env path to the nix store, see init.lua for how it is used
                   "--set"
                   "LAZY"

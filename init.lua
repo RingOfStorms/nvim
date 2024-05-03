@@ -45,6 +45,13 @@ local function getSpec()
 		-- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
 		local function convertPluginToNixStore(plugin)
 			local p = ensure_table(plugin)
+			if U.isArray(p) and #p > 1 then
+				local plugins = {}
+				table.foreachi(p, function(i, inner)
+					table.insert(plugins, convertPluginToNixStore(inner))
+				end)
+				return plugins
+			end
 			if p.enabled == false then
 				return plugin
 			end
@@ -69,14 +76,11 @@ local function getSpec()
 		local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
 		for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
 			local plugin = string.sub(file, 0, -5)
-			table.insert(plugins, convertPluginToNixStore(require("plugins." .. plugin)))
+			local converted = convertPluginToNixStore(require("plugins." .. plugin))
+			table.insert(plugins, converted)
 		end
 		return plugins
 	else
-		-- TODO I want this to work in the nixos versionhttps://github.com/RingOfStorms/nvim/blob/nix-flake/init.lua#L39-L55
-		-- but it is not resolving properly to the nix store.
-		-- Will revisit at some point, instead we manually pull them
-		-- in above with a directory scan.
 		return { { import = "plugins" } }
 	end
 end

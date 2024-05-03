@@ -53,14 +53,12 @@ vim.opt.undofile = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = "│ ", trail = "·", nbsp = "␣", eol = "↴" }
--- TODO REVISIT IF I WANT THESE
 
 -- Search settings
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Preview substitutions live, as you type
--- TODO revisit, what does this actually do
 vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on

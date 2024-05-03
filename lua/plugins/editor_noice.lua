@@ -7,11 +7,6 @@ return {
 	},
 	event = "VeryLazy",
 	opts = {
-		routes = {
-			-- I want telescope-ui-select to trigger here not noice
-			{ filter = { event = "lsp", kind = "search_count" }, opts = { skip = true } },
-			{ filter = { event = "lsp" }, opts = { skip = true } }, -- TODO come back to this, im having weird issues with insert mode getting broken.
-		},
 		messages = {
 			view = "mini", -- default view for messages
 			view_error = "notify", -- view for errors
@@ -26,6 +21,8 @@ return {
 				["vim.lsp.util.stylize_markdown"] = true,
 				["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 			},
+			-- I had an issue with auto_open kicking me out of insert mode when entering insert mode
+			signature = { auto_open = { trigger = false } },
 		},
 	},
 	config = function(_, opts)

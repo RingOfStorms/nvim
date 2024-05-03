@@ -61,9 +61,7 @@ rm -rf ~/.local/state/nvim
 
 ## NOTES/TODOS
 
-- h/l movement broken in insert mode, probably due to cmp hotkeys
-- h/l in telescope
-- arrows still work in insert mode and telescope, need to remove trying to break arrow key habit
+- See what linters/formaters to add or are the LSP's enough?
 
 FUTURE
 
