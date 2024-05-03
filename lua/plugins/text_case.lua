@@ -10,7 +10,7 @@ return {
     {
       "<leader>,c",
       function()
-        if next(vim.lsp.buf_get_clients()) ~= nil then
+        if next(vim.lsp.get_active_clients()) ~= nil then
           -- TODO test that this works
           vim.cmd("TextCaseOpenTelescopeLSPChange")
         else
@@ -19,7 +19,6 @@ return {
       end,
       desc = "Change case of selection",
       mode = { "n", "v", "x" },
-      silent = true, -- TODO add this to most things....
     },
   },
 }

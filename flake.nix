@@ -3,7 +3,6 @@
   # Nixpkgs / NixOS version to use.
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
 
     # Names should always be `nvim_plugin-[lazy plugin name]`
     # Only need to add plugins as flake inputs if they are:
@@ -18,18 +17,36 @@
       flake = false;
     };
   };
-  outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
-    # Takes all top level attributes and changes them to `attribute.${system} = old value`
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        # Anytime there is a huge breaking change that old state files wont
-        # work then we make a new version name. Helps separate any files.
-        version = "hydrogen";
-        pkgs = nixpkgs.legacyPackages.${system};
-        lib = nixpkgs.lib;
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    let
+      # Anytime there is a huge breaking change that old state files wont
+      # work then we make a new version name. Helps separate any files and
+      # "version" my neovim flake
+      # ==================
+      version = "helium";
+      # ===================
 
-        lazyPath = pkgs.vimPlugins.lazy-nvim; # inputs."nvim_plugin-folke/lazy.nvim"
+      inherit (nixpkgs) lib;
+      withSystem =
+        f:
+        lib.fold lib.recursiveUpdate { } (
+          map f [
+            "x86_64-linux"
+            "x86_64-darwin"
+            "aarch64-linux"
+            "aarch64-darwin"
+          ]
+        );
+    in
+    # Takes all top level attributes and changes them to `attribute.${system} = old value`
+    withSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+
         # Plugins provided in nixpkgs, match the naming scheme above for keys
+        lazyPath = pkgs.vimPlugins.lazy-nvim;
         nixPkgsPlugins = with pkgs.vimPlugins; {
           "nvim_plugin-folke/lazy.nvim" = lazyPath;
           "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
@@ -73,19 +90,21 @@
           "nvim_plugin-folke/neodev.nvim" = neodev-nvim;
         };
         # This will be how we put any nix related stuff into our lua config
-        luaNixGlobal = "NIX=" + lib.generators.toLua { multiline = false; indent = false; } ({
-          storePath = "${./.}";
-          # This will look at all inputs and grab any prefixed with `nvim_plugin-`
-          pluginPaths = builtins.foldl'
-            (dirs: name:
+        luaNixGlobal =
+          "NIX="
+          +
+            lib.generators.toLua
               {
-                "${name}" = inputs.${name}.outPath;
-              } // dirs)
-            nixPkgsPlugins
-            (builtins.filter
-              (n: builtins.substring 0 12 n == "nvim_plugin-")
-              (builtins.attrNames inputs));
-        });
+                multiline = false;
+                indent = false;
+              }
+              ({
+                storePath = "${./.}";
+                # This will look at all inputs and grab any prefixed with `nvim_plugin-`
+                pluginPaths =
+                  builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins
+                    (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
+              });
 
         runtimeDependencies = with pkgs; [
           # tools
@@ -100,7 +119,9 @@
           biome # (t|s)j[x]
           # formatters
           stylua
+          nixfmt-rfc-style
           nodePackages.prettier
+          markdownlint-cli2
           # LSPs
           lua-language-server
           nodePackages.typescript-language-server
@@ -111,20 +132,19 @@
         ];
       in
       {
-        packages = {
+        packages.${system} = {
           default = self.packages.${system}.neovim;
           neovim =
-            (pkgs.wrapNeovimUnstable
-              pkgs.neovim-unwrapped
-              (pkgs.neovimUtils.makeNeovimConfig {
+            (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
+              pkgs.neovimUtils.makeNeovimConfig {
                 withPython3 = false;
                 customRC = ''
                   lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
                   set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
                 '';
-              })
-            ).overrideAttrs
+              }
+            )).overrideAttrs
               (old: {
                 generatedWrapperArgs = old.generatedWrapperArgs or [ ] ++ [
                   # Add runtime dependencies to neovim path
@@ -140,20 +160,20 @@
                   # All things at runtime should be deletable since we are using nix to handle downloads and bins
                   # so I've chosen to put everything into the local state directory.
                   "--run"
-                  "export NVIM_FLAKE_BASE_DIR=\"\${XDG_STATE_HOME:-\$HOME/.local/state}\""
+                  ''export NVIM_FLAKE_BASE_DIR="''${XDG_STATE_HOME:-$HOME/.local/state}"''
                   "--run"
-                  "export XDG_CONFIG_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config\""
+                  ''export XDG_CONFIG_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config"''
                   "--run"
-                  "export XDG_DATA_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share\""
+                  ''export XDG_DATA_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share"''
                   "--run"
-                  "export XDG_RUNTIME_DIR=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run\""
+                  ''export XDG_RUNTIME_DIR="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run"''
                   "--run"
-                  "export XDG_STATE_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state\""
+                  ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
                   "--run"
-                  "export XDG_CACHE_HOME=\"$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache\""
+                  ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
                 ];
               });
         };
-      });
+      }
+    );
 }
-
