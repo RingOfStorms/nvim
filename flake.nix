@@ -141,7 +141,7 @@
           vscode-langservers-extracted # HTML/CSS/JSON/ESLint
           nodePackages.typescript-language-server
           tailwindcss-language-server
-          nodePackages.pyright
+          pyright
           rust-analyzer
           marksman # markdown
           taplo #toml
