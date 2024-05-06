@@ -7,6 +7,12 @@ return {
 	},
 	event = "VeryLazy",
 	opts = {
+		route = {
+			routes = {
+				-- TODO idk keep having a lot of issues with this making me exit insert mode randomly
+				{ filter = { event = "lsp" }, opts = { skip = true } },
+			},
+		},
 		messages = {
 			view = "mini", -- default view for messages
 			view_error = "notify", -- view for errors
