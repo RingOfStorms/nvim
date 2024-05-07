@@ -4,8 +4,8 @@ return {
   event = "VeryLazy",
   opts = {
     default_keymaps = true,
-    max_length = 180,
-    default_delay = 2,
+    max_length = 150,
+    default_delay = 1,
     hide_cursor = true,
   },
   config = function(_, opts)
