@@ -12,10 +12,6 @@
       url = "github:chrisgrieser/nvim-early-retirement";
       flake = false;
     };
-    "nvim_plugin-declancm/cinnamon.nvim" = {
-      url = "github:declancm/cinnamon.nvim";
-      flake = false;
-    };
   };
   outputs =
     { self, nixpkgs, ... }@inputs:

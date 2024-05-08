@@ -62,6 +62,7 @@ rm -rf ~/.local/state/nvim
 ## NOTES/TODOS
 
 - See what linters/formaters to add or are the LSP's enough?
+- CSPELL/spelling linter
 
 FUTURE
 
