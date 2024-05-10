@@ -32,27 +32,10 @@
         "type": "github"
       }
     },
-    "nvim_plugin-declancm/cinnamon.nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1714107684,
-        "narHash": "sha256-cMP9WRZzevxaWgpILyDh1JwNukm3Jl3JKJYPT2HnFns=",
-        "owner": "declancm",
-        "repo": "cinnamon.nvim",
-        "rev": "a011e84b624cd7b609ea928237505d31b987748a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "declancm",
-        "repo": "cinnamon.nvim",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
-        "nvim_plugin-declancm/cinnamon.nvim": "nvim_plugin-declancm/cinnamon.nvim"
+        "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement"
       }
     }
   },
