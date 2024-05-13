@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Names should always be `nvim_plugin-[lazy plugin name]`
     # Only need to add plugins as flake inputs if they are:
     # - Missing in nixpkgs
@@ -39,7 +44,9 @@
     withSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        # pkgs = nixpkgs.legacyPackages.${system};
+        overlays = [ (import inputs.rust-overlay) ];
+        pkgs = import nixpkgs { inherit system overlays; };
 
         # Plugins provided in nixpkgs, match the naming scheme above for keys
         lazyPath = pkgs.vimPlugins.lazy-nvim;
@@ -140,12 +147,21 @@
           pyright
           rust-analyzer
           marksman # markdown
-          taplo #toml
+          taplo # toml
           yaml-language-server
           lemminx # xml
           # Other
           # typescript
           nodejs_20
+          clang
+          zig
+          (pkgs.rust-bin.stable.latest.default.override
+          {
+            extensions = [
+              "rust-src"
+              "rust-analyzer"
+            ];
+          })
         ];
       in
       {
