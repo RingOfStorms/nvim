@@ -55,7 +55,6 @@
           "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
           "nvim_plugin-nvim-lua/plenary.nvim" = plenary-nvim;
           "nvim_plugin-catppuccin/nvim" = catppuccin-nvim;
-          "nvim_plugin-Pocco81/auto-save.nvim" = auto-save-nvim;
           "nvim_plugin-MunifTanjim/nui.nvim" = nui-nvim;
           "nvim_plugin-rcarriga/nvim-notify" = nvim-notify;
           "nvim_plugin-folke/noice.nvim" = noice-nvim;

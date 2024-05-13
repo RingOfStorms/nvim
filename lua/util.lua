@@ -106,6 +106,10 @@ function M.table_contains(table, element)
 	return false
 end
 
+function M.table_not_contains(table, element)
+  return not M.table_contains(table, element)
+end
+
 -- From https://github.com/lukas-reineke/onedark.nvim/blob/master/lua/onedark.lua
 function M.highlight(group, options)
 	local guifg = options.fg or "NONE"

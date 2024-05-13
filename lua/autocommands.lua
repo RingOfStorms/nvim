@@ -10,7 +10,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-
 -- TODO is there a better way for these?
 -- https://www.youtube.com/watch?v=NecszftvMFI vim.filetype.add
 vim.api.nvim_create_autocmd("BufRead", {
@@ -54,6 +53,32 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 		for _, bufnr in ipairs(buffers) do
 			if U.table_contains(close_types, vim.bo[bufnr].filetype) then
 				vim.api.nvim_buf_delete(bufnr, { force = true })
+			end
+		end
+	end,
+})
+
+local auto_save_disallowed_filetypes = { "TelescopePrompt", "quickfix", "terminal" }
+local auto_save_debounce = {}
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "BufLeave" }, {
+	group = group,
+	callback = function(event)
+		local modifiable = vim.api.nvim_buf_get_option(event.buf, "modifiable")
+		local filetype = vim.api.nvim_buf_get_option(event.buf, "filetype")
+		local modified = vim.api.nvim_buf_get_option(event.buf, "modified")
+		if
+			modifiable
+			and modified
+			and U.table_not_contains(auto_save_disallowed_filetypes, filetype)
+		then
+			if auto_save_debounce[event.buf] ~= 1 then
+				auto_save_debounce[event.buf] = 1
+				vim.defer_fn(function()
+					vim.api.nvim_buf_call(event.buf, function()
+						vim.api.nvim_command("silent! write")
+					end)
+					auto_save_debounce[event.buf] = nil
+				end, 500)
 			end
 		end
 	end,
