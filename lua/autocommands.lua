@@ -6,31 +6,35 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = group,
 	desc = "Highlight when yanking (copying) text",
 	callback = function()
-		vim.highlight.on_yank({ timeout = 300 })
+		vim.highlight.on_yank({ timeout = 200 })
 	end,
 })
 
--- TODO is there a better way for these?
--- https://www.youtube.com/watch?v=NecszftvMFI vim.filetype.add
-vim.api.nvim_create_autocmd("BufRead", {
-	group = group,
-	pattern = ".env*",
-	command = "set filetype=sh",
+vim.filetype.add({
+	pattern = {
+		[".*env*"] = "sh",
+		[".*rc"] = "sh",
+	},
 })
-vim.api.nvim_create_autocmd("BufRead", {
-	group = group,
-	pattern = ".*rc",
-	command = "set filetype=sh",
+vim.filetype.add({
+	pattern = {
+		["Dockerfile.*"] = "dockerfile",
+	},
 })
-vim.api.nvim_create_autocmd("BufRead", {
-	group = group,
-	pattern = "Dockerfile.*",
-	command = "set filetype=dockerfile",
+vim.filetype.add({
+	extension = {
+		http = "http",
+	},
 })
-vim.api.nvim_create_autocmd("BufRead", {
-	group = group,
-	pattern = "*.http",
-	command = "set filetype=http",
+vim.filetype.add({
+	extension = {
+		v = "vlang",
+		vsh = "vlang",
+		vv = "vlang",
+	},
+	filename = {
+		["v.mod"] = "vlang",
+	},
 })
 
 -- Auto exit insert mode whenever we switch screens
@@ -66,11 +70,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "Buf
 		local modifiable = vim.api.nvim_buf_get_option(event.buf, "modifiable")
 		local filetype = vim.api.nvim_buf_get_option(event.buf, "filetype")
 		local modified = vim.api.nvim_buf_get_option(event.buf, "modified")
-		if
-			modifiable
-			and modified
-			and U.table_not_contains(auto_save_disallowed_filetypes, filetype)
-		then
+		if modifiable and modified and U.table_not_contains(auto_save_disallowed_filetypes, filetype) then
 			if auto_save_debounce[event.buf] ~= 1 then
 				auto_save_debounce[event.buf] = 1
 				vim.defer_fn(function()

@@ -107,6 +107,7 @@ return {
 					},
 				},
 				nil_ls = {},
+				v_analyzer = { filetypes = { "vlang", "v", "vsh", "vv" } },
 				tsserver = {
 					-- typescript/javascript
 					implicitProjectConfiguration = {
@@ -153,7 +154,7 @@ return {
 					require("lspconfig")[server_name].setup(server_opts)
 				end
 			else
-        -- TODO test this out on a non nix setup...
+				-- TODO test this out on a non nix setup...
 				require("mason").setup()
 				local ensure_installed = vim.tbl_keys(servers or {})
 				vim.list_extend(ensure_installed, {
@@ -174,4 +175,3 @@ return {
 		end,
 	},
 }
-

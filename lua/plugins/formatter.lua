@@ -20,10 +20,17 @@ return {
 	opts = {
 		-- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#setup
 		notify_on_error = true,
+		formatters = {
+			v_fmt = {
+				command = "v",
+        args = { "fmt" },
+			},
+		},
 		-- Note that all these need to be available at runtime, add them to flake.nix#runtimeDependencies
 		formatters_by_ft = {
 			lua = { "stylua" },
 			nix = { "nixfmt" },
+			vlang = { "v_fmt" },
 			typescript = { { "prettierd", "prettier" }, "rustywind" },
 			typescriptreact = { { "prettierd", "prettier" }, "rustywind" },
 			javascript = { { "prettierd", "prettier" }, "rustywind" },

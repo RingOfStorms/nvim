@@ -85,3 +85,5 @@ vim.opt.equalalways = false
 
 -- enable colors for opacity changes
 vim.opt.termguicolors = true
+
+
