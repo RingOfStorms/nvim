@@ -5,19 +5,6 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
   opts = function()
-    -- Not needed for our float config, if we remove the float mode then this works nicely for sidebar
-    -- local getWidth = function()
-    --   local w = vim.api.nvim_get_option("columns")
-    --   return math.ceil(w * 0.2)
-    -- end
-
-    -- vim.api.nvim_create_autocmd("VimResized", {
-    --   pattern = "*",
-    --   callback = function()
-    --     vim.cmd("NvimTreeResize " .. tostring(getWidth()))
-    --   end,
-    -- })
-
     return {
       sort = {
         sorter = "case_sensitive",
@@ -88,15 +75,11 @@ return {
           if #marks == 0 then
             table.insert(marks, api.tree.get_node_under_cursor())
           end
-          vim.ui.input({ prompt = string.format("Remove/Delete %s files? [y/n] ", #marks) }, function(input)
-            if input == "y" then
-              for _, node in ipairs(marks) do
-                api.fs.remove(node)
-              end
-              api.marks.clear()
-              api.tree.reload()
-            end
-          end)
+          for _, node in ipairs(marks) do
+            api.fs.remove(node)
+          end
+          api.marks.clear()
+          api.tree.reload()
         end
 
         local mark_copy = function()
@@ -136,7 +119,6 @@ return {
           api.tree.reload()
         end
 
-        vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
         vim.keymap.set("n", "J", mark_move_j, opts("Toggle Bookmark Down"))
         vim.keymap.set("n", "K", mark_move_k, opts("Toggle Bookmark Up"))
 
@@ -152,10 +134,8 @@ return {
         vim.keymap.set("n", "<esc>", api.tree.close, opts("Close"))
         vim.keymap.set("n", "<leader>o", api.tree.close, opts("Close"))
         vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
-        vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
         vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-        vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
         vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
         vim.keymap.set("n", "a", api.fs.create, opts("Create"))
         vim.keymap.set("n", "p", api.fs.paste, opts("Paste"))
@@ -171,7 +151,7 @@ return {
     }
   end,
   keys = {
-    { "<leader>e", "<cmd>NvimTreeToggle<cr>",   desc = "Open file browser" },
+    { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Open file browser" },
     { "<leader>o", "<cmd>NvimTreeFindFile<cr>", desc = "Open file browser at current buffer" },
   },
 }

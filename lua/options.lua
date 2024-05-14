@@ -1,11 +1,20 @@
--- allow use of system keyboard
--- vim.opt.clipboard = "unnamedplus"
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
 
 -- global status line
 vim.opt.laststatus = 3
 
+-- Don't show the mode, since it's already in the status line
+vim.opt.showmode = false
+
 -- allow use of mouse
 vim.opt.mouse = "a"
+
+-- Decrease update time
+vim.opt.updatetime = 250
+-- Decrease mapped sequence wait time
+-- Displays which-key popup sooner
+vim.opt.timeoutlen = 300
 
 -- line numbering, relative
 vim.opt.number = true
@@ -17,6 +26,9 @@ vim.opt.hlsearch = false
 
 -- Wrap lines in files
 vim.opt.wrap = true
+
+-- Keep signcolumn on by default
+vim.opt.signcolumn = "yes"
 
 -- preseve indentation of virtual wrapped lines
 vim.opt.breakindent = true
@@ -33,29 +45,43 @@ vim.opt.expandtab = true
 -- Dont use swap files, use undotree
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
 vim.opt.undofile = true
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+vim.opt.list = true
+vim.opt.listchars = { tab = "│ ", trail = "·", nbsp = "␣", eol = "↴" }
 
 -- Search settings
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
+
+-- Preview substitutions live, as you type
+vim.opt.inccommand = "split"
+
+-- Show which line your cursor is on
+vim.opt.cursorline = true
 
 -- split to the right or below always
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
+vim.opt.completeopt = "menuone,noselect"
 vim.diagnostic.config({
   float = { border = "single" },
 })
 
+-- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 10
+
 -- Turn on new diff
 vim.opt.diffopt:append("linematch:20")
 
--- Set screen mode
-vim.o.noequalalways = true
-vim.o.equalalways = false
+-- Don't resize panels when closing something it is annoying
+vim.opt.equalalways = false
 
 -- enable colors for opacity changes
-vim.o.termguicolors = true
+vim.opt.termguicolors = true

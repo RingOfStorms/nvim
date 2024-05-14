@@ -1,5 +1,8 @@
 return {
   "catppuccin/nvim",
+  -- load theme right away
+  lazy = false,
+  priority = 100,
   opts = {
     flavour = "mocha", -- latte, frappe, macchiato, mocha (default)
     color_overrides = {

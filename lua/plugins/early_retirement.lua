@@ -4,7 +4,5 @@ return {
   event = "VeryLazy",
   opts = {
     retirementAgeMins = 1,
-    -- notificationOnAutoClose = true,
-    -- deleteBufferWhenFileDeleted = true,
   },
 }
