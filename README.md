@@ -10,7 +10,7 @@ Goals:
 ### With Nix
 
 ```sh
-nix run 'github:ringofstorms/nvim/nix-flake'
+nix run 'github:ringofstorms/nvim'
 ```
 
 in NixOS
@@ -18,7 +18,7 @@ in NixOS
 ```nix
 -- in flake.nix#inputs
 ringofstorms-nvim = {
-  url = "github:RingOfStorms/nvim/nix-flake";
+  url = "github:RingOfStorms/nvim";
   inputs.nixpkgs.follows = "nixpkgs";
 };
 -- in nix module
