@@ -107,6 +107,7 @@ return {
 					},
 				},
 				nil_ls = {},
+        -- TODO probably remove V
 				v_analyzer = { filetypes = { "vlang", "v", "vsh", "vv" } },
 				tsserver = {
 					-- typescript/javascript

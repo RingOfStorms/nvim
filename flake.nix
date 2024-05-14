@@ -39,12 +39,6 @@
             "aarch64-darwin"
           ]
         );
-
-      systemToVAnalyzer = {
-        "x86_64-linux" = " v-analyzer-linux-x86_64.zip ";
-        "x86_64-darwin" = "v-analyzer-darwin-x86_64.zip ";
-        "aarch64-darwin" = "v-analyzer-darwin-arm64.zip ";
-      };
     in
     # Takes all top level attributes and changes them to `attribute.${system} = old value`
     withSystem (
@@ -53,27 +47,6 @@
         # pkgs = nixpkgs.legacyPackages.${system};
         overlays = [ (import inputs.rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
-
-        # v_analyzer = pkgs.stdenv.mkDerivation rec {
-        #   pname = "v_analyzer";
-        #   version = "0.0.3-beta.1";
-        #   src = pkgs.fetchgit {
-        #     url = "https://github.com/v-analyzer/v-analyzer.git";
-        #     rev = version;
-        #     sha256 = "sha256-aZsStI/1/2CrMoRXrTRdNDRoBH/mA1FqC47tghSkCMo=";
-        #   };
-
-        #   buildInputs = with pkgs; [ vlang ];
-        #   buildPhase = ''
-        #     v install
-        #     v build.vsh release
-        #   '';
-
-        #   installPhase = ''
-        #     mkdir -p $out/bin
-        #     cp -r ./bin/* $out/bin
-        #   '';
-        # };
 
         # Plugins provided in nixpkgs, match the naming scheme above for keys
         lazyPath = pkgs.vimPlugins.lazy-nvim;
@@ -167,7 +140,6 @@
           # LSPs
           nil # nix
           lua-language-server
-          # v_analyzer
           vscode-langservers-extracted # HTML/CSS/JSON/ESLint
           nodePackages.typescript-language-server
           tailwindcss-language-server
