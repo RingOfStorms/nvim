@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.filetype.add({
 	pattern = {
-		[".*env*"] = "sh",
+		[".*env.*"] = "sh",
 		[".*rc"] = "sh",
 	},
 })
