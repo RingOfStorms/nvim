@@ -17,6 +17,10 @@
       url = "github:chrisgrieser/nvim-early-retirement";
       flake = false;
     };
+    "nvim_plugin-folke/noice.nvim" = {
+      url = "github:folke/noice.nvim/v2.0.3";
+      flake = false;
+    };
   };
   outputs =
     { self, nixpkgs, ... }@inputs:
@@ -57,7 +61,7 @@
           "nvim_plugin-catppuccin/nvim" = catppuccin-nvim;
           "nvim_plugin-MunifTanjim/nui.nvim" = nui-nvim;
           "nvim_plugin-rcarriga/nvim-notify" = nvim-notify;
-          "nvim_plugin-folke/noice.nvim" = noice-nvim;
+          # "nvim_plugin-folke/noice.nvim" = noice-nvim;
           "nvim_plugin-nvim-lualine/lualine.nvim" = lualine-nvim;
           "nvim_plugin-folke/which-key.nvim" = which-key-nvim;
           "nvim_plugin-nvim-telescope/telescope.nvim" = telescope-nvim;

@@ -9,11 +9,24 @@ return {
 	opts = {
 		route = {
 			routes = {
-				-- TODO idk keep having a lot of issues with this making me exit insert mode randomly
 				{ filter = { event = "lsp" }, opts = { skip = true } },
+				-- { opts = { skip = true } },
 			},
 		},
+		-- cmdline = {
+		--   enabled = false,
+		-- },
+		-- popupmenu = {
+		--   enabled = false, -- enables the Noice popupmenu
+		-- },
+		-- notify = {
+		--   enabled = false,
+		-- },
+		-- smart_move = {
+		--   enabled = false,
+		-- },
 		messages = {
+			-- enabled = false,
 			view = "mini", -- default view for messages
 			view_error = "notify", -- view for errors
 			view_warn = "mini", -- view for warnings
@@ -28,7 +41,9 @@ return {
 				["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 			},
 			-- I had an issue with auto_open kicking me out of insert mode when entering insert mode
-			signature = { auto_open = { trigger = false } },
+			signature = { enabled = false, auto_open = { trigger = false } },
+      -- hover = { enabled = false },
+			-- message = { enabled = false },
 		},
 	},
 	config = function(_, opts)

@@ -50,10 +50,28 @@
         "type": "github"
       }
     },
+    "nvim_plugin-folke/noice.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715761625,
+        "narHash": "sha256-m3vRKLuWrNkhHMgnpfRodTqBScaQlsIYnShsrpjKa+E=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "8389ff59ec6eab87d7328a83e3f28ca96111d7b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "ref": "v2.0.3",
+        "repo": "noice.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
         "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
+        "nvim_plugin-folke/noice.nvim": "nvim_plugin-folke/noice.nvim",
         "rust-overlay": "rust-overlay"
       }
     },
