@@ -21,7 +21,10 @@
       url = "github:j-hui/fidget.nvim";
       flake = false;
     };
-   
+    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim" = {
+      url = "github:nvim-telescope/telescope-file-browser.nvim";
+      flake = false;
+    };
   };
   outputs =
     { self, nixpkgs, ... }@inputs:

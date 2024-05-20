@@ -66,11 +66,28 @@
         "type": "github"
       }
     },
+    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713833296,
+        "narHash": "sha256-P6WR6AohLALn4aU4vPnoBO7QDoRcfcAj51E0K1ldtwU=",
+        "owner": "nvim-telescope",
+        "repo": "telescope-file-browser.nvim",
+        "rev": "4d5fd21bae12ee6e9a79232e1c377f43c419d0c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-telescope",
+        "repo": "telescope-file-browser.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
         "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
         "nvim_plugin-j-hui/fidget.nvim": "nvim_plugin-j-hui/fidget.nvim",
+        "nvim_plugin-nvim-telescope/telescope-file-browser.nvim": "nvim_plugin-nvim-telescope/telescope-file-browser.nvim",
         "rust-overlay": "rust-overlay"
       }
     },
