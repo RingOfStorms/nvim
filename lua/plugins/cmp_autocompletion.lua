@@ -46,7 +46,7 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu,menuone,noinsert,noselect" },
+			completion = { completeopt = "menu,menuone,noinsert" },
 			mapping = cmp.mapping.preset.insert({
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),

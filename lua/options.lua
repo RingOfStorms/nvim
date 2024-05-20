@@ -68,7 +68,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = "menu,menuone,noinsert,noselect"
+vim.opt.completeopt = "menu,menuone,noinsert"
 vim.diagnostic.config({
 	float = { border = "single" },
 })
