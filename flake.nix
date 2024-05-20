@@ -74,7 +74,6 @@
           "nvim_plugin-nvim-tree/nvim-web-devicons" = nvim-web-devicons;
           "nvim_plugin-nvim-tree/nvim-tree.lua" = nvim-tree-lua;
           "nvim_plugin-uga-rosa/ccc.nvim" = ccc-nvim;
-          "nvim_plugin-voldikss/vim-floaterm" = vim-floaterm;
           "nvim_plugin-lewis6991/gitsigns.nvim" = gitsigns-nvim;
           "nvim_plugin-sindrets/diffview.nvim" = diffview-nvim;
           "nvim_plugin-RRethy/vim-illuminate" = vim-illuminate;

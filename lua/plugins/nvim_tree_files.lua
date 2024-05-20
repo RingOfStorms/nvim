@@ -135,6 +135,8 @@ return {
         vim.keymap.set("n", "<leader>o", api.tree.close, opts("Close"))
         vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
         vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "<C-v>", api.node.open.vertical, opts("Open in vertical split"))
+        vim.keymap.set("n", "<C-x>", api.node.open.horizontal, opts("Open in horizontal split"))
         vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
         vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
         vim.keymap.set("n", "a", api.fs.create, opts("Create"))
