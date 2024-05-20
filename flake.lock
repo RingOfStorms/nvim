@@ -50,20 +50,19 @@
         "type": "github"
       }
     },
-    "nvim_plugin-folke/noice.nvim": {
+    "nvim_plugin-j-hui/fidget.nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1715761625,
-        "narHash": "sha256-m3vRKLuWrNkhHMgnpfRodTqBScaQlsIYnShsrpjKa+E=",
-        "owner": "folke",
-        "repo": "noice.nvim",
-        "rev": "8389ff59ec6eab87d7328a83e3f28ca96111d7b1",
+        "lastModified": 1712242924,
+        "narHash": "sha256-fZhK5opGXRRryhNpdaEPLpBq4tTibZREelXmasMLHzw=",
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
+        "rev": "1ba38e4cbb24683973e00c2e36f53ae64da38ef5",
         "type": "github"
       },
       "original": {
-        "owner": "folke",
-        "ref": "v2.0.3",
-        "repo": "noice.nvim",
+        "owner": "j-hui",
+        "repo": "fidget.nvim",
         "type": "github"
       }
     },
@@ -71,7 +70,7 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "nvim_plugin-chrisgrieser/nvim-early-retirement": "nvim_plugin-chrisgrieser/nvim-early-retirement",
-        "nvim_plugin-folke/noice.nvim": "nvim_plugin-folke/noice.nvim",
+        "nvim_plugin-j-hui/fidget.nvim": "nvim_plugin-j-hui/fidget.nvim",
         "rust-overlay": "rust-overlay"
       }
     },

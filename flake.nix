@@ -17,10 +17,11 @@
       url = "github:chrisgrieser/nvim-early-retirement";
       flake = false;
     };
-    "nvim_plugin-folke/noice.nvim" = {
-      url = "github:folke/noice.nvim/v2.0.3";
+    "nvim_plugin-j-hui/fidget.nvim" = {
+      url = "github:j-hui/fidget.nvim";
       flake = false;
     };
+   
   };
   outputs =
     { self, nixpkgs, ... }@inputs:
@@ -61,7 +62,6 @@
           "nvim_plugin-catppuccin/nvim" = catppuccin-nvim;
           "nvim_plugin-MunifTanjim/nui.nvim" = nui-nvim;
           "nvim_plugin-rcarriga/nvim-notify" = nvim-notify;
-          # "nvim_plugin-folke/noice.nvim" = noice-nvim;
           "nvim_plugin-nvim-lualine/lualine.nvim" = lualine-nvim;
           "nvim_plugin-folke/which-key.nvim" = which-key-nvim;
           "nvim_plugin-nvim-telescope/telescope.nvim" = telescope-nvim;
@@ -97,7 +97,6 @@
           "nvim_plugin-zbirenbaum/copilot-cmp" = copilot-cmp;
           "nvim_plugin-zbirenbaum/copilot.lua" = copilot-lua;
           "nvim_plugin-folke/neodev.nvim" = neodev-nvim;
-          "nvim_plugin-mrcjkb/rustaceanvim" = rustaceanvim;
           "nvim_plugin-Saecki/crates.nvim" = crates-nvim;
           "nvim_plugin-lvimuser/lsp-inlayhints.nvim" = lsp-inlayhints-nvim;
           "nvim_plugin-rafamadriz/friendly-snippets" = friendly-snippets;
@@ -126,7 +125,7 @@
           fzf # search fuzzy
           tree-sitter
           glow # markdown renderer
-          # curl # http requests TODO 
+          curl # http requests
           # nodePackages.cspell TODO
         ];
 

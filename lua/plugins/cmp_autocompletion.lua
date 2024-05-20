@@ -46,8 +46,7 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu,menuone,noinsert" },
-
+			completion = { completeopt = "menu,menuone,noinsert,noselect" },
 			mapping = cmp.mapping.preset.insert({
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
@@ -55,17 +54,20 @@ return {
 				["<esc>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.abort()
-						fallback()
+						if cmp.get_active_entry() == nil then
+							-- TODO this is still being weird... if I go into active entry then back up and press esc it causes havoc
+							fallback()
+						end
 					else
 						fallback()
 					end
 				end),
+				-- ["<esc>"] = cmp.mapping.abort(),
 
 				-- Select the [n]ext item
 				["<C-j>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_next_item()
-					-- elseif luasnip.expand_or_jumpable() then
 					elseif luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
 					else
@@ -83,7 +85,7 @@ return {
 					end
 				end, { "i", "s" }),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				["<C-space>"] = cmp.mapping.complete({}),
+				["<C-c>"] = cmp.mapping.complete({}),
 			}),
 			sources = {
 				{
@@ -107,21 +109,6 @@ return {
 				-- Rust crates.io integration
 				{ name = "crates" },
 			},
-			-- TODO revisit if I want these or not
-			-- sorting = {
-			--   priority_weight = 1,
-			--   comparators = {
-			--     cmp.config.compare.locality,
-			--     cmp.config.compare.recently_used,
-			--     cmp.config.compare.score,
-			--     cmp.config.compare.offset,
-			--     cmp.config.compare.order,
-			--   },
-			-- },
-			-- window = { -- also? https://github.com/RingOfStorms/nvim/blob/master/lua/plugins/lsp.lua#L330-L347
-			--   completion = cmp.config.window.bordered(),
-			--   documentation = cmp.config.window.bordered(),
-			-- },
 		})
 	end,
 }

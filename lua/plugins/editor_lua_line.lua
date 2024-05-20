@@ -46,7 +46,7 @@ end
 
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { { "folke/noice.nvim", optional = true } },
+	-- dependencies = { { "folke/noice.nvim", optional = true } },
 	lazy = false,
 	opts = function()
 		return {

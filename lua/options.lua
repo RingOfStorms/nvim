@@ -18,8 +18,7 @@ vim.opt.timeoutlen = 300
 
 -- line numbering, relative
 vim.opt.number = true
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Highlights the results of previous search, which is annoying when we are done searching
 vim.opt.hlsearch = false
@@ -69,9 +68,9 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = "menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noinsert,noselect"
 vim.diagnostic.config({
-  float = { border = "single" },
+	float = { border = "single" },
 })
 
 -- Minimal number of screen lines to keep above and below the cursor.
@@ -85,5 +84,3 @@ vim.opt.equalalways = false
 
 -- enable colors for opacity changes
 vim.opt.termguicolors = true
-
-

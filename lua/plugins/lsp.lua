@@ -1,7 +1,11 @@
 return {
 	-- LSP helper plugins for various languages
 	{ "folke/neodev.nvim", event = { "BufRead *.lua", "BufRead *.vim" }, opts = {}, main = "neodev" },
-	{ "mrcjkb/rustaceanvim", lazy = false }, -- uses ftplugins to enable itself lazily already
+	-- { TODO come back to this, do I actually use any features provided here? I was losing out on rust-analyzer stuff when this was on and it was added below...
+	--   "mrcjkb/rustaceanvim",
+	--   -- uses ftplugins to enable itself lazily already
+	--   lazy = false,
+	-- },
 	-- TODO add some hotkeys for opening the popup menus on crates
 	{ "Saecki/crates.nvim", event = "BufRead Cargo.toml", tag = "stable", opts = {}, main = "crates" },
 	{
@@ -106,9 +110,8 @@ return {
 						},
 					},
 				},
+				rust_analyzer = {},
 				nil_ls = {},
-        -- TODO probably remove V
-				v_analyzer = { filetypes = { "vlang", "v", "vsh", "vv" } },
 				tsserver = {
 					-- typescript/javascript
 					implicitProjectConfiguration = {
