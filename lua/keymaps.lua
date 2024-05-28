@@ -48,6 +48,8 @@ U.keymaps({
 		mode = "v",
 	},
 	{ "<Esc>", "<C-\\><C-n>", desc = "Escape the terminal", mode = "t" },
+	{ "<C-d>", "<C-d>zz", desc = "Vertical half page down and center cursor" },
+	{ "<C-u>", "<C-u>zz", desc = "Vertical half page up and center cursor" },
 
 	-- Buffers
 	{ "<leader>b", "<cmd>b#<cr>", desc = "Switch to last buffer", mode = nvx },
@@ -55,7 +57,7 @@ U.keymaps({
 		"<leader>q",
 		function()
 			-- Custom close/quituto
-      --
+			--
 			-- * if non empty buffer, we will simply open a new empty buffer unless
 			--     it is in the close always list
 			-- * if empty buffer, then we will quit this buffer
