@@ -10,19 +10,206 @@
     };
 
     # Names should always be `nvim_plugin-[lazy plugin name]`
-    # Only need to add plugins as flake inputs if they are:
-    # - Missing in nixpkgs
-    # - We want to pin a specific version diverging from nixpkgs channel
+    "nvim_plugin-folke/lazy.nvim" = {
+      # plugin manager and loader for fast bootup
+      url = "github:folke/lazy.nvim";
+      flake = false;
+    };
+    "nvim_plugin-catppuccin/nvim" = {
+      # color scheme
+      url = "github:catppuccin/nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-tree/nvim-web-devicons" = {
+      url = "github:nvim-tree/nvim-web-devicons";
+      flake = false;
+    };
+
+    # "nvim_plugin-nvim-treesitter/nvim-treesitter" NOTE: done using nix pkgs since it is packaged with all grammars
+    "nvim_plugin-nvim-lua/plenary.nvim" = {
+      # utils used by many plugins
+      url = "github:nvim-lua/plenary.nvim";
+      flake = false;
+    };
+    "nvim_plugin-MunifTanjim/nui.nvim" = {
+      # component library util
+      url = "github:MunifTanjim/nui.nvim";
+      flake = false;
+    };
+
+    "nvim_plugin-rmagatti/auto-session" = {
+      # Restore sessions
+      url = "github:rmagatti/auto-session";
+      flake = false;
+    };
     "nvim_plugin-chrisgrieser/nvim-early-retirement" = {
+      # Close buffers in background if unused
       url = "github:chrisgrieser/nvim-early-retirement";
       flake = false;
     };
-    "nvim_plugin-j-hui/fidget.nvim" = {
-      url = "github:j-hui/fidget.nvim";
+    "nvim_plugin-rcarriga/nvim-notify" = {
+      url = "github:rcarriga/nvim-notify";
+      flake = false;
+    };
+    "nvim_plugin-nvim-lualine/lualine.nvim" = {
+      url = "github:nvim-lualine/lualine.nvim";
+      flake = false;
+    };
+    "nvim_plugin-folke/which-key.nvim" = {
+      url = "github:folke/which-key.nvim";
+      flake = false;
+    };
+
+    "nvim_plugin-nvim-telescope/telescope.nvim" = {
+      # popup search menu
+      url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim" = {
+      # fzf integration for telescope
+      url = "github:nvim-telescope/telescope-fzf-native.nvim";
+      flake = false;
+    };
+    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim" = {
+      # telescope used for selections in ui
+      url = "github:nvim-telescope/telescope-ui-select.nvim";
       flake = false;
     };
     "nvim_plugin-nvim-telescope/telescope-file-browser.nvim" = {
+      # telescope based file browser
       url = "github:nvim-telescope/telescope-file-browser.nvim";
+      flake = false;
+    };
+
+    "nvim_plugin-nvim-tree/nvim-tree.lua" = {
+      # tree based file browser
+      url = "github:nvim-tree/nvim-tree.lua";
+      flake = false;
+    };
+
+    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring" = {
+      url = "github:JoosepAlviste/nvim-ts-context-commentstring";
+      flake = false;
+    };
+    "nvim_plugin-preservim/nerdcommenter" = {
+      url = "github:preservim/nerdcommenter";
+      flake = false;
+    };
+    "nvim_plugin-windwp/nvim-ts-autotag" = {
+      url = "github:windwp/nvim-ts-autotag";
+      flake = false;
+    };
+
+    "nvim_plugin-uga-rosa/ccc.nvim" = {
+      url = "github:uga-rosa/ccc.nvim";
+      flake = false;
+    };
+    "nvim_plugin-lewis6991/gitsigns.nvim" = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+    "nvim_plugin-sindrets/diffview.nvim" = {
+      url = "github:sindrets/diffview.nvim";
+      flake = false;
+    };
+    "nvim_plugin-RRethy/vim-illuminate" = {
+      url = "github:RRethy/vim-illuminate";
+      flake = false;
+    };
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim" = {
+      url = "github:lukas-reineke/indent-blankline.nvim";
+      flake = false;
+    };
+    "nvim_plugin-lnc3l0t/glow.nvim" = {
+      url = "github:lnc3l0t/glow.nvim";
+      flake = false;
+    };
+    "nvim_plugin-Almo7aya/openingh.nvim" = {
+      url = "github:Almo7aya/openingh.nvim";
+      flake = false;
+    };
+    "nvim_plugin-tpope/vim-surround" = {
+      url = "github:tpope/vim-surround";
+      flake = false;
+    };
+    "nvim_plugin-johmsalas/text-case.nvim" = {
+      url = "github:johmsalas/text-case.nvim";
+      flake = false;
+    };
+    "nvim_plugin-mbbill/undotree" = {
+      url = "github:mbbill/undotree";
+      flake = false;
+    };
+    "nvim_plugin-tpope/vim-sleuth" = {
+      url = "github:tpope/vim-sleuth";
+      flake = false;
+    };
+
+    "nvim_plugin-mfussenegger/nvim-lint" = {
+      url = "github:mfussenegger/nvim-lint";
+      flake = false;
+    };
+    "nvim_plugin-stevearc/conform.nvim" = {
+      url = "github:stevearc/conform.nvim";
+      flake = false;
+    };
+
+    "nvim_plugin-j-hui/fidget.nvim" = {
+      # TODO move near lsp
+      # LSP loading status messages
+      url = "github:j-hui/fidget.nvim";
+      flake = false;
+    };
+    "nvim_plugin-neovim/nvim-lspconfig" = {
+      url = "github:neovim/nvim-lspconfig";
+      flake = false;
+    };
+    "nvim_plugin-hrsh7th/nvim-cmp" = {
+      url = "github:hrsh7th/nvim-cmp";
+      flake = false;
+    };
+    "nvim_plugin-L3MON4D3/LuaSnip" = {
+      url = "github:L3MON4D3/LuaSnip";
+      flake = false;
+    };
+    "nvim_plugin-saadparwaiz1/cmp_luasnip" = {
+      url = "github:saadparwaiz1/cmp_luasnip";
+      flake = false;
+    };
+    "nvim_plugin-hrsh7th/cmp-nvim-lsp" = {
+      url = "github:hrsh7th/cmp-nvim-lsp";
+      flake = false;
+    };
+    "nvim_plugin-hrsh7th/cmp-path" = {
+      url = "github:hrsh7th/cmp-path";
+      flake = false;
+    };
+    "nvim_plugin-hrsh7th/cmp-buffer" = {
+      url = "github:hrsh7th/cmp-buffer";
+      flake = false;
+    };
+    "nvim_plugin-zbirenbaum/copilot-cmp" = {
+      url = "github:zbirenbaum/copilot-cmp";
+      flake = false;
+    };
+    "nvim_plugin-zbirenbaum/copilot.lua" = {
+      url = "github:zbirenbaum/copilot.lua";
+      flake = false;
+    };
+    "nvim_plugin-folke/neodev.nvim" = {
+      url = "github:folke/neodev.nvim";
+      flake = false;
+    };
+    "nvim_plugin-Saecki/crates.nvim" = {
+      url = "github:Saecki/crates.nvim";
+      flake = false;
+    };
+    "nvim_plugin-lvimuser/lsp-inlayhints.nvim" = {
+      url = "github:lvimuser/lsp-inlayhints.nvim";
+      flake = false;
+    };
+    "nvim_plugin-rafamadriz/friendly-snippets" = {
+      url = "github:rafamadriz/friendly-snippets";
       flake = false;
     };
   };
@@ -56,53 +243,11 @@
         overlays = [ (import inputs.rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
 
-        # Plugins provided in nixpkgs, match the naming scheme above for keys
-        lazyPath = pkgs.vimPlugins.lazy-nvim;
+        lazyPath = inputs."nvim_plugin-folke/lazy.nvim";
         nixPkgsPlugins = with pkgs.vimPlugins; {
-          "nvim_plugin-folke/lazy.nvim" = lazyPath;
           "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
-          "nvim_plugin-nvim-lua/plenary.nvim" = plenary-nvim;
-          "nvim_plugin-catppuccin/nvim" = catppuccin-nvim;
-          "nvim_plugin-MunifTanjim/nui.nvim" = nui-nvim;
-          "nvim_plugin-rcarriga/nvim-notify" = nvim-notify;
-          "nvim_plugin-nvim-lualine/lualine.nvim" = lualine-nvim;
-          "nvim_plugin-folke/which-key.nvim" = which-key-nvim;
-          "nvim_plugin-nvim-telescope/telescope.nvim" = telescope-nvim;
-          "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim" = telescope-fzf-native-nvim;
-          "nvim_plugin-nvim-telescope/telescope-ui-select.nvim" = telescope-ui-select-nvim;
-          "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring" = nvim-ts-context-commentstring;
-          "nvim_plugin-preservim/nerdcommenter" = nerdcommenter;
-          "nvim_plugin-windwp/nvim-ts-autotag" = nvim-ts-autotag;
-          "nvim_plugin-rmagatti/auto-session" = auto-session;
-          "nvim_plugin-nvim-tree/nvim-web-devicons" = nvim-web-devicons;
-          "nvim_plugin-nvim-tree/nvim-tree.lua" = nvim-tree-lua;
-          "nvim_plugin-uga-rosa/ccc.nvim" = ccc-nvim;
-          "nvim_plugin-lewis6991/gitsigns.nvim" = gitsigns-nvim;
-          "nvim_plugin-sindrets/diffview.nvim" = diffview-nvim;
-          "nvim_plugin-RRethy/vim-illuminate" = vim-illuminate;
-          "nvim_plugin-lukas-reineke/indent-blankline.nvim" = indent-blankline-nvim;
-          "nvim_plugin-lnc3l0t/glow.nvim" = glow-nvim;
-          "nvim_plugin-Almo7aya/openingh.nvim" = openingh-nvim;
-          "nvim_plugin-tpope/vim-surround" = vim-surround;
-          "nvim_plugin-johmsalas/text-case.nvim" = text-case-nvim;
-          "nvim_plugin-mbbill/undotree" = undotree;
-          "nvim_plugin-tpope/vim-sleuth" = vim-sleuth;
-          "nvim_plugin-mfussenegger/nvim-lint" = nvim-lint;
-          "nvim_plugin-stevearc/conform.nvim" = conform-nvim;
-          "nvim_plugin-neovim/nvim-lspconfig" = nvim-lspconfig;
-          "nvim_plugin-hrsh7th/nvim-cmp" = nvim-cmp;
-          "nvim_plugin-L3MON4D3/LuaSnip" = luasnip;
-          "nvim_plugin-saadparwaiz1/cmp_luasnip" = cmp_luasnip;
-          "nvim_plugin-hrsh7th/cmp-nvim-lsp" = cmp-nvim-lsp;
-          "nvim_plugin-hrsh7th/cmp-path" = cmp-path;
-          "nvim_plugin-hrsh7th/cmp-buffer" = cmp-buffer;
-          "nvim_plugin-zbirenbaum/copilot-cmp" = copilot-cmp;
-          "nvim_plugin-zbirenbaum/copilot.lua" = copilot-lua;
-          "nvim_plugin-folke/neodev.nvim" = neodev-nvim;
-          "nvim_plugin-Saecki/crates.nvim" = crates-nvim;
-          "nvim_plugin-lvimuser/lsp-inlayhints.nvim" = lsp-inlayhints-nvim;
-          "nvim_plugin-rafamadriz/friendly-snippets" = friendly-snippets;
         };
+
         # This will be how we put any nix related stuff into our lua config
         luaNixGlobal =
           "NIX="

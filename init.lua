@@ -14,6 +14,8 @@ U = require("util") -- NOTE global U[til]
 require("options")
 require("keymaps")
 
+-- print("IS NIX " .. tostring(NIX ~= nil));
+
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
 if not vim.loop.fs_stat(lazypath) then
@@ -58,10 +60,11 @@ local function getSpec()
 			local nixName = "nvim_plugin-" .. p[1]
 			if not NIX.pluginPaths[nixName] then
 				error("Plugin is missing in the nix store, ensure it is in the nix flake inputs: " .. p[1])
+				return nil
 			end
 			p.dir = NIX.pluginPaths[nixName]
 			p.name = p.name or p[1]
-			p.url = "not_used_in_nix"
+			p.url = nil
 			p.pin = true
 			if p.dependencies then
 				p.dependencies = ensure_table(p.dependencies)
@@ -77,22 +80,28 @@ local function getSpec()
 		for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
 			local plugin = string.sub(file, 0, -5)
 			local converted = convertPluginToNixStore(require("plugins." .. plugin))
-			table.insert(plugins, converted)
+			if converted ~= nil then
+				table.insert(plugins, converted)
+			end
 		end
 		return plugins
 	else
 		return { { import = "plugins" } }
 	end
 end
+
+local s = getSpec()
+-- vim.print(s)
 require("lazy").setup({
-	spec = getSpec(),
+	spec = s,
 	change_detection = {
 		enabled = false,
 	},
-
+	checker = { enabled = false },
 	defaults = {
 		lazy = true,
 	},
+	rocks = { enabled = false },
 })
 
 vim.cmd("colorscheme catppuccin")

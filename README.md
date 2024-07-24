@@ -72,7 +72,7 @@ FUTURE
   - similar to est-nvim/rest.nvim but support streaming etc and show command output
 - Execute selected command and open output into a buffer/popup window? <leader>cx
 - generate command, like scratch open a popup of things that can be generated. UUID/other stuff?
-- <https://github.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50>
+- <https://gilt hub.com/mawkler/nvim/blob/06cde9dbaedab2bb36c06025c07589c93d2c6d6b/lua/configs/luasnip.lua#L37-L50>
 - Checkout cargo-bloat, cargo-cache, cargo-outdated - memcache sccache
 - For scratches, just make an input box for custom extension rather than predefined list
 - freaking learn to use surround more often <https://github.com/tpope/vim-surround/tree/master>
