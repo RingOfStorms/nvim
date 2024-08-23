@@ -44,6 +44,168 @@ local function gitblame()
 	return ""
 end
 
+local function smart_tab_name()
+	local filepath = vim.fn.expand("%:p")
+	local parent_dir = vim.fn.fnamemodify(filepath, ":h:t")
+	local filename = vim.fn.fnamemodify(filepath, ":t")
+
+	-- Define a whitelist of patterns
+	local whitelist = {
+		"index%..*",
+		"mod%..*",
+		"Dockerfile",
+		".env",
+		".env%..*",
+		"README%..*",
+		"LICENSE",
+		"Makefile",
+		"build%..*",
+		"config%..*",
+		"setup%..*",
+		"init%..*",
+		"main%..*",
+		"app%..*",
+		"test%..*",
+		"spec%..*",
+		"package%..*",
+		"requirements%..*",
+		"manifest%..*",
+		"composer%..*",
+		"gulpfile%..*",
+		"Gruntfile%..*",
+		"webpack%..*",
+		"tsconfig%..*",
+		"babel%..*",
+		"eslint%..*",
+		"prettier%..*",
+		"tslint%..*",
+		"karma%..*",
+		"jest%..*",
+		"mocha%..*",
+		"rollup%..*",
+		"vite%..*",
+		"nuxt%..*",
+		"next%..*",
+		"angular%..*",
+		"vue%..*",
+		"tailwind%..*",
+		"postcss%..*",
+		"stylelint%..*",
+		"editorconfig",
+		"gitignore",
+		"gitattributes",
+		"gitmodules",
+		"docker-compose%..*",
+		"dockerfile%..*",
+		"dockerignore",
+		"travis%..*",
+		"circleci%..*",
+		"appveyor%..*",
+		"azure-pipelines%..*",
+		"codecov%..*",
+		"coveralls%..*",
+		"dependabot%..*",
+		"renovate%..*",
+		"vercel%..*",
+		"netlify%..*",
+		"heroku%..*",
+		"now%..*",
+		"firebase%..*",
+		"amplify%..*",
+		"serverless%..*",
+		"cloudformation%..*",
+		"terraform%..*",
+		"ansible%..*",
+		"chef%..*",
+		"puppet%..*",
+		"salt%..*",
+		"helm%..*",
+		"kustomize%..*",
+		"kubernetes%..*",
+		"skaffold%..*",
+		"tilt%..*",
+		"argocd%..*",
+		"flux%..*",
+		"istio%..*",
+		"linkerd%..*",
+		"prometheus%..*",
+		"grafana%..*",
+		"loki%..*",
+		"jaeger%..*",
+		"opentelemetry%..*",
+		"zipkin%..*",
+		"thanos%..*",
+		"victoria-metrics%..*",
+		"cortex%..*",
+		"alertmanager%..*",
+		"blackbox%..*",
+		"node_exporter%..*",
+		"cadvisor%..*",
+		"fluentd%..*",
+		"fluentbit%..*",
+		"logstash%..*",
+		"filebeat%..*",
+		"metricbeat%..*",
+		"heartbeat%..*",
+		"packetbeat%..*",
+		"winlogbeat%..*",
+		"auditbeat%..*",
+		"functionbeat%..*",
+		"elastic-agent%..*",
+		"elasticsearch%..*",
+		"kibana%..*",
+		"logstash%..*",
+		"beats%..*",
+		"opensearch%..*",
+		"opensearch-dashboards%..*",
+		"graylog%..*",
+		"sumologic%..*",
+		"datadog%..*",
+		"newrelic%..*",
+		"dynatrace%..*",
+		"appdynamics%..*",
+		"instana%..*",
+		"lightstep%..*",
+		"signalfx%..*",
+		"wavefront%..*",
+		"scout%..*",
+		"rollbar%..*",
+		"sentry%..*",
+		"bugsnag%..*",
+		"airbrake%..*",
+		"raygun%..*",
+		"overops%..*",
+		"pagerduty%..*",
+		"opsgenie%..*",
+		"victorops%..*",
+		"xmatters%..*",
+		"statuspage%..*",
+		"status.io%..*",
+		"pingdom%..*",
+		"uptimerobot%..*",
+		"site24x7%..*",
+		"betteruptime%..*",
+		"freshping%..*",
+		"healthchecks%..*",
+		"deadmanssnitch%..*",
+		"cronitor%..*",
+		"cronhub%..*",
+		"cronitor%..*",
+		"healthchecks.io%..*",
+	}
+
+	-- Check if the filename matches any pattern in the whitelist
+	for _, pattern in ipairs(whitelist) do
+		if filename:match(pattern) then
+			return parent_dir .. "/" .. filename
+		end
+	end
+
+	-- If no match, return just the filename
+	return filename
+end
+
+
 return {
 	"nvim-lualine/lualine.nvim",
 	-- dependencies = { { "folke/noice.nvim", optional = true } },
@@ -80,7 +242,7 @@ return {
 			winbar = {
 				lualine_a = {
 					{
-						"filename",
+						smart_tab_name,
 						symbols = {
 							modified = "", -- Text to show when the file is modified.
 							readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
@@ -96,7 +258,7 @@ return {
 			inactive_winbar = {
 				lualine_a = {
 					{
-						"filename",
+						smart_tab_name,
 						symbols = {
 							modified = "", -- Text to show when the file is modified.
 							readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
