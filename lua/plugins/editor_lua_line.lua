@@ -13,7 +13,7 @@ local function langs()
 		local out = nil
 		if client.name == "pyright" then
 			out = vim.fn.system({ "python", "-V" })
-		elseif client.name == "tsserver" then
+		elseif client.name == "tsserver" or client.name == "ts_ls" then
 			out = "node " .. vim.fn.system({ "node", "--version" })
 		end
 		if out ~= nil and out ~= "" then

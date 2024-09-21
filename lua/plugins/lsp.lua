@@ -60,7 +60,7 @@ return {
 				group = vim.api.nvim_create_augroup("myconfig-lsp-detach", { clear = true }),
 				callback = function(event)
 					vim.lsp.buf.clear_references()
-					vim.api.nvim_clear_autocmds({ group = "myconfig-lsp-highlight", buffer = event.buf })
+					-- vim.api.nvim_clear_autocmds({ group = "myconfig-lsp-highlight", buffer = event.buf })
 				end,
 			})
 
@@ -112,7 +112,13 @@ return {
 				},
 				rust_analyzer = {},
 				nil_ls = {},
-				tsserver = {
+				-- tsserver = {
+				--   -- typescript/javascript
+				--   implicitProjectConfiguration = {
+				--     checkJs = true,
+				--   },
+				-- },
+				ts_ls = {
 					-- typescript/javascript
 					implicitProjectConfiguration = {
 						checkJs = true,
