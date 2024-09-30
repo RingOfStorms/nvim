@@ -103,7 +103,7 @@
     "nvim_plugin-uga-rosa/ccc.nvim" = {
       url = "github:uga-rosa/ccc.nvim";
       flake = false;
-    };
+    }; 
     "nvim_plugin-lewis6991/gitsigns.nvim" = {
       url = "github:lewis6991/gitsigns.nvim";
       flake = false;
