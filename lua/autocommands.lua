@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 vim.filetype.add({
 	pattern = {
-		[".*env.*"] = "sh",
+		[".env.*"] = "sh",
 		[".*rc"] = "sh",
 	},
 })
@@ -24,16 +24,6 @@ vim.filetype.add({
 vim.filetype.add({
 	extension = {
 		http = "http",
-	},
-})
-vim.filetype.add({
-	extension = {
-		v = "vlang",
-		vsh = "vlang",
-		vv = "vlang",
-	},
-	filename = {
-		["v.mod"] = "vlang",
 	},
 })
 
