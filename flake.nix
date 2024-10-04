@@ -2,7 +2,8 @@
   description = "RingOfStorms's Neovim configuration using nix flake for portability";
   # Nixpkgs / NixOS version to use.
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/master";
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -214,7 +215,7 @@
     };
   };
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    { self, nixpkgs, nixpkgs-stable, ... }@inputs:
     let
       # Anytime there is a huge breaking change that old state files wont
       # work then we make a new version name. Helps separate any files and
@@ -242,9 +243,10 @@
         # pkgs = nixpkgs.legacyPackages.${system};
         overlays = [ (import inputs.rust-overlay) ];
         pkgs = import nixpkgs { inherit system overlays; };
+        stable_pkgs = import nixpkgs-stable { inherit system overlays; };
 
         lazyPath = inputs."nvim_plugin-folke/lazy.nvim";
-        nixPkgsPlugins = with pkgs.vimPlugins; {
+        nixPkgsPlugins = with stable_pkgs.vimPlugins; {
           "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
         };
 
@@ -322,7 +324,7 @@
                 customRC = ''
                   lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
-                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
+                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues stable_pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
                 '';
               }
             )).overrideAttrs
@@ -358,7 +360,7 @@
                   "--run"
                   ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
                   "--run"
-                  ''export TESTASDASD="${lib.concatStringsSep "|" (lib.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}"''
+                  ''export TESTASDASD="${lib.concatStringsSep "|" (lib.attrValues stable_pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}"''
                 ];
               });
         };
