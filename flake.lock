@@ -608,6 +608,22 @@
         "type": "github"
       }
     },
+    "nvim_plugin-ron/ron.vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1660904719,
+        "narHash": "sha256-8/xJmymtVGVz2avzlamgK1cNflZ3NRL+B3c7xxbI964=",
+        "owner": "ron-rs",
+        "repo": "ron.vim",
+        "rev": "f749e543975a82e8dd9a6e7df9600a1c098ae800",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ron-rs",
+        "repo": "ron.vim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-saadparwaiz1/cmp_luasnip": {
       "flake": false,
       "locked": {
@@ -792,6 +808,7 @@
         "nvim_plugin-rafamadriz/friendly-snippets": "nvim_plugin-rafamadriz/friendly-snippets",
         "nvim_plugin-rcarriga/nvim-notify": "nvim_plugin-rcarriga/nvim-notify",
         "nvim_plugin-rmagatti/auto-session": "nvim_plugin-rmagatti/auto-session",
+        "nvim_plugin-ron/ron.vim": "nvim_plugin-ron/ron.vim",
         "nvim_plugin-saadparwaiz1/cmp_luasnip": "nvim_plugin-saadparwaiz1/cmp_luasnip",
         "nvim_plugin-sindrets/diffview.nvim": "nvim_plugin-sindrets/diffview.nvim",
         "nvim_plugin-stevearc/conform.nvim": "nvim_plugin-stevearc/conform.nvim",

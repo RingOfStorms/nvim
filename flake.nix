@@ -211,6 +211,10 @@
       url = "github:rafamadriz/friendly-snippets";
       flake = false;
     };
+    "nvim_plugin-ron/ron.vim" = {
+      url = "github:ron-rs/ron.vim";
+      flake = false;
+    };
   };
   outputs =
     { self, nixpkgs, nixpkgs-stable, ... }@inputs:
