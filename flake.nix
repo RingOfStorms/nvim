@@ -156,8 +156,6 @@
     };
 
     "nvim_plugin-j-hui/fidget.nvim" = {
-      # TODO move near lsp
-      # LSP loading status messages
       url = "github:j-hui/fidget.nvim";
       flake = false;
     };
