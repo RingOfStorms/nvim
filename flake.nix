@@ -5,223 +5,119 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:nixos/nixpkgs/master";
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     # Names should always be `nvim_plugin-[lazy plugin name]`
-    "nvim_plugin-folke/lazy.nvim" = {
-      # plugin manager and loader for fast bootup
-      url = "github:folke/lazy.nvim";
-      flake = false;
-    };
-    "nvim_plugin-catppuccin/nvim" = {
-      # color scheme
-      url = "github:catppuccin/nvim";
-      flake = false;
-    };
-    "nvim_plugin-nvim-tree/nvim-web-devicons" = {
-      url = "github:nvim-tree/nvim-web-devicons";
-      flake = false;
-    };
-
-    # "nvim_plugin-nvim-treesitter/nvim-treesitter" NOTE: done using nix pkgs since it is packaged with all grammars
-    "nvim_plugin-nvim-lua/plenary.nvim" = {
-      # utils used by many plugins
-      url = "github:nvim-lua/plenary.nvim";
-      flake = false;
-    };
-    "nvim_plugin-MunifTanjim/nui.nvim" = {
-      # component library util
-      url = "github:MunifTanjim/nui.nvim";
-      flake = false;
-    };
-
-    "nvim_plugin-rmagatti/auto-session" = {
-      # Restore sessions
-      url = "github:rmagatti/auto-session";
-      flake = false;
-    };
-    "nvim_plugin-chrisgrieser/nvim-early-retirement" = {
-      # Close buffers in background if unused
-      url = "github:chrisgrieser/nvim-early-retirement";
-      flake = false;
-    };
-    "nvim_plugin-rcarriga/nvim-notify" = {
-      url = "github:rcarriga/nvim-notify";
-      flake = false;
-    };
-    "nvim_plugin-nvim-lualine/lualine.nvim" = {
-      url = "github:nvim-lualine/lualine.nvim";
-      flake = false;
-    };
-    "nvim_plugin-folke/which-key.nvim" = {
-      url = "github:folke/which-key.nvim";
-      flake = false;
-    };
-
-    "nvim_plugin-nvim-telescope/telescope.nvim" = {
-      # popup search menu
-      url = "github:nvim-telescope/telescope.nvim";
-      flake = false;
-    };
-    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim" = {
-      # fzf integration for telescope
-      url = "github:nvim-telescope/telescope-fzf-native.nvim";
-      flake = false;
-    };
-    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim" = {
-      # telescope used for selections in ui
-      url = "github:nvim-telescope/telescope-ui-select.nvim";
-      flake = false;
-    };
-    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim" = {
-      # telescope based file browser
-      url = "github:nvim-telescope/telescope-file-browser.nvim";
-      flake = false;
-    };
-
-    "nvim_plugin-nvim-tree/nvim-tree.lua" = {
-      # tree based file browser
-      url = "github:nvim-tree/nvim-tree.lua";
-      flake = false;
-    };
-
-    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring" = {
-      url = "github:JoosepAlviste/nvim-ts-context-commentstring";
-      flake = false;
-    };
-    "nvim_plugin-preservim/nerdcommenter" = {
-      url = "github:preservim/nerdcommenter";
-      flake = false;
-    };
-    "nvim_plugin-windwp/nvim-ts-autotag" = {
-      url = "github:windwp/nvim-ts-autotag";
-      flake = false;
-    };
-
-    "nvim_plugin-uga-rosa/ccc.nvim" = {
-      url = "github:uga-rosa/ccc.nvim";
-      flake = false;
-    }; 
-    "nvim_plugin-lewis6991/gitsigns.nvim" = {
-      url = "github:lewis6991/gitsigns.nvim";
-      flake = false;
-    };
-    "nvim_plugin-sindrets/diffview.nvim" = {
-      url = "github:sindrets/diffview.nvim";
-      flake = false;
-    };
-    "nvim_plugin-RRethy/vim-illuminate" = {
-      url = "github:RRethy/vim-illuminate";
-      flake = false;
-    };
-    "nvim_plugin-lukas-reineke/indent-blankline.nvim" = {
-      url = "github:lukas-reineke/indent-blankline.nvim";
-      flake = false;
-    };
-    "nvim_plugin-lnc3l0t/glow.nvim" = {
-      url = "github:lnc3l0t/glow.nvim";
-      flake = false;
-    };
-    "nvim_plugin-Almo7aya/openingh.nvim" = {
-      url = "github:Almo7aya/openingh.nvim";
-      flake = false;
-    };
-    "nvim_plugin-tpope/vim-surround" = {
-      url = "github:tpope/vim-surround";
-      flake = false;
-    };
-    "nvim_plugin-johmsalas/text-case.nvim" = {
-      url = "github:johmsalas/text-case.nvim";
-      flake = false;
-    };
-    "nvim_plugin-mbbill/undotree" = {
-      url = "github:mbbill/undotree";
-      flake = false;
-    };
-    "nvim_plugin-tpope/vim-sleuth" = {
-      url = "github:tpope/vim-sleuth";
-      flake = false;
-    };
-
-    "nvim_plugin-mfussenegger/nvim-lint" = {
-      url = "github:mfussenegger/nvim-lint";
-      flake = false;
-    };
-    "nvim_plugin-stevearc/conform.nvim" = {
-      url = "github:stevearc/conform.nvim";
-      flake = false;
-    };
-
-    "nvim_plugin-j-hui/fidget.nvim" = {
-      url = "github:j-hui/fidget.nvim";
-      flake = false;
-    };
-    "nvim_plugin-neovim/nvim-lspconfig" = {
-      url = "github:neovim/nvim-lspconfig";
-      flake = false;
-    };
-    "nvim_plugin-hrsh7th/nvim-cmp" = {
-      url = "github:hrsh7th/nvim-cmp";
-      flake = false;
-    };
-    "nvim_plugin-L3MON4D3/LuaSnip" = {
-      url = "github:L3MON4D3/LuaSnip";
-      flake = false;
-    };
-    "nvim_plugin-saadparwaiz1/cmp_luasnip" = {
-      url = "github:saadparwaiz1/cmp_luasnip";
-      flake = false;
-    };
-    "nvim_plugin-hrsh7th/cmp-nvim-lsp" = {
-      url = "github:hrsh7th/cmp-nvim-lsp";
-      flake = false;
-    };
-    "nvim_plugin-hrsh7th/cmp-path" = {
-      url = "github:hrsh7th/cmp-path";
-      flake = false;
-    };
-    "nvim_plugin-hrsh7th/cmp-buffer" = {
-      url = "github:hrsh7th/cmp-buffer";
-      flake = false;
-    };
-    "nvim_plugin-zbirenbaum/copilot-cmp" = {
-      url = "github:zbirenbaum/copilot-cmp";
-      flake = false;
-    };
-    "nvim_plugin-zbirenbaum/copilot.lua" = {
-      url = "github:zbirenbaum/copilot.lua";
-      flake = false;
-    };
-    "nvim_plugin-folke/neodev.nvim" = {
-      url = "github:folke/neodev.nvim";
-      flake = false;
-    };
-    "nvim_plugin-Saecki/crates.nvim" = {
-      url = "github:Saecki/crates.nvim";
-      flake = false;
-    };
-    "nvim_plugin-lvimuser/lsp-inlayhints.nvim" = {
-      url = "github:lvimuser/lsp-inlayhints.nvim";
-      flake = false;
-    };
-    "nvim_plugin-rafamadriz/friendly-snippets" = {
-      url = "github:rafamadriz/friendly-snippets";
-      flake = false;
-    };
-    "nvim_plugin-ron/ron.vim" = {
-      url = "github:ron-rs/ron.vim";
-      flake = false;
-    };
+    "nvim_plugin-folke/lazy.nvim".url = "github:folke/lazy.nvim";
+    "nvim_plugin-folke/lazy.nvim".flake = false; # plugin manager and loader for fast bootup
+    "nvim_plugin-catppuccin/nvim".url = "github:catppuccin/nvim";
+    "nvim_plugin-catppuccin/nvim".flake = false; # color scheme
+    "nvim_plugin-nvim-tree/nvim-web-devicons".url = "github:nvim-tree/nvim-web-devicons";
+    "nvim_plugin-nvim-tree/nvim-web-devicons".flake = false;
+    # "nvim_plugin-nvim-treesitter/nvim-treesitter" NOTE: using nix pkgs since it is packaged with all grammars
+    "nvim_plugin-nvim-lua/plenary.nvim".url = "github:nvim-lua/plenary.nvim";
+    "nvim_plugin-nvim-lua/plenary.nvim".flake = false; # utils used by many plugins
+    "nvim_plugin-MunifTanjim/nui.nvim".url = "github:MunifTanjim/nui.nvim";
+    "nvim_plugin-MunifTanjim/nui.nvim".flake = false; # component library util
+    "nvim_plugin-rmagatti/auto-session".url = "github:rmagatti/auto-session";
+    "nvim_plugin-rmagatti/auto-session".flake = false; # Restore sessions
+    "nvim_plugin-chrisgrieser/nvim-early-retirement".url = "github:chrisgrieser/nvim-early-retirement";
+    "nvim_plugin-chrisgrieser/nvim-early-retirement".flake = false; # Close buffers in background if unused
+    "nvim_plugin-rcarriga/nvim-notify".url = "github:rcarriga/nvim-notify";
+    "nvim_plugin-rcarriga/nvim-notify".flake = false;
+    "nvim_plugin-nvim-lualine/lualine.nvim".url = "github:nvim-lualine/lualine.nvim";
+    "nvim_plugin-nvim-lualine/lualine.nvim".flake = false;
+    "nvim_plugin-folke/which-key.nvim".url = "github:folke/which-key.nvim";
+    "nvim_plugin-folke/which-key.nvim".flake = false;
+    "nvim_plugin-nvim-telescope/telescope.nvim".url = "github:nvim-telescope/telescope.nvim";
+    "nvim_plugin-nvim-telescope/telescope.nvim".flake = false; # popup search menu
+    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".url = "github:nvim-telescope/telescope-fzf-native.nvim";
+    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".flake = false; # fzf integration for telescope
+    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".url = "github:nvim-telescope/telescope-ui-select.nvim";
+    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".flake = false; # telescope used for selections in ui
+    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".url = "github:nvim-telescope/telescope-file-browser.nvim";
+    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".flake = false; # telescope based file browser
+    "nvim_plugin-nvim-tree/nvim-tree.lua".url = "github:nvim-tree/nvim-tree.lua";
+    "nvim_plugin-nvim-tree/nvim-tree.lua".flake = false; # tree based file browser
+    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url = "github:JoosepAlviste/nvim-ts-context-commentstring";
+    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".flake = false;
+    "nvim_plugin-preservim/nerdcommenter".url = "github:preservim/nerdcommenter";
+    "nvim_plugin-preservim/nerdcommenter".flake = false;
+    "nvim_plugin-windwp/nvim-ts-autotag".url = "github:windwp/nvim-ts-autotag";
+    "nvim_plugin-windwp/nvim-ts-autotag".flake = false;
+    "nvim_plugin-uga-rosa/ccc.nvim".url = "github:uga-rosa/ccc.nvim";
+    "nvim_plugin-uga-rosa/ccc.nvim".flake = false;
+    "nvim_plugin-lewis6991/gitsigns.nvim".url = "github:lewis6991/gitsigns.nvim";
+    "nvim_plugin-lewis6991/gitsigns.nvim".flake = false;
+    "nvim_plugin-sindrets/diffview.nvim".url = "github:sindrets/diffview.nvim";
+    "nvim_plugin-sindrets/diffview.nvim".flake = false;
+    "nvim_plugin-RRethy/vim-illuminate".url = "github:RRethy/vim-illuminate";
+    "nvim_plugin-RRethy/vim-illuminate".flake = false;
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim".url = "github:lukas-reineke/indent-blankline.nvim";
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim".flake = false;
+    "nvim_plugin-lnc3l0t/glow.nvim".url = "github:lnc3l0t/glow.nvim";
+    "nvim_plugin-lnc3l0t/glow.nvim".flake = false;
+    "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".url = "github:MeanderingProgrammer/render-markdown.nvim";
+    "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".flake = false;
+    "nvim_plugin-Almo7aya/openingh.nvim".url = "github:Almo7aya/openingh.nvim";
+    "nvim_plugin-Almo7aya/openingh.nvim".flake = false;
+    "nvim_plugin-tpope/vim-surround".url = "github:tpope/vim-surround";
+    "nvim_plugin-tpope/vim-surround".flake = false;
+    "nvim_plugin-johmsalas/text-case.nvim".url = "github:johmsalas/text-case.nvim";
+    "nvim_plugin-johmsalas/text-case.nvim".flake = false;
+    "nvim_plugin-mbbill/undotree".url = "github:mbbill/undotree";
+    "nvim_plugin-mbbill/undotree".flake = false;
+    "nvim_plugin-tpope/vim-sleuth".url = "github:tpope/vim-sleuth";
+    "nvim_plugin-tpope/vim-sleuth".flake = false;
+    "nvim_plugin-mfussenegger/nvim-lint".url = "github:mfussenegger/nvim-lint";
+    "nvim_plugin-mfussenegger/nvim-lint".flake = false;
+    "nvim_plugin-stevearc/conform.nvim".url = "github:stevearc/conform.nvim";
+    "nvim_plugin-stevearc/conform.nvim".flake = false;
+    "nvim_plugin-j-hui/fidget.nvim".url = "github:j-hui/fidget.nvim";
+    "nvim_plugin-j-hui/fidget.nvim".flake = false;
+    "nvim_plugin-neovim/nvim-lspconfig".url = "github:neovim/nvim-lspconfig";
+    "nvim_plugin-neovim/nvim-lspconfig".flake = false;
+    "nvim_plugin-hrsh7th/nvim-cmp".url = "github:hrsh7th/nvim-cmp";
+    "nvim_plugin-hrsh7th/nvim-cmp".flake = false;
+    "nvim_plugin-L3MON4D3/LuaSnip".url = "github:L3MON4D3/LuaSnip";
+    "nvim_plugin-L3MON4D3/LuaSnip".flake = false;
+    "nvim_plugin-saadparwaiz1/cmp_luasnip".url = "github:saadparwaiz1/cmp_luasnip";
+    "nvim_plugin-saadparwaiz1/cmp_luasnip".flake = false;
+    "nvim_plugin-hrsh7th/cmp-nvim-lsp".url = "github:hrsh7th/cmp-nvim-lsp";
+    "nvim_plugin-hrsh7th/cmp-nvim-lsp".flake = false;
+    "nvim_plugin-hrsh7th/cmp-path".url = "github:hrsh7th/cmp-path";
+    "nvim_plugin-hrsh7th/cmp-path".flake = false;
+    "nvim_plugin-hrsh7th/cmp-buffer".url = "github:hrsh7th/cmp-buffer";
+    "nvim_plugin-hrsh7th/cmp-buffer".flake = false;
+    "nvim_plugin-zbirenbaum/copilot-cmp".url = "github:zbirenbaum/copilot-cmp";
+    "nvim_plugin-zbirenbaum/copilot-cmp".flake = false;
+    "nvim_plugin-zbirenbaum/copilot.lua".url = "github:zbirenbaum/copilot.lua";
+    "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
+    # "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
+    # "nvim_plugin-yetone/avante.nvim".flake = false;
+    "nvim_plugin-folke/neodev.nvim".url = "github:folke/neodev.nvim";
+    "nvim_plugin-folke/neodev.nvim".flake = false;
+    "nvim_plugin-Saecki/crates.nvim".url = "github:Saecki/crates.nvim";
+    "nvim_plugin-Saecki/crates.nvim".flake = false;
+    "nvim_plugin-lvimuser/lsp-inlayhints.nvim".url = "github:lvimuser/lsp-inlayhints.nvim";
+    "nvim_plugin-lvimuser/lsp-inlayhints.nvim".flake = false;
+    "nvim_plugin-rafamadriz/friendly-snippets".url = "github:rafamadriz/friendly-snippets";
+    "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
+    "nvim_plugin-ron/ron.vim".url = "github:ron-rs/ron.vim";
+    "nvim_plugin-ron/ron.vim".flake = false;
   };
   outputs =
-    { self, nixpkgs, nixpkgs-stable, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      nixpkgs-stable,
+      ...
+    }@inputs:
     let
       # Anytime there is a huge breaking change that old state files wont
       # work then we make a new version name. Helps separate any files and
-      # "version" my neovim flake
+      # "version" my neovim flake. Use this name for custom .config location
       # ==================
       version = "hydrogen";
       # ===================
@@ -238,7 +134,6 @@
           ]
         );
     in
-    # Takes all top level attributes and changes them to `attribute.${system} = old value`
     withSystem (
       system:
       let

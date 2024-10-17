@@ -80,6 +80,22 @@
         "type": "github"
       }
     },
+    "nvim_plugin-MeanderingProgrammer/render-markdown.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1729167727,
+        "narHash": "sha256-bsTsfnz4AT1LsPnLjp2nDJqnrTBf1CC7J3+ZVb7N/bw=",
+        "owner": "MeanderingProgrammer",
+        "repo": "render-markdown.nvim",
+        "rev": "2f36ac16df20e0c6512f14e2793f7b2ba235989c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MeanderingProgrammer",
+        "repo": "render-markdown.nvim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-MunifTanjim/nui.nvim": {
       "flake": false,
       "locked": {
@@ -775,6 +791,7 @@
         "nvim_plugin-Almo7aya/openingh.nvim": "nvim_plugin-Almo7aya/openingh.nvim",
         "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring": "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring",
         "nvim_plugin-L3MON4D3/LuaSnip": "nvim_plugin-L3MON4D3/LuaSnip",
+        "nvim_plugin-MeanderingProgrammer/render-markdown.nvim": "nvim_plugin-MeanderingProgrammer/render-markdown.nvim",
         "nvim_plugin-MunifTanjim/nui.nvim": "nvim_plugin-MunifTanjim/nui.nvim",
         "nvim_plugin-RRethy/vim-illuminate": "nvim_plugin-RRethy/vim-illuminate",
         "nvim_plugin-Saecki/crates.nvim": "nvim_plugin-Saecki/crates.nvim",
