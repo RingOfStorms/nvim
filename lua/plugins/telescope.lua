@@ -2,8 +2,8 @@ return {
 	"nvim-telescope/telescope.nvim",
 	dependencies = {
 		{ "nvim-lua/plenary.nvim" },
-		{ "nvim-telescope/telescope-fzf-native.nvim" },
-		{ "nvim-telescope/telescope-ui-select.nvim" },
+		{ "nvim-telescope/telescope-fzf-native.nvim", event = "VeryLazy" },
+		{ "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
 	},
 	init = function()
 		U.cmd_executable("rg", {

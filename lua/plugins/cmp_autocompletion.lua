@@ -15,10 +15,6 @@ return {
 			},
 		},
 		"saadparwaiz1/cmp_luasnip",
-
-		-- Adds other completion capabilities.
-		--  nvim-cmp does not ship with all sources by default. They are split
-		--  into multiple repos for maintenance purposes.
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-path",
@@ -26,10 +22,7 @@ return {
 			"zbirenbaum/copilot.lua",
 			cmd = "Copilot",
 			event = "InsertEnter",
-			opts = {
-				-- suggestion = { enabled = false, auto_trigger = false },
-				-- panel = { enabled = false, auto_trigger = false },
-			},
+			opts = {},
 			main = "copilot",
 		},
 		{ "zbirenbaum/copilot-cmp", opts = {}, main = "copilot_cmp" },
@@ -91,21 +84,22 @@ return {
 				{
 					name = "copilot",
 					priority = 9,
-					keyword_length = 1,
-					filter = function(keyword)
-						-- Check if keyword length is some number and not just whitespace
-						if #keyword < 2 or keyword:match("^%s*$") then
-							return false
-						end
-						return true
-					end,
+					-- keyword_length = 1,
+					-- filter = function(keyword)
+					--   -- Check if keyword length is some number and not just whitespace
+					--   if #keyword < 2 or keyword:match("^%s*$") then
+					--     return false
+					--   end
+					--   return true
+					-- end,
+					-- max_item_count = 3,
 				},
 				{ name = "nvim_lsp", priority = 8, max_item_count = 100 },
-				{ name = "luasnip", priority = 7 },
+				{ name = "luasnip", priority = 7, max_item_count = 5 },
 				-- This source provides file path completions, helping you to complete file paths in your code
-				{ name = "path", priority = 7 },
+				{ name = "path", priority = 7, max_item_count = 3 },
 				-- This source provides completion items from the current buffer, meaning it suggests words that have already been typed in the same file.
-				{ name = "buffer", priority = 6 },
+				{ name = "buffer", priority = 6, max_item_count = 5 },
 				-- Rust crates.io integration
 				{ name = "crates" },
 			},

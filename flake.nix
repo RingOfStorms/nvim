@@ -15,6 +15,12 @@
     "nvim_plugin-catppuccin/nvim".flake = false; # color scheme
     "nvim_plugin-nvim-tree/nvim-web-devicons".url = "github:nvim-tree/nvim-web-devicons";
     "nvim_plugin-nvim-tree/nvim-web-devicons".flake = false;
+
+    "nvim_plugin-m4xshen/hardtime.nvim".url = "github:m4xshen/hardtime.nvim";
+    "nvim_plugin-m4xshen/hardtime.nvim".flake = false;
+
+    "nvim_plugin-nvim-treesitter/nvim-treesitter-context".url = "github:nvim-treesitter/nvim-treesitter-context";
+    "nvim_plugin-nvim-treesitter/nvim-treesitter-context".flake = false;
     # "nvim_plugin-nvim-treesitter/nvim-treesitter" NOTE: using nix pkgs since it is packaged with all grammars
     "nvim_plugin-nvim-lua/plenary.nvim".url = "github:nvim-lua/plenary.nvim";
     "nvim_plugin-nvim-lua/plenary.nvim".flake = false; # utils used by many plugins
@@ -78,6 +84,8 @@
     "nvim_plugin-j-hui/fidget.nvim".flake = false;
     "nvim_plugin-neovim/nvim-lspconfig".url = "github:neovim/nvim-lspconfig";
     "nvim_plugin-neovim/nvim-lspconfig".flake = false;
+    "nvim_plugin-b0o/schemastore.nvim".url = "github:b0o/schemastore.nvim";
+    "nvim_plugin-b0o/schemastore.nvim".flake = false;
     "nvim_plugin-hrsh7th/nvim-cmp".url = "github:hrsh7th/nvim-cmp";
     "nvim_plugin-hrsh7th/nvim-cmp".flake = false;
     "nvim_plugin-L3MON4D3/LuaSnip".url = "github:L3MON4D3/LuaSnip";
@@ -98,6 +106,8 @@
     # "nvim_plugin-yetone/avante.nvim".flake = false;
     "nvim_plugin-folke/neodev.nvim".url = "github:folke/neodev.nvim";
     "nvim_plugin-folke/neodev.nvim".flake = false;
+    "nvim_plugin-mrcjkb/rustaceanvim".url = "github:mrcjkb/rustaceanvim";
+    "nvim_plugin-mrcjkb/rustaceanvim".flake = false;
     "nvim_plugin-Saecki/crates.nvim".url = "github:Saecki/crates.nvim";
     "nvim_plugin-Saecki/crates.nvim".flake = false;
     "nvim_plugin-lvimuser/lsp-inlayhints.nvim".url = "github:lvimuser/lsp-inlayhints.nvim";
@@ -199,7 +209,7 @@
           yaml-language-server
           lemminx # xml
           # Other
-          # typescript
+          typescript
           nodejs_20
           clang
           zig
@@ -256,8 +266,6 @@
                   ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
                   "--run"
                   ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
-                  "--run"
-                  ''export TESTASDASD="${lib.concatStringsSep "|" (lib.attrValues stable_pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}"''
                 ];
               });
         };

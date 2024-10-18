@@ -34,6 +34,7 @@ return {
 				},
 				main = "lsp-inlayhints",
 			},
+			{ "b0o/schemastore.nvim" },
 			-- Automatically install LSPs and related tools to stdpath for Neovim
 			{ "williamboman/mason.nvim", enabled = not NIX, config = true }, -- NOTE: Must be loaded before dependants
 			{ "williamboman/mason-lspconfig.nvim", enabled = not NIX },
@@ -68,6 +69,7 @@ return {
 			U.safeRequire("cmp_nvim_lsp", function(c)
 				capabilities = vim.tbl_deep_extend("force", capabilities, c.default_capabilities())
 			end)
+			local schemastore = require("schemastore")
 
 			-- TODO finish porting over lsp configs: https://github.com/RingOfStorms/nvim/blob/master/lua/plugins/lsp.lua
 			local servers = {
@@ -77,6 +79,7 @@ return {
 				-- But for many setups, the LSP (`tsserver`) will work just fine
 				-- Note that `rust-analyzer` is done via mrcjkb/rustaceanvim plugin above, do not register it here.
 				lua_ls = {
+					capabilities = capabilities,
 					settings = {
 						Lua = {
 							runtime = {
@@ -110,8 +113,22 @@ return {
 						},
 					},
 				},
-				rust_analyzer = {},
-				nil_ls = {},
+				-- rust_analyzer = {
+				--   capabilities = capabilities,
+				--   settings = {
+				--     ["rust-analyzer"] = {
+				--       check = {
+				--         command = "clippy",
+				--       },
+				--       diagnostics = {
+				--         enable = true,
+				--       },
+				--     },
+				--   },
+				-- },
+				nil_ls = { -- nix
+					capabilities = capabilities,
+				},
 				-- tsserver = {
 				--   -- typescript/javascript
 				--   implicitProjectConfiguration = {
@@ -120,12 +137,14 @@ return {
 				-- },
 				ts_ls = {
 					-- typescript/javascript
+					capabilities = capabilities,
 					implicitProjectConfiguration = {
 						checkJs = true,
 					},
 				},
 				tailwindcss = {
 					-- tailwind css
+					capabilities = capabilities,
 					-- https://www.tailwind-variants.org/docs/getting-started#intellisense-setup-optional
 					tailwindCSS = {
 						experimental = {
@@ -137,24 +156,46 @@ return {
 				},
 				cssls = {
 					-- css
+					capabilities = capabilities,
 				},
 				jsonls = {
 					-- json
+					capabilities = capabilities,
+					settings = {
+						json = {
+							schemas = schemastore.json.schemas(),
+							validate = { enable = true },
+						},
+					},
 				},
 				pyright = {
 					-- python
+					capabilities = capabilities,
 				},
 				marksman = {
 					-- markdown
+					capabilities = capabilities,
 				},
 				taplo = {
 					-- toml
+					capabilities = capabilities,
 				},
 				yamlls = {
 					-- yaml
+					capabilities = capabilities,
+					settings = {
+						yaml = {
+							schemas = schemastore.yaml.schemas(),
+							schemaStore = {
+								enable = false,
+								url = "",
+							},
+						},
+					},
 				},
 				lemminx = {
 					-- xml
+					capabilities = capabilities,
 				},
 			}
 			if NIX then
