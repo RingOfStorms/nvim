@@ -18,6 +18,8 @@
 
     "nvim_plugin-m4xshen/hardtime.nvim".url = "github:m4xshen/hardtime.nvim";
     "nvim_plugin-m4xshen/hardtime.nvim".flake = false;
+    "nvim_plugin-declancm/cinnamon.nvim".flake = false;
+    "nvim_plugin-declancm/cinnamon.nvim".url = "github:declancm/cinnamon.nvim";
 
     "nvim_plugin-nvim-treesitter/nvim-treesitter-context".url = "github:nvim-treesitter/nvim-treesitter-context";
     "nvim_plugin-nvim-treesitter/nvim-treesitter-context".flake = false;
