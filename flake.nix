@@ -268,6 +268,11 @@
                   ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
                   "--run"
                   ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
+                  # Fix wayland copy paste from system clipboard which uses XDG_RUNTIME_DIR so we need to symlink that into this
+                  "--run"
+                  ''[ ! -d "$XDG_RUNTIME_DIR" ] && mkdir -p "$XDG_RUNTIME_DIR"''
+                  "--run"
+                  ''[ ! -S "$XDG_RUNTIME_DIR/wayland-0" ] && ln -s /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"''
                 ];
               });
         };
