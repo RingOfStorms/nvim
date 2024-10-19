@@ -272,7 +272,14 @@
                   "--run"
                   ''[ ! -d "$XDG_RUNTIME_DIR" ] && mkdir -p "$XDG_RUNTIME_DIR"''
                   "--run"
-                  ''[ ! -S "$XDG_RUNTIME_DIR/wayland-0" ] && ln -s /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"''
+                  ''
+                    if [ -n "$WAYLAND_DISPLAY" ]; then
+                        if [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; then
+                          mkdir -p "$XDG_RUNTIME_DIR"
+                          ln -sf /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"
+                        fi
+                      fi
+                  ''
                 ];
               });
         };
