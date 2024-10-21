@@ -6,10 +6,10 @@ return {
 		keymaps = { basic = true },
 		mode = "cursor",
 		step_size = {
-			vertical = 3,
-			horizontal = 4,
+			vertical = 9,
+			horizontal = 16,
 		},
-		delay = 2,
+		delay = 1,
 	},
 	config = function(_, opts)
 		local cinnamon = require("cinnamon")
