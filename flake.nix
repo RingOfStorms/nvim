@@ -44,6 +44,8 @@
     "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".flake = false; # fzf integration for telescope
     "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".url = "github:nvim-telescope/telescope-ui-select.nvim";
     "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".flake = false; # telescope used for selections in ui
+    "nvim_plugin-aznhe21/actions-preview.nvim".url = "github:aznhe21/actions-preview.nvim";
+    "nvim_plugin-aznhe21/actions-preview.nvim".flake = false; # telescope used for code action diffs in ui
     "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".url = "github:nvim-telescope/telescope-file-browser.nvim";
     "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".flake = false; # telescope based file browser
     "nvim_plugin-nvim-tree/nvim-tree.lua".url = "github:nvim-tree/nvim-tree.lua";

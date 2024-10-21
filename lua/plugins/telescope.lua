@@ -4,6 +4,7 @@ return {
 		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-telescope/telescope-fzf-native.nvim", event = "VeryLazy" },
 		{ "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
+		{ "aznhe21/actions-preview.nvim", event = "VeryLazy" },
 	},
 	init = function()
 		U.cmd_executable("rg", {
