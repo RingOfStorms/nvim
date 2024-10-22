@@ -1,3 +1,14 @@
+vim.g.rustaceanvim = {
+	tools = {
+		enable_clippy = true,
+		enable_nextest = true,
+		reload_workspace_from_cargo_toml = true,
+	},
+	server = {
+		-- cmd = { "nix", "run", "nixpkgs#rust-analyzer" },
+	},
+}
+
 return {
 	-- LSP helper plugins for various languages
 	{ "folke/neodev.nvim", event = { "BufRead *.lua", "BufRead *.vim" }, opts = {}, main = "neodev" },
@@ -9,9 +20,18 @@ return {
 	-- TODO add some hotkeys for opening the popup menus on crates
 	{ "Saecki/crates.nvim", event = "BufRead Cargo.toml", tag = "stable", opts = {}, main = "crates" },
 	{
+		"mrcjkb/rustaceanvim",
+		version = "^5",
+		lazy = false, -- already lazy
+		ft = { "rust" },
+		keys = {},
+		command = "RustLsp",
+	},
+	{
 		"neovim/nvim-lspconfig",
 		event = "BufEnter",
 		dependencies = {
+			{ "hrsh7th/nvim-cmp" },
 			{
 				"lvimuser/lsp-inlayhints.nvim",
 				init = function()
@@ -66,7 +86,7 @@ return {
 
 			vim.api.nvim_create_autocmd("LspDetach", {
 				group = vim.api.nvim_create_augroup("myconfig-lsp-detach", { clear = true }),
-				callback = function(event)
+				callback = function() -- function (event)
 					vim.lsp.buf.clear_references()
 					-- vim.api.nvim_clear_autocmds({ group = "myconfig-lsp-highlight", buffer = event.buf })
 				end,
@@ -83,7 +103,7 @@ return {
 				-- Some languages (like typescript) have entire language plugins that can be useful:
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
+				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				-- Note that `rust-analyzer` is done via mrcjkb/rustaceanvim plugin above, do not register it here.
 				lua_ls = {
 					capabilities = capabilities,
@@ -120,6 +140,7 @@ return {
 						},
 					},
 				},
+				-- Using rustaceanvim now
 				-- rust_analyzer = {
 				--   capabilities = capabilities,
 				--   settings = {
@@ -136,12 +157,6 @@ return {
 				nil_ls = { -- nix
 					capabilities = capabilities,
 				},
-				-- tsserver = {
-				--   -- typescript/javascript
-				--   implicitProjectConfiguration = {
-				--     checkJs = true,
-				--   },
-				-- },
 				ts_ls = {
 					-- typescript/javascript
 					capabilities = capabilities,

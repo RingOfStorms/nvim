@@ -61,19 +61,18 @@ return {
 		},
 		-- Note that all these need to be available at runtime, add them to flake.nix#runtimeDependencies
 		formatters_by_ft = {
-			lua = { "stylua", lsp_format = "fallback" },
-			nix = { "nixfmt", lsp_format = "fallback" },
-			-- vlang = { "v_fmt" },
-			typescript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "fallback" }),
-			typescriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "fallback" }),
-			javascript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "fallback" }),
-			javascriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "fallback" }),
+			lua = { "stylua", lsp_format = "first" },
+			nix = { "nixfmt", lsp_format = "first" },
+			typescript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
+			typescriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
+			javascript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
+			javascriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 
 			-- TODO revisit these I'd like to use them but they are not in nixpkgs yet
 			-- https://nixos.org/guides/nix-pills/
 			-- markdown = { "mdslw", "mdsf"},
-			markdown = { "markdownlint-cli2", lsp_format = "fallback" },
-			-- rust = { "rustfmt" },
+			markdown = { "markdownlint-cli2", lsp_format = "first" },
+			rust = { "rustfmt", lsp_format = "first" },
 		},
 	},
 	keys = {
