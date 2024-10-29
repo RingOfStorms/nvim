@@ -10,6 +10,10 @@ return {
 			horizontal = 16,
 		},
 		delay = 1,
+		max_delta = {
+			lines = 100,
+			time = 200,
+		},
 	},
 	config = function(_, opts)
 		local cinnamon = require("cinnamon")
