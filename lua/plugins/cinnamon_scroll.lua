@@ -3,7 +3,6 @@ return {
 	event = "VeryLazy",
 	opts = {
 		-- change default options here
-		keymaps = { basic = true },
 		mode = "cursor",
 		step_size = {
 			vertical = 9,
