@@ -108,6 +108,8 @@
     "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
     # "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
     # "nvim_plugin-yetone/avante.nvim".flake = false;
+    # "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
+    # "nvim_plugin-stevearc/dressing.nvim".flake = false;
     "nvim_plugin-folke/neodev.nvim".url = "github:folke/neodev.nvim";
     "nvim_plugin-folke/neodev.nvim".flake = false;
     "nvim_plugin-mrcjkb/rustaceanvim".url = "github:mrcjkb/rustaceanvim";
