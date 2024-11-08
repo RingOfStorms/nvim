@@ -44,6 +44,7 @@ local extensions = {
 	"tsx",
 	"jsx",
 	"rs",
+	"ml",
 }
 
 local xdg_data_home = os.getenv("XDG_DATA_HOME") or (os.getenv("HOME") .. "/.local/share")

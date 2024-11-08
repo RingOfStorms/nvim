@@ -208,12 +208,13 @@
           vscode-langservers-extracted # HTML/CSS/JSON/ESLint
           nodePackages.typescript-language-server
           tailwindcss-language-server
-          pyright
+          python312Packages.python-lsp-server
           rust-analyzer
           marksman # markdown
           taplo # toml
           yaml-language-server
           lemminx # xml
+          ocamlPackages.ocaml-lsp # ocaml
           # Other
           typescript
           nodejs_20
