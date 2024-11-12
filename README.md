@@ -12,7 +12,7 @@ Old pre nix config: https://github.com/RingOfStorms/nvim/tree/40eadc9 for refere
 ### With Nix
 
 ```sh
-nix run 'github:ringofstorms/nvim'
+nix run git+https://git.joshuabell.xyz/nvim
 ```
 
 in NixOS
@@ -20,8 +20,7 @@ in NixOS
 ```nix
 -- in flake.nix#inputs
 ringofstorms-nvim = {
-  url = "github:RingOfStorms/nvim";
-  inputs.nixpkgs.follows = "nixpkgs";
+  url = "git+https://git.joshuabell.xyz/nvim";
 };
 -- in nix module
 environment.systemPackages = with pkgs; [

@@ -218,7 +218,7 @@
           typescript
           nodejs_20
           clang
-          zig
+          # zig
           (pkgs.rust-bin.stable.latest.default.override {
             extensions = [
               "rust-src"
