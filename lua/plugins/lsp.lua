@@ -190,8 +190,8 @@ return {
 						},
 					},
 				},
-				pyright = {
-					-- python
+				-- python
+				pylsp = {
 					capabilities = capabilities,
 				},
 				marksman = {
@@ -219,6 +219,10 @@ return {
 					-- xml
 					capabilities = capabilities,
 				},
+				ocamllsp = {
+					-- ocaml
+					capabilities = capabilities,
+				}
 			}
 			if NIX then
 				local lsp_servers = vim.tbl_keys(servers or {})

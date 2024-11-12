@@ -5,7 +5,7 @@ Goals:
 - Works with or without nix
 - LSP integration with the current project's settings if available
 
-Old pre nix config: https://github.com/RingOfStorms/nvim/tree/40eadc9 for reference
+Old pre nix config: https://git.joshuabell.xyz/nvim/~files/40eadc9b714fa29c5b28aca49f77c1ea62141763 for reference
 
 ## Running
 
