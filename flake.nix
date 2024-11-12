@@ -106,6 +106,8 @@
     "nvim_plugin-zbirenbaum/copilot-cmp".flake = false;
     "nvim_plugin-zbirenbaum/copilot.lua".url = "github:zbirenbaum/copilot.lua";
     "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
+    "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".url = "github:CopilotC-Nvim/CopilotChat.nvim";
+    "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".flake = false;
     # "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
     # "nvim_plugin-yetone/avante.nvim".flake = false;
     # "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
@@ -203,6 +205,7 @@
           rustywind
           markdownlint-cli2
           # LSPs
+          python312Packages.tiktoken # needed for copilot chat
           nil # nix
           lua-language-server
           vscode-langservers-extracted # HTML/CSS/JSON/ESLint
