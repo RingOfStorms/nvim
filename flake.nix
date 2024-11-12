@@ -214,7 +214,7 @@
           taplo # toml
           yaml-language-server
           lemminx # xml
-          ocamlPackages.ocaml-lsp # ocaml
+          # ocamlPackages.ocaml-lsp # ocaml
           # Other
           typescript
           nodejs_20
