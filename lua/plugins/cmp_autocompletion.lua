@@ -50,9 +50,8 @@ return {
 				},
 			},
 			keys = {
-				-- Show help actions with telescope
 				{
-					"<leader><leader>h",
+					"<leader>ch",
 					function()
 						local actions = require("CopilotChat.actions")
 						require("CopilotChat.integrations.telescope").pick(actions.help_actions())
@@ -60,9 +59,8 @@ return {
 					desc = "CopilotChat - Help actions",
 					mode = { "n", "v", "x" },
 				},
-				-- Show prompts actions with telescope
 				{
-					"<leader><leader>p",
+					"<leader>cp",
 					function()
 						local actions = require("CopilotChat.actions")
 						require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
@@ -70,9 +68,8 @@ return {
 					desc = "CopilotChat - Prompt actions",
 					mode = { "n", "v", "x" },
 				},
-				-- Quick chat with Copilot
 				{
-					"<leader><leader>q",
+					"<leader>cq",
 					function()
 						local input = vim.fn.input("Quick Chat: ")
 						if input ~= "" then
@@ -82,9 +79,8 @@ return {
 					desc = "CopilotChat - Quick chat",
 					mode = { "n", "v", "x" },
 				},
-				-- Quick chat with Copilot
 				{
-					"<leader><leader>c",
+					"<leader>cc",
 					function()
 						require("CopilotChat").toggle()
 					end,
