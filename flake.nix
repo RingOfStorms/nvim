@@ -309,11 +309,15 @@
                   "LD_LIBRARY_PATH"
                   ":"
                   "${avante-nvim-lib}/lib"
-                  # Add Lua C modules path
+                  # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
                   "--prefix"
                   "LUA_CPATH"
                   ";"
                   "${avante-nvim-lib}/lib/?.so"
+                  "--prefix"
+                  "LUA_CPATH"
+                  ";"
+                  "${avante-nvim-lib}/lib/?.dylib"
                   # Don't use default directories to not collide with another neovim config
                   # All things at runtime should be deletable since we are using nix to handle downloads and bins
                   # so I've chosen to put everything into the local state directory.

@@ -33,14 +33,23 @@ return {
 		end
 	end,
 	lazy = false,
-	opts = {
-		provider = "claude",
-		behavior = {
-			-- auto_suggestions = true, -- Experimental stage
-			auto_set_keymaps = false,
-			support_paste_from_clipboard = true,
-		},
-	},
+	opts = function()
+		local provider
+		if os.getenv("ANTHROPIC_API_KEY") then
+			provider = "claude"
+		else
+			provider = "copilot"
+		end
+
+		return {
+			provider = provider,
+			behavior = {
+				-- auto_suggestions = true, -- Experimental stage
+				auto_set_keymaps = false,
+				support_paste_from_clipboard = true,
+			},
+		}
+	end,
 	config = function(_, opts)
 		require("avante_lib").load()
 		require("avante").setup(opts)
