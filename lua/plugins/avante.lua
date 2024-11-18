@@ -74,6 +74,7 @@ return {
 					suggestion = "<leader><leader>S",
 					repomap = "<leader><leader>R",
 				},
+				-- suggestion = { accept = "<M-y>" },
 			},
 		}
 	end,
