@@ -110,6 +110,8 @@
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".flake = false;
     "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
     "nvim_plugin-yetone/avante.nvim".flake = false;
+    # "nvim_plugin-HakonHarnes/img-clip.nvim".url = "github:HakonHarnes/img-clip.nvim";
+    # "nvim_plugin-HakonHarnes/img-clip.nvim".flake = false;
     "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
     "nvim_plugin-stevearc/dressing.nvim".flake = false;
     "nvim_plugin-folke/neodev.nvim".url = "github:folke/neodev.nvim";

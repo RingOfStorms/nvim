@@ -7,18 +7,15 @@ return {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			-- {
-			--   -- support for image pasting
 			--   "HakonHarnes/img-clip.nvim",
 			--   event = "VeryLazy",
 			--   opts = {
-			--     -- recommended settings
 			--     default = {
 			--       embed_image_as_base64 = false,
 			--       prompt_for_file_name = false,
-			--       drag_and_drop =
+			--       drag_and_drop = {
 			--         insert_mode = true,
 			--       },
-			--       -- required for Windows users
 			--       use_absolute_path = true,
 			--     },
 			--   },
@@ -32,35 +29,28 @@ return {
 	end)(),
 	event = "VeryLazy",
 	build = function()
-		-- TODO does this actually work? I still dont have full non nix support tested for this config.
 		if not NIX then
-			vim.cmd("make")
+			vim.fn.system("make")
 		end
 	end,
 	lazy = false,
 	opts = function()
-		local provider
-		if os.getenv("ANTHROPIC_API_KEY") then
-			provider = "claude"
-		else
-			provider = "copilot"
-		end
+		local provider = os.getenv("ANTHROPIC_API_KEY") and "claude" or "copilot"
 
 		return {
 			provider = provider,
 			auto_suggestions_provider = provider,
 			hints = { enabled = false },
 			behavior = {
-				auto_suggestions = true, -- Experimental stage
+				auto_suggestions = true,
 				auto_set_keymaps = false,
 				support_paste_from_clipboard = true,
 				auto_apply_diff_after_generation = false,
+				minimize_diff = true,
 			},
 			windows = {
 				position = "top",
-				input = {
-					prefix = "",
-				},
+				input = { prefix = "" },
 			},
 			mappings = {
 				ask = "<nop>",
@@ -74,7 +64,6 @@ return {
 					suggestion = "<leader><leader>S",
 					repomap = "<leader><leader>R",
 				},
-				-- suggestion = { accept = "<M-y>" },
 			},
 		}
 	end,
@@ -97,7 +86,10 @@ return {
 		},
 		{
 			"<leader><leader>e",
-			"<esc>ggVG<cmd>AvanteEdit<cr>",
+			function()
+				vim.cmd("normal! ggVG")
+				vim.cmd("AvanteEdit")
+			end,
 			desc = "Avante - Edit File",
 			mode = { "n" },
 		},
