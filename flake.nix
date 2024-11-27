@@ -255,6 +255,7 @@
           lua-language-server
           vscode-langservers-extracted # HTML/CSS/JSON/ESLint
           nodePackages.typescript-language-server
+          nodePackages.svelte-language-server
           tailwindcss-language-server
           python312Packages.python-lsp-server
           rust-analyzer

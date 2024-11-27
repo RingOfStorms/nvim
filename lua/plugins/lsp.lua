@@ -164,6 +164,9 @@ return {
 						checkJs = true,
 					},
 				},
+				svelte = {
+					-- svelte
+				},
 				tailwindcss = {
 					-- tailwind css
 					capabilities = capabilities,
