@@ -67,6 +67,7 @@ return {
 			typescriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 			javascript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 			javascriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
+			svelte = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 
 			-- TODO revisit these I'd like to use them but they are not in nixpkgs yet
 			-- https://nixos.org/guides/nix-pills/
