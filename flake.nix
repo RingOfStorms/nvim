@@ -52,8 +52,8 @@
     "nvim_plugin-nvim-tree/nvim-tree.lua".flake = false; # tree based file browser
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url = "github:JoosepAlviste/nvim-ts-context-commentstring";
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".flake = false;
-    "nvim_plugin-preservim/nerdcommenter".url = "github:preservim/nerdcommenter";
-    "nvim_plugin-preservim/nerdcommenter".flake = false;
+    "nvim_plugin-numToStr/Comment.nvim".url = "github:numToStr/Comment.nvim";
+    "nvim_plugin-numToStr/Comment.nvim".flake = false;
     "nvim_plugin-windwp/nvim-ts-autotag".url = "github:windwp/nvim-ts-autotag";
     "nvim_plugin-windwp/nvim-ts-autotag".flake = false;
     "nvim_plugin-uga-rosa/ccc.nvim".url = "github:uga-rosa/ccc.nvim";
