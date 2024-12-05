@@ -31,8 +31,15 @@ return {
 			"<leader>/",
 			"<Plug>(comment_toggle_linewise_visual)",
 			'<ESC><CMD>lua require("Comment.api").locked("toggle.linewise")(vim.fn.visualmode())<CR>',
-			mode = { "n", "x" },
-			desc = "Toggle comments on line/selection",
+			mode = { "x" },
+			desc = "Toggle comments on selection",
+		},
+		{
+			"<leader>/",
+			"V<Plug>(comment_toggle_linewise_visual)",
+			'<ESC><CMD>lua require("Comment.api").locked("toggle.linewise")(vim.fn.visualmode())<CR>',
+			mode = { "n" },
+			desc = "Toggle comments on line",
 		},
 	},
 }
