@@ -346,6 +346,10 @@
                           mkdir -p "$XDG_RUNTIME_DIR"
                           ln -sf /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"
                         fi
+                        if [ ! -S "$XDG_RUNTIME_DIR/wayland-1" ]; then
+                          mkdir -p "$XDG_RUNTIME_DIR"
+                          ln -sf /run/user/$(id -u)/wayland-1 "$XDG_RUNTIME_DIR/wayland-1"
+                        fi
                       fi
                   ''
                   # Clear proxy environment variables
