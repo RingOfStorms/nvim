@@ -200,6 +200,8 @@ local function smart_tab_name()
 		"cronitor%..*",
 		"healthchecks.io%..*",
 		"flake.*",
+		"configuration.nix",
+		"hardware-configuration.nix",
 	}
 
 	-- Check if the filename matches any pattern in the whitelist
