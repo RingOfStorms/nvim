@@ -54,13 +54,15 @@ local function smart_tab_name()
 		"index%..*",
 		"mod%..*",
 		"Dockerfile",
+		"Dockerfile.*",
+		".envrc",
 		".env",
 		".env%..*",
-    "router%..*",
-    "controller%..*",
-    "service%..*",
-    "utils%..*",
-    "util%..*",
+		"router%..*",
+		"controller%..*",
+		"service%..*",
+		"utils%..*",
+		"util%..*",
 		"README%..*",
 		"LICENSE",
 		"Makefile",
@@ -197,6 +199,9 @@ local function smart_tab_name()
 		"cronhub%..*",
 		"cronitor%..*",
 		"healthchecks.io%..*",
+		"flake.*",
+		"configuration.nix",
+		"hardware-configuration.nix",
 	}
 
 	-- Check if the filename matches any pattern in the whitelist
@@ -209,7 +214,6 @@ local function smart_tab_name()
 	-- If no match, return just the filename
 	return filename
 end
-
 
 return {
 	"nvim-lualine/lualine.nvim",
