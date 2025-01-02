@@ -3,7 +3,7 @@
   # Nixpkgs / NixOS version to use.
   inputs = {
     # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -155,7 +155,7 @@
       # Utilities
       inherit (nixpkgs) lib;
       # Define the systems to support (all Linux systems exposed by nixpkgs)
-      systems = lib.intersectLists lib.systems.flakeExposed lib.platforms.linux;
+      systems = lib.unique (lib.concatLists [ lib.systems.flakeExposed lib.platforms.linux ]);
       forAllSystems = lib.genAttrs systems;
       # Create a mapping from system to corresponding nixpkgs : https://nixos.wiki/wiki/Overlays#In_a_Nix_flake
       nixpkgsFor = forAllSystems (system: (nixpkgs.legacyPackages.${system}.extend rustOverlay));
