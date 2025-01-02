@@ -21,7 +21,8 @@
     "nvim_plugin-declancm/cinnamon.nvim".flake = false;
     "nvim_plugin-declancm/cinnamon.nvim".url = "github:declancm/cinnamon.nvim";
 
-    "nvim_plugin-nvim-treesitter/nvim-treesitter-context".url = "github:nvim-treesitter/nvim-treesitter-context";
+    "nvim_plugin-nvim-treesitter/nvim-treesitter-context".url =
+      "github:nvim-treesitter/nvim-treesitter-context";
     "nvim_plugin-nvim-treesitter/nvim-treesitter-context".flake = false;
     # "nvim_plugin-nvim-treesitter/nvim-treesitter" NOTE: using nix pkgs since it is packaged with all grammars
     "nvim_plugin-nvim-lua/plenary.nvim".url = "github:nvim-lua/plenary.nvim";
@@ -40,17 +41,21 @@
     "nvim_plugin-folke/which-key.nvim".flake = false;
     "nvim_plugin-nvim-telescope/telescope.nvim".url = "github:nvim-telescope/telescope.nvim";
     "nvim_plugin-nvim-telescope/telescope.nvim".flake = false; # popup search menu
-    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".url = "github:nvim-telescope/telescope-fzf-native.nvim";
+    "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".url =
+      "github:nvim-telescope/telescope-fzf-native.nvim";
     "nvim_plugin-nvim-telescope/telescope-fzf-native.nvim".flake = false; # fzf integration for telescope
-    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".url = "github:nvim-telescope/telescope-ui-select.nvim";
+    "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".url =
+      "github:nvim-telescope/telescope-ui-select.nvim";
     "nvim_plugin-nvim-telescope/telescope-ui-select.nvim".flake = false; # telescope used for selections in ui
     "nvim_plugin-aznhe21/actions-preview.nvim".url = "github:aznhe21/actions-preview.nvim";
     "nvim_plugin-aznhe21/actions-preview.nvim".flake = false; # telescope used for code action diffs in ui
-    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".url = "github:nvim-telescope/telescope-file-browser.nvim";
+    "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".url =
+      "github:nvim-telescope/telescope-file-browser.nvim";
     "nvim_plugin-nvim-telescope/telescope-file-browser.nvim".flake = false; # telescope based file browser
     "nvim_plugin-nvim-tree/nvim-tree.lua".url = "github:nvim-tree/nvim-tree.lua";
     "nvim_plugin-nvim-tree/nvim-tree.lua".flake = false; # tree based file browser
-    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url = "github:JoosepAlviste/nvim-ts-context-commentstring";
+    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url =
+      "github:JoosepAlviste/nvim-ts-context-commentstring";
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".flake = false;
     "nvim_plugin-numToStr/Comment.nvim".url = "github:numToStr/Comment.nvim";
     "nvim_plugin-numToStr/Comment.nvim".flake = false;
@@ -64,11 +69,13 @@
     "nvim_plugin-sindrets/diffview.nvim".flake = false;
     "nvim_plugin-RRethy/vim-illuminate".url = "github:RRethy/vim-illuminate";
     "nvim_plugin-RRethy/vim-illuminate".flake = false;
-    "nvim_plugin-lukas-reineke/indent-blankline.nvim".url = "github:lukas-reineke/indent-blankline.nvim";
+    "nvim_plugin-lukas-reineke/indent-blankline.nvim".url =
+      "github:lukas-reineke/indent-blankline.nvim";
     "nvim_plugin-lukas-reineke/indent-blankline.nvim".flake = false;
     "nvim_plugin-lnc3l0t/glow.nvim".url = "github:lnc3l0t/glow.nvim";
     "nvim_plugin-lnc3l0t/glow.nvim".flake = false;
-    "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".url = "github:MeanderingProgrammer/render-markdown.nvim";
+    "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".url =
+      "github:MeanderingProgrammer/render-markdown.nvim";
     "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".flake = false;
     "nvim_plugin-Almo7aya/openingh.nvim".url = "github:Almo7aya/openingh.nvim";
     "nvim_plugin-Almo7aya/openingh.nvim".flake = false;
@@ -371,6 +378,19 @@
                   "ALL_PROXY"
                 ];
               });
+        };
+
+        nixosModules = {
+          default =
+            {
+              pkgs,
+              ...
+            }:
+            {
+              environment.systemPackages = [
+                self.packages.${pkgs.system}.default
+              ];
+            };
         };
       }
     );
