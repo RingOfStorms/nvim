@@ -108,6 +108,9 @@ return {
 			function()
 				require("telescope.builtin").find_files({
 					hidden = true,
+					follow = true,
+					no_ignore = true,
+					no_ignore_parent = true,
 				})
 			end,
 			desc = "Find Files",
@@ -128,6 +131,9 @@ return {
 					function()
 						require("telescope.builtin").live_grep({
 							hidden = true,
+							follow = true,
+							no_ignore = true,
+							no_ignore_parent = true,
 						})
 					end,
 					function()
