@@ -2,7 +2,7 @@
   description = "RingOfStorms's Neovim configuration using nix flake for portability";
   # Nixpkgs / NixOS version to use.
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs/master";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -140,7 +140,8 @@
     {
       self,
       nixpkgs,
-      nixpkgs-stable,
+      # nixpkgs-stable,
+      rust-overlay,
       ...
     }@inputs:
     let
@@ -151,141 +152,137 @@
       version = "hydrogen";
       # ===================
 
+      # Utilities
       inherit (nixpkgs) lib;
-      withSystem =
-        f:
-        lib.fold lib.recursiveUpdate { } (
-          map f [
-            "x86_64-linux"
-            "x86_64-darwin"
-            "aarch64-linux"
-            "aarch64-darwin"
-          ]
-        );
+      # Define the systems to support (all Linux systems exposed by nixpkgs)
+      systems = lib.intersectLists lib.systems.flakeExposed lib.platforms.linux;
+      forAllSystems = lib.genAttrs systems;
+      # Create a mapping from system to corresponding nixpkgs : https://nixos.wiki/wiki/Overlays#In_a_Nix_flake
+      nixpkgsFor = forAllSystems (system: (nixpkgs.legacyPackages.${system}.extend rustOverlay));
+
+      # =========
+      rustOverlay = import rust-overlay;
     in
-    withSystem (
-      system:
-      let
-        # pkgs = nixpkgs.legacyPackages.${system};
-        overlays = [ (import inputs.rust-overlay) ];
-        pkgs = import nixpkgs { inherit system overlays; };
-        stable_pkgs = import nixpkgs-stable { inherit system overlays; };
-
-        lazyPath = inputs."nvim_plugin-folke/lazy.nvim";
-        nixPkgsPlugins = with stable_pkgs.vimPlugins; {
-          "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
-        };
-
-        avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
-          pname = "avante-nvim-lib";
-          version = "0.0.0";
-          src = inputs."nvim_plugin-yetone/avante.nvim";
-
-          buildFeatures = [ "luajit" ];
-          doCheck = false;
-          cargoLock = {
-            lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
-            allowBuiltinFetchGit = true;
+    {
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgsFor.${system};
+          lazyPath = inputs."nvim_plugin-folke/lazy.nvim";
+          nixPkgsPlugins = with pkgs.vimPlugins; {
+            "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
           };
 
-          nativeBuildInputs = with pkgs; [
-            pkg-config
-          ];
+          avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
+            pname = "avante-nvim-lib";
+            version = "0.0.0";
+            src = inputs."nvim_plugin-yetone/avante.nvim";
 
-          buildInputs = with pkgs; [
-            openssl.dev
-          ];
-          env = {
-            OPENSSL_NO_VENDOR = "1";
-            OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-            OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-            OPENSSL_DIR = "${pkgs.openssl.dev}";
-          };
-          postInstall = ''
-            # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
-            for f in $out/lib/lib*; do
-              mv "$f" "$out/lib/''${f##*/lib}"
-            done
-          '';
-          meta = {
-            description = "Avante nvim libraries";
-            homepage = "https://github.com/yetone/avante.nvim";
-            license = pkgs.lib.licenses.asl20;
-          };
-        };
+            buildFeatures = [ "luajit" ];
+            doCheck = false;
+            cargoLock = {
+              lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
+              allowBuiltinFetchGit = true;
+            };
 
-        # This will be how we put any nix related stuff into our lua config
-        luaNixGlobal =
-          "NIX="
-          +
-            lib.generators.toLua
-              {
-                multiline = false;
-                indent = false;
-              }
-              ({
-                storePath = "${./.}";
-                # This will look at all inputs and grab any prefixed with `nvim_plugin-`
-                pluginPaths =
-                  builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins
-                    (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
-              });
-
-        # These are appended at the start of the path so that they take precedence over local install tools
-        runtimeDependencies = with pkgs; [
-          # tools
-          ripgrep # search
-          fd # search
-          fzf # search fuzzy
-          tree-sitter
-          glow # markdown renderer
-          curl # http requests
-          sshfs # remote dev for nosduco/remote-sshfs.nvim
-          # nodePackages.cspell TODO check out `typos` rust checker instead?
-        ];
-
-        # These are appended at the end of the PATH so any local installed tools will take precedence
-        defaultRuntimeDependencies = with pkgs; [
-          # linters
-          markdownlint-cli
-          luajitPackages.luacheck
-          biome # (t|s)j[x]
-          # formatters
-          stylua
-          nixfmt-rfc-style
-          nodePackages.prettier
-          rustywind
-          markdownlint-cli2
-          # LSPs
-          python312Packages.tiktoken # needed for copilot chat
-          nil # nix
-          lua-language-server
-          vscode-langservers-extracted # HTML/CSS/JSON/ESLint
-          nodePackages.typescript-language-server
-          nodePackages.svelte-language-server
-          tailwindcss-language-server
-          python312Packages.python-lsp-server
-          rust-analyzer
-          marksman # markdown
-          taplo # toml
-          yaml-language-server
-          lemminx # xml
-          # ocamlPackages.ocaml-lsp # ocaml
-          # Other
-          typescript
-          nodejs_20
-          clang
-          # zig
-          (pkgs.rust-bin.stable.latest.default.override {
-            extensions = [
-              "rust-src"
-              "rust-analyzer"
+            nativeBuildInputs = with pkgs; [
+              pkg-config
             ];
-          })
-        ];
-      in
-      {
-        packages.${system} = {
+
+            buildInputs = with pkgs; [
+              openssl.dev
+            ];
+            env = {
+              OPENSSL_NO_VENDOR = "1";
+              OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
+              OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
+              OPENSSL_DIR = "${pkgs.openssl.dev}";
+            };
+            postInstall = ''
+              # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
+              for f in $out/lib/lib*; do
+                mv "$f" "$out/lib/''${f##*/lib}"
+              done
+            '';
+            meta = {
+              description = "Avante nvim libraries";
+              homepage = "https://github.com/yetone/avante.nvim";
+              license = pkgs.lib.licenses.asl20;
+            };
+          };
+
+          # This will be how we put any nix related stuff into our lua config
+          luaNixGlobal =
+            "NIX="
+            +
+              lib.generators.toLua
+                {
+                  multiline = false;
+                  indent = false;
+                }
+                ({
+                  storePath = "${./.}";
+                  # This will look at all inputs and grab any prefixed with `nvim_plugin-`
+                  pluginPaths =
+                    builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins
+                      (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
+                });
+
+          # These are appended at the start of the path so that they take precedence over local install tools
+          runtimeDependencies = with pkgs; [
+            # tools
+            ripgrep # search
+            fd # search
+            fzf # search fuzzy
+            tree-sitter
+            glow # markdown renderer
+            curl # http requests
+            sshfs # remote dev for nosduco/remote-sshfs.nvim
+            # nodePackages.cspell TODO check out `typos` rust checker instead?
+          ];
+
+          # These are appended at the end of the PATH so any local installed tools will take precedence
+          defaultRuntimeDependencies = with pkgs; [
+            # linters
+            markdownlint-cli
+            luajitPackages.luacheck
+            biome # (t|s)j[x]
+            # formatters
+            stylua
+            nixfmt-rfc-style
+            nodePackages.prettier
+            rustywind
+            markdownlint-cli2
+            # LSPs
+            python312Packages.tiktoken # needed for copilot chat
+            nil # nix
+            lua-language-server
+            vscode-langservers-extracted # HTML/CSS/JSON/ESLint
+            nodePackages.typescript-language-server
+            nodePackages.svelte-language-server
+            tailwindcss-language-server
+            python312Packages.python-lsp-server
+            rust-analyzer
+            marksman # markdown
+            taplo # toml
+            yaml-language-server
+            lemminx # xml
+            # ocamlPackages.ocaml-lsp # ocaml
+            # Other
+            typescript
+            nodejs_20
+            clang
+            # zig
+            (pkgs.rust-bin.stable.latest.default.override {
+              extensions = [
+                "rust-src"
+                "rust-analyzer"
+              ];
+            })
+          ];
+
+        in
+        {
           default = self.packages.${system}.neovim;
           neovim =
             (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
@@ -294,7 +291,7 @@
                 customRC = ''
                   lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
-                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues stable_pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
+                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
                 '';
               }
             )).overrideAttrs
@@ -378,20 +375,19 @@
                   "ALL_PROXY"
                 ];
               });
-        };
-
-        nixosModules = {
-          default =
-            {
-              pkgs,
-              ...
-            }:
-            {
-              environment.systemPackages = [
-                self.packages.${pkgs.system}.default
-              ];
-            };
-        };
-      }
-    );
+        }
+      );
+      nixosModules = {
+        default =
+          {
+            pkgs,
+            ...
+          }:
+          {
+            environment.systemPackages = [
+              self.packages.${pkgs.system}.default
+            ];
+          };
+      };
+    };
 }
