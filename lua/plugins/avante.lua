@@ -49,7 +49,8 @@ return {
 				minimize_diff = true,
 			},
 			windows = {
-				position = "top",
+				position = "right",
+				wrap = true,
 				input = { prefix = "" },
 			},
 			mappings = {
