@@ -59,6 +59,7 @@ local function smart_tab_name()
 		".env",
 		".env%..*",
 		"router%..*",
+		"routes%..*",
 		"controller%..*",
 		"service%..*",
 		"utils%..*",
