@@ -154,6 +154,9 @@ return {
 				--     },
 				--   },
 				-- },
+				gopls = {
+					capabilities = capabilities,
+				},
 				nil_ls = { -- nix
 					capabilities = capabilities,
 				},
@@ -166,6 +169,7 @@ return {
 				},
 				svelte = {
 					-- svelte
+					capabilities = capabilities,
 				},
 				tailwindcss = {
 					-- tailwind css
