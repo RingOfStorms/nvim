@@ -156,6 +156,7 @@ return {
 				-- },
 				gopls = {
 					capabilities = capabilities,
+					single_file_support = true,
 				},
 				nil_ls = { -- nix
 					capabilities = capabilities,

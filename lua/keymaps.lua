@@ -27,7 +27,7 @@ U.keymaps({
 	{ ";", ":", desc = "No shift to enter command mode with semicolon. Alias ; to :", mode = nvx },
 	{ "<leader>Q", "<nop>", mode = nvx }, -- don't do normal Q quit
 	{ "<leader>a", "<esc>ggVG", desc = "Select all", mode = nvx },
-	{ "Q", "<cmd>SessionSave<cr><cmd>qa<cr>", desc = "Quit all", mode = nvx },
+	{ "<S-Q>", "<cmd>qa<cr>", desc = "Quit all", mode = nvx },
 	{ "<leader>y", '"+y', desc = "Copy to system clipboard", mode = nvx },
 	{ "<leader>p", '"+p', desc = "Paste from system clipboard", mode = nvx },
 	{ "<esc>", "<cmd>nohlsearch<cr><esc>", desc = "Clear search on escape" },
