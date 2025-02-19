@@ -109,11 +109,6 @@ U.keymaps({
 	{ "<C-4>", "<End>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
 	{ "<C-6>", "<Home>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
 
-	-- Tabs
-	{ "<leader>tn", "<cmd>tabnew<cr>", desc = "Create new tab", mode = nvx },
-	{ "<leader>tq", "<cmd>tabclose<cr>", desc = "Close current tab", mode = nvx },
-	{ "H", "<cmd>tabprevious<cr>", desc = "Move to previous tab" },
-	{ "L", "<cmd>tabnext<cr>", desc = "Move to next tab" },
 
 	-- LSP/IDE/
 	{
