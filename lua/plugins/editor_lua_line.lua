@@ -203,6 +203,8 @@ local function smart_tab_name()
 		"flake.*",
 		"configuration.nix",
 		"hardware-configuration.nix",
+		"default.nix",
+		"shell.nix",
 	}
 
 	-- Check if the filename matches any pattern in the whitelist
