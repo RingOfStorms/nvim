@@ -49,6 +49,7 @@ local extensions = {
 	"svelte.ts",
 	"svelte.js",
 	"svg",
+	"scad",
 }
 
 local xdg_data_home = os.getenv("XDG_DATA_HOME") or (os.getenv("HOME") .. "/.local/share")
