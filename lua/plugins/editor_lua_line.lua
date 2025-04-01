@@ -1,6 +1,6 @@
 local function lsp_clients()
 	local clients = {}
-	for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+	for _, client in pairs(vim.lsp.get_clients()) do
 		clients[#clients + 1] = client.name
 	end
 	table.sort(clients)
@@ -9,7 +9,7 @@ end
 
 local function langs()
 	local l = {}
-	for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+	for _, client in pairs(vim.lsp.get_clients()) do
 		local out = nil
 		if client.name == "pyright" then
 			out = vim.fn.system({ "python", "-V" })

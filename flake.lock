@@ -2,11 +2,11 @@
   "nodes": {
     "nixpkgs": {
       "locked": {
-        "lastModified": 1743520842,
-        "narHash": "sha256-5lWR/Ku1xrwDGacNRyCUrCYr66AdR6BntH6vfHUpZns=",
+        "lastModified": 1743540843,
+        "narHash": "sha256-Ka76kI2KicJU308hBTYQa1HpIHrruXZre5hAgoRxCw0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "963f97c0792f299d42f6ff9245618383bbce825e",
+        "rev": "243b4cf508cd57e8c6c55e6d5e2a3f55aca08771",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1743194081,
-        "narHash": "sha256-hZarRYiTt2ki6Aun0mGGj6+BZVV1oVVdGUvAJxbcLO0=",
+        "lastModified": 1743526782,
+        "narHash": "sha256-UEZ+kO1I5eO7wNf10wWuyE7UHqJRChzzx9n06/exZfo=",
         "owner": "CopilotC-Nvim",
         "repo": "CopilotChat.nvim",
-        "rev": "cd82b6b9c4cfb254218f5782cc3339e05cbb9989",
+        "rev": "23162ada224e858d0d60bbbf2a35f9b6c98427ce",
         "type": "github"
       },
       "original": {
@@ -82,11 +82,11 @@
     "nvim_plugin-MeanderingProgrammer/render-markdown.nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1743484308,
-        "narHash": "sha256-mAP4AJBFyprbro2LN2ySUjbpFeM5epv4kLqnsy4hLcA=",
+        "lastModified": 1743531972,
+        "narHash": "sha256-iv4tde7/BlTtaG9p3OEQ6C+3uMnVAr8fLoPsGwlMQVY=",
         "owner": "MeanderingProgrammer",
         "repo": "render-markdown.nvim",
-        "rev": "92256e02db70c474f97fc461b6b6bc4aff7a499a",
+        "rev": "1e2e9a386fbe41b869d3d0e000e19db72284585b",
         "type": "github"
       },
       "original": {
@@ -412,22 +412,6 @@
       "original": {
         "owner": "lukas-reineke",
         "repo": "indent-blankline.nvim",
-        "type": "github"
-      }
-    },
-    "nvim_plugin-lvimuser/lsp-inlayhints.nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1686236485,
-        "narHash": "sha256-06CiJ+xeMO4+OJkckcslqwloJyt2gwg514JuxV6KOfQ=",
-        "owner": "lvimuser",
-        "repo": "lsp-inlayhints.nvim",
-        "rev": "d981f65c9ae0b6062176f0accb9c151daeda6f16",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lvimuser",
-        "repo": "lsp-inlayhints.nvim",
         "type": "github"
       }
     },
@@ -882,11 +866,11 @@
     "nvim_plugin-yetone/avante.nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1743434909,
-        "narHash": "sha256-Gu7ZY1jKCU+s+Ndq5+myonntKsvCBQN3qzl7JJMutJk=",
+        "lastModified": 1743521391,
+        "narHash": "sha256-8q3xF9SiM/uJzHVaynn71p4yftMw5ZkiquzXXcOeSf0=",
         "owner": "yetone",
         "repo": "avante.nvim",
-        "rev": "7dc5560909ebf5dc5a12eb9260045328032d6793",
+        "rev": "06757e8bf57175da45180a26840c5db1f38cb4d9",
         "type": "github"
       },
       "original": {
@@ -955,7 +939,6 @@
         "nvim_plugin-lewis6991/gitsigns.nvim": "nvim_plugin-lewis6991/gitsigns.nvim",
         "nvim_plugin-lnc3l0t/glow.nvim": "nvim_plugin-lnc3l0t/glow.nvim",
         "nvim_plugin-lukas-reineke/indent-blankline.nvim": "nvim_plugin-lukas-reineke/indent-blankline.nvim",
-        "nvim_plugin-lvimuser/lsp-inlayhints.nvim": "nvim_plugin-lvimuser/lsp-inlayhints.nvim",
         "nvim_plugin-m4xshen/hardtime.nvim": "nvim_plugin-m4xshen/hardtime.nvim",
         "nvim_plugin-mbbill/undotree": "nvim_plugin-mbbill/undotree",
         "nvim_plugin-mfussenegger/nvim-lint": "nvim_plugin-mfussenegger/nvim-lint",

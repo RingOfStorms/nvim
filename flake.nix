@@ -127,8 +127,6 @@
     "nvim_plugin-mrcjkb/rustaceanvim".flake = false;
     "nvim_plugin-Saecki/crates.nvim".url = "github:Saecki/crates.nvim";
     "nvim_plugin-Saecki/crates.nvim".flake = false;
-    "nvim_plugin-lvimuser/lsp-inlayhints.nvim".url = "github:lvimuser/lsp-inlayhints.nvim";
-    "nvim_plugin-lvimuser/lsp-inlayhints.nvim".flake = false;
     "nvim_plugin-rafamadriz/friendly-snippets".url = "github:rafamadriz/friendly-snippets";
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
     "nvim_plugin-ron/ron.vim".url = "github:ron-rs/ron.vim";
@@ -155,7 +153,12 @@
       # Utilities
       inherit (nixpkgs) lib;
       # Define the systems to support (all Linux systems exposed by nixpkgs)
-      systems = lib.unique (lib.concatLists [ lib.systems.flakeExposed lib.platforms.linux ]);
+      systems = lib.unique (
+        lib.concatLists [
+          lib.systems.flakeExposed
+          lib.platforms.linux
+        ]
+      );
       forAllSystems = lib.genAttrs systems;
       # Create a mapping from system to corresponding nixpkgs : https://nixos.wiki/wiki/Overlays#In_a_Nix_flake
       nixpkgsFor = forAllSystems (system: (nixpkgs.legacyPackages.${system}.extend rustOverlay));
@@ -254,7 +257,7 @@
             rustywind
             markdownlint-cli2
             # LSPs
-            python312Packages.tiktoken # needed for copilot chat
+            # python312Packages.tiktoken # needed for copilot chat
             nil # nix
             lua-language-server
             vscode-langservers-extracted # HTML/CSS/JSON/ESLint
