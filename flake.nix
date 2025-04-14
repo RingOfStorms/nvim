@@ -225,6 +225,7 @@
                 }
                 ({
                   storePath = "${./.}";
+                  nodejs_20_path = "${pkgs.nodejs_23}";
                   # This will look at all inputs and grab any prefixed with `nvim_plugin-`
                   pluginPaths =
                     builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins
@@ -273,7 +274,7 @@
             # ocamlPackages.ocaml-lsp # ocaml
             # Other
             typescript
-            nodejs_20
+            nodejs_23
             clang
             # zig
             (pkgs.rust-bin.stable.latest.default.override {

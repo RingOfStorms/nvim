@@ -22,7 +22,9 @@ return {
 			"zbirenbaum/copilot.lua",
 			cmd = "Copilot",
 			event = "InsertEnter",
-			opts = {},
+			opts = {
+				copilot_node_command = NIX.nodejs_20_path and (NIX.nodejs_20_path .. "/bin/node") or "node",
+			},
 			main = "copilot",
 		},
 		{ "zbirenbaum/copilot-cmp", opts = {}, main = "copilot_cmp" },
