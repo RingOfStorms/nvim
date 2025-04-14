@@ -249,7 +249,6 @@
           defaultRuntimeDependencies = with pkgs; [
             # linters
             markdownlint-cli
-            luajitPackages.luacheck
             biome # (t|s)j[x]
             # formatters
             stylua
