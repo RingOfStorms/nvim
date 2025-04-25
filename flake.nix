@@ -270,6 +270,7 @@
             taplo # toml
             yaml-language-server
             lemminx # xml
+            gopls # go
             # ocamlPackages.ocaml-lsp # ocaml
             # Other
             typescript
