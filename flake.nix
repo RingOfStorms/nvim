@@ -274,7 +274,7 @@
             # ocamlPackages.ocaml-lsp # ocaml
             # Other
             typescript
-            nodejs_22
+            nodejs_24
             clang
             # zig
             (pkgs.rust-bin.stable.latest.default.override {
