@@ -8,7 +8,7 @@ return {
 		linters_by_ft = {
 			-- Builtin: https://github.com/mfussenegger/nvim-lint/tree/master/lua/lint/linters
 			markdown = { "markdownlint" },
-			lua = { "luacheck" },
+			-- lua = { "luacheck" }, -- TODO revisit this was not working last time
 			typescript = { "biomejs" },
 			typescriptreact = { "biomejs" },
 			javascript = { "biomejs" },
