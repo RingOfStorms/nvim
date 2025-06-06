@@ -29,7 +29,7 @@ return {
 				},
 			},
 			defaults = {
-				file_ignore_patterns = { "node_modules", "package-lock.json", "target", ".git" },
+				file_ignore_patterns = { "node_modules", "package-lock.json", "target", ".git", ".direnv" },
 				mappings = {
 					i = {
 						["<C-j>"] = "move_selection_next",
