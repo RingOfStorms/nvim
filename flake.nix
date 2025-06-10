@@ -132,6 +132,8 @@
     "nvim_plugin-ron/ron.vim".flake = false;
     "nvim_plugin-nosduco/remote-sshfs.nvim".url = "github:nosduco/remote-sshfs.nvim";
     "nvim_plugin-nosduco/remote-sshfs.nvim".flake = false;
+    "nvim_plugin-supermaven-inc/supermaven-nvim".url = "github:supermaven-inc/supermaven-nvim";
+    "nvim_plugin-supermaven-inc/supermaven-nvim".flake = false;
   };
   outputs =
     {

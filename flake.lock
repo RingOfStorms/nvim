@@ -799,6 +799,22 @@
         "type": "github"
       }
     },
+    "nvim_plugin-supermaven-inc/supermaven-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728314930,
+        "narHash": "sha256-1z3WKIiikQqoweReUyK5O8MWSRN5y95qcxM6qzlKMME=",
+        "owner": "supermaven-inc",
+        "repo": "supermaven-nvim",
+        "rev": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "supermaven-inc",
+        "repo": "supermaven-nvim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-tpope/vim-sleuth": {
       "flake": false,
       "locked": {
@@ -947,6 +963,7 @@
         "nvim_plugin-sindrets/diffview.nvim": "nvim_plugin-sindrets/diffview.nvim",
         "nvim_plugin-stevearc/conform.nvim": "nvim_plugin-stevearc/conform.nvim",
         "nvim_plugin-stevearc/dressing.nvim": "nvim_plugin-stevearc/dressing.nvim",
+        "nvim_plugin-supermaven-inc/supermaven-nvim": "nvim_plugin-supermaven-inc/supermaven-nvim",
         "nvim_plugin-tpope/vim-sleuth": "nvim_plugin-tpope/vim-sleuth",
         "nvim_plugin-tpope/vim-surround": "nvim_plugin-tpope/vim-surround",
         "nvim_plugin-uga-rosa/ccc.nvim": "nvim_plugin-uga-rosa/ccc.nvim",

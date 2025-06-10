@@ -84,6 +84,9 @@ return {
 			}),
 			sources = {
 				{
+					name = "supermaven", priority = 10, max_item_count = 5,
+				},
+				{
 					name = "copilot",
 					priority = 9,
 					-- keyword_length = 1,
