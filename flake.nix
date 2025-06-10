@@ -114,8 +114,8 @@
     "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".url = "github:CopilotC-Nvim/CopilotChat.nvim";
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".flake = false;
-    "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
-    "nvim_plugin-yetone/avante.nvim".flake = false;
+    # "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
+    # "nvim_plugin-yetone/avante.nvim".flake = false;
     # "nvim_plugin-HakonHarnes/img-clip.nvim".url = "github:HakonHarnes/img-clip.nvim";
     # "nvim_plugin-HakonHarnes/img-clip.nvim".flake = false;
     "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
@@ -175,43 +175,43 @@
             "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
           };
 
-          avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
-            pname = "avante-nvim-lib";
-            version = "0.0.0";
-            src = inputs."nvim_plugin-yetone/avante.nvim";
-
-            buildFeatures = [ "luajit" ];
-            doCheck = false;
-            cargoLock = {
-              lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
-              allowBuiltinFetchGit = true;
-            };
-
-            nativeBuildInputs = with pkgs; [
-              pkg-config
-            ];
-
-            buildInputs = with pkgs; [
-              openssl.dev
-            ];
-            env = {
-              OPENSSL_NO_VENDOR = "1";
-              OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-              OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-              OPENSSL_DIR = "${pkgs.openssl.dev}";
-            };
-            postInstall = ''
-              # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
-              for f in $out/lib/lib*; do
-                mv "$f" "$out/lib/''${f##*/lib}"
-              done
-            '';
-            meta = {
-              description = "Avante nvim libraries";
-              homepage = "https://github.com/yetone/avante.nvim";
-              license = pkgs.lib.licenses.asl20;
-            };
-          };
+          # avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
+          #   pname = "avante-nvim-lib";
+          #   version = "0.0.0";
+          #   src = inputs."nvim_plugin-yetone/avante.nvim";
+          #
+          #   buildFeatures = [ "luajit" ];
+          #   doCheck = false;
+          #   cargoLock = {
+          #     lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
+          #     allowBuiltinFetchGit = true;
+          #   };
+          #
+          #   nativeBuildInputs = with pkgs; [
+          #     pkg-config
+          #   ];
+          #
+          #   buildInputs = with pkgs; [
+          #     openssl.dev
+          #   ];
+          #   env = {
+          #     OPENSSL_NO_VENDOR = "1";
+          #     OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
+          #     OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
+          #     OPENSSL_DIR = "${pkgs.openssl.dev}";
+          #   };
+          #   postInstall = ''
+          #     # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
+          #     for f in $out/lib/lib*; do
+          #       mv "$f" "$out/lib/''${f##*/lib}"
+          #     done
+          #   '';
+          #   meta = {
+          #     description = "Avante nvim libraries";
+          #     homepage = "https://github.com/yetone/avante.nvim";
+          #     license = pkgs.lib.licenses.asl20;
+          #   };
+          # };
 
           # This will be how we put any nix related stuff into our lua config
           luaNixGlobal =
@@ -299,84 +299,94 @@
               }
             )).overrideAttrs
               (old: {
-                generatedWrapperArgs = old.generatedWrapperArgs or [ ] ++ [
-                  # Add runtime dependencies to neovim path
-                  "--prefix"
-                  "PATH"
-                  ":"
-                  "${lib.makeBinPath runtimeDependencies}"
-                  # Some we will suffix so we pick up the local dev shell intead and default to these otherwise
-                  "--suffix"
-                  "PATH"
-                  ":"
-                  "${lib.makeBinPath defaultRuntimeDependencies}"
-                  # Set the LAZY env path to the nix store, see init.lua for how it is used
-                  "--set"
-                  "LAZY"
-                  "${lazyPath}"
-                  # Link avante libraries
-                  "--prefix"
-                  "LD_LIBRARY_PATH"
-                  ":"
-                  "${avante-nvim-lib}/lib"
-                  # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
-                  "--prefix"
-                  "LUA_CPATH"
-                  ";"
-                  "${avante-nvim-lib}/lib/?.so"
-                  "--prefix"
-                  "LUA_CPATH"
-                  ";"
-                  "${avante-nvim-lib}/lib/?.dylib"
-                  # Don't use default directories to not collide with another neovim config
-                  # All things at runtime should be deletable since we are using nix to handle downloads and bins
-                  # so I've chosen to put everything into the local state directory.
-                  "--run"
-                  ''export NVIM_FLAKE_BASE_DIR="''${XDG_STATE_HOME:-$HOME/.local/state}"''
-                  "--run"
-                  ''export XDG_CONFIG_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config"''
-                  "--run"
-                  ''export XDG_DATA_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share"''
-                  "--run"
-                  ''export XDG_RUNTIME_DIR="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run"''
-                  "--run"
-                  ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
-                  "--run"
-                  ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
-                  # Fix wayland copy paste from system clipboard which uses XDG_RUNTIME_DIR so we need to symlink that into this
-                  "--run"
-                  ''[ ! -d "$XDG_RUNTIME_DIR" ] && mkdir -p "$XDG_RUNTIME_DIR"''
-                  "--run"
-                  ''
-                    if [ -n "$WAYLAND_DISPLAY" ]; then
-                        if [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; then
-                          mkdir -p "$XDG_RUNTIME_DIR"
-                          ln -sf /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"
+                generatedWrapperArgs =
+                  old.generatedWrapperArgs or [ ]
+                  ++ [
+                    # Add runtime dependencies to neovim path
+                    "--prefix"
+                    "PATH"
+                    ":"
+                    "${lib.makeBinPath runtimeDependencies}"
+                    # Some we will suffix so we pick up the local dev shell intead and default to these otherwise
+                    "--suffix"
+                    "PATH"
+                    ":"
+                    "${lib.makeBinPath defaultRuntimeDependencies}"
+                  ]
+                  ++ [
+                    # Set the LAZY env path to the nix store, see init.lua for how it is used
+                    "--set"
+                    "LAZY"
+                    "${lazyPath}"
+                  ]
+                  # ++ [
+                  #   # Link avante libraries
+                  #   "--prefix"
+                  #   "LD_LIBRARY_PATH"
+                  #   ":"
+                  #   "${avante-nvim-lib}/lib"
+                  #   # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
+                  #   "--prefix"
+                  #   "LUA_CPATH"
+                  #   ";"
+                  #   "${avante-nvim-lib}/lib/?.so"
+                  #   "--prefix"
+                  #   "LUA_CPATH"
+                  #   ";"
+                  #   "${avante-nvim-lib}/lib/?.dylib"
+                  # ]
+                  ++ [
+                    # Don't use default directories to not collide with another neovim config
+                    # All things at runtime should be deletable since we are using nix to handle downloads and bins
+                    # so I've chosen to put everything into the local state directory.
+                    "--run"
+                    ''export NVIM_FLAKE_BASE_DIR="''${XDG_STATE_HOME:-$HOME/.local/state}"''
+                    "--run"
+                    ''export XDG_CONFIG_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config"''
+                    "--run"
+                    ''export XDG_DATA_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share"''
+                    "--run"
+                    ''export XDG_RUNTIME_DIR="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run"''
+                    "--run"
+                    ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
+                    "--run"
+                    ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
+                    # Fix wayland copy paste from system clipboard which uses XDG_RUNTIME_DIR so we need to symlink that into this
+                    "--run"
+                    ''[ ! -d "$XDG_RUNTIME_DIR" ] && mkdir -p "$XDG_RUNTIME_DIR"''
+                    "--run"
+                    ''
+                      if [ -n "$WAYLAND_DISPLAY" ]; then
+                          if [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; then
+                            mkdir -p "$XDG_RUNTIME_DIR"
+                            ln -sf /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"
+                          fi
+                          if [ ! -S "$XDG_RUNTIME_DIR/wayland-1" ]; then
+                            mkdir -p "$XDG_RUNTIME_DIR"
+                            ln -sf /run/user/$(id -u)/wayland-1 "$XDG_RUNTIME_DIR/wayland-1"
+                          fi
                         fi
-                        if [ ! -S "$XDG_RUNTIME_DIR/wayland-1" ]; then
-                          mkdir -p "$XDG_RUNTIME_DIR"
-                          ln -sf /run/user/$(id -u)/wayland-1 "$XDG_RUNTIME_DIR/wayland-1"
-                        fi
-                      fi
-                  ''
-                  # Clear proxy environment variables
-                  "--unset"
-                  "http_proxy"
-                  "--unset"
-                  "https_proxy"
-                  "--unset"
-                  "ftp_proxy"
-                  "--unset"
-                  "all_proxy"
-                  "--unset"
-                  "HTTP_PROXY"
-                  "--unset"
-                  "HTTPS_PROXY"
-                  "--unset"
-                  "FTP_PROXY"
-                  "--unset"
-                  "ALL_PROXY"
-                ];
+                    ''
+                  ]
+                  ++ [
+                    # Clear proxy environment variables
+                    "--unset"
+                    "http_proxy"
+                    "--unset"
+                    "https_proxy"
+                    "--unset"
+                    "ftp_proxy"
+                    "--unset"
+                    "all_proxy"
+                    "--unset"
+                    "HTTP_PROXY"
+                    "--unset"
+                    "HTTPS_PROXY"
+                    "--unset"
+                    "FTP_PROXY"
+                    "--unset"
+                    "ALL_PROXY"
+                  ];
               });
         }
       );
