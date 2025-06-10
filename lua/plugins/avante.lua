@@ -35,18 +35,33 @@ return {
 	end,
 	lazy = false,
 	opts = function()
-		local provider = os.getenv("ANTHROPIC_API_KEY") and "claude" or "copilot"
-
+		-- local provider = os.getenv("ANTHROPIC_API_KEY") and "claude" or "copilot"
 		return {
-			provider = provider,
-			auto_suggestions_provider = provider,
-			hints = { enabled = false },
+			provider = "copilot",
+			auto_suggestions_provider = "copilot",
+			-- providers = {
+			-- 	ollama = {
+			-- 		endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
+			-- 		model = "gemma3:12b",
+			-- 	},
+			-- 	ollamafast = {
+			-- 		__inherited_from = "ollama",
+			-- 		endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
+			-- 		model = "gemma3:4b",
+			-- 	},
+			-- },
+			hints = { enabled = true },
 			behavior = {
 				auto_suggestions = true,
+				auto_set_highlight_group = true,
 				auto_set_keymaps = false,
 				support_paste_from_clipboard = true,
 				auto_apply_diff_after_generation = false,
 				minimize_diff = true,
+			},
+			suggestion = {
+				debounce = 200,
+				throttle = 200,
 			},
 			windows = {
 				position = "right",

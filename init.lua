@@ -14,6 +14,8 @@ U = require("util") -- NOTE global U[til]
 require("options")
 require("keymaps")
 
+local home_dir = 
+
 -- print("IS NIX " .. tostring(NIX ~= nil));
 
 -- When using nix, it will set lazy via LAZY env variable.

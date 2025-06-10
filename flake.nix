@@ -2,7 +2,6 @@
   description = "RingOfStorms's Neovim configuration using nix flake for portability";
   # Nixpkgs / NixOS version to use.
   inputs = {
-    # nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:nixos/nixpkgs";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
