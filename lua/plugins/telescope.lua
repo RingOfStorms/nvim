@@ -29,7 +29,20 @@ return {
 				},
 			},
 			defaults = {
-				file_ignore_patterns = { "node_modules", "package-lock.json", "target", ".git", ".direnv", ".pytest_cache", "__pycache__" },
+				file_ignore_patterns = {
+					"node_modules",
+					"package-lock.json",
+					"target",
+					".git",
+					".direnv",
+					".pytest_cache",
+					"__pycache__",
+					".venv",
+					"venv",
+					".mypy_cache",
+					"dist",
+					"build",
+				},
 				mappings = {
 					i = {
 						["<C-j>"] = "move_selection_next",
