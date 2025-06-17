@@ -42,6 +42,7 @@ return {
 					".mypy_cache",
 					"dist",
 					"build",
+					"poackage-lock.json",
 				},
 				mappings = {
 					i = {
