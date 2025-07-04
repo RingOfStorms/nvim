@@ -43,6 +43,7 @@ return {
 					"dist",
 					"build",
 					"poackage-lock.json",
+					".aider*",
 				},
 				mappings = {
 					i = {
