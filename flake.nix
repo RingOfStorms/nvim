@@ -257,6 +257,7 @@
             nodePackages.prettier
             rustywind
             markdownlint-cli2
+            sqlfluff
             # LSPs
             # python312Packages.tiktoken # needed for copilot chat
             nil # nix
