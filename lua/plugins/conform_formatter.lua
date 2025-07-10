@@ -61,7 +61,7 @@ return {
 		},
 		-- Note that all these need to be available at runtime, add them to flake.nix#runtimeDependencies
 		formatters_by_ft = {
-			sql = { "sqlfluff", lsp_format = "first" },
+			sql = { "sql_formatter", lsp_format = "first" },
 			lua = { "stylua", lsp_format = "first" },
 			nix = { "nixfmt", lsp_format = "first" },
 			typescript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),

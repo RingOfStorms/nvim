@@ -139,7 +139,6 @@
     {
       self,
       nixpkgs,
-      # nixpkgs-stable,
       rust-overlay,
       ...
     }@inputs:
@@ -257,7 +256,7 @@
             nodePackages.prettier
             rustywind
             markdownlint-cli2
-            sqlfluff
+            sql-formatter
             # LSPs
             # python312Packages.tiktoken # needed for copilot chat
             nil # nix
