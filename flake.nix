@@ -114,8 +114,8 @@
     "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".url = "github:CopilotC-Nvim/CopilotChat.nvim";
     "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".flake = false;
-    # "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
-    # "nvim_plugin-yetone/avante.nvim".flake = false;
+    "nvim_plugin-yetone/avante.nvim".url = "github:yetone/avante.nvim";
+    "nvim_plugin-yetone/avante.nvim".flake = false;
     # "nvim_plugin-HakonHarnes/img-clip.nvim".url = "github:HakonHarnes/img-clip.nvim";
     # "nvim_plugin-HakonHarnes/img-clip.nvim".flake = false;
     "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
@@ -132,8 +132,8 @@
     "nvim_plugin-ron/ron.vim".flake = false;
     "nvim_plugin-nosduco/remote-sshfs.nvim".url = "github:nosduco/remote-sshfs.nvim";
     "nvim_plugin-nosduco/remote-sshfs.nvim".flake = false;
-    "nvim_plugin-supermaven-inc/supermaven-nvim".url = "github:supermaven-inc/supermaven-nvim";
-    "nvim_plugin-supermaven-inc/supermaven-nvim".flake = false;
+    # "nvim_plugin-supermaven-inc/supermaven-nvim".url = "github:supermaven-inc/supermaven-nvim";
+    # "nvim_plugin-supermaven-inc/supermaven-nvim".flake = false;
   };
   outputs =
     {
@@ -176,43 +176,43 @@
             "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
           };
 
-          # avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
-          #   pname = "avante-nvim-lib";
-          #   version = "0.0.0";
-          #   src = inputs."nvim_plugin-yetone/avante.nvim";
-          #
-          #   buildFeatures = [ "luajit" ];
-          #   doCheck = false;
-          #   cargoLock = {
-          #     lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
-          #     allowBuiltinFetchGit = true;
-          #   };
-          #
-          #   nativeBuildInputs = with pkgs; [
-          #     pkg-config
-          #   ];
-          #
-          #   buildInputs = with pkgs; [
-          #     openssl.dev
-          #   ];
-          #   env = {
-          #     OPENSSL_NO_VENDOR = "1";
-          #     OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-          #     OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-          #     OPENSSL_DIR = "${pkgs.openssl.dev}";
-          #   };
-          #   postInstall = ''
-          #     # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
-          #     for f in $out/lib/lib*; do
-          #       mv "$f" "$out/lib/''${f##*/lib}"
-          #     done
-          #   '';
-          #   meta = {
-          #     description = "Avante nvim libraries";
-          #     homepage = "https://github.com/yetone/avante.nvim";
-          #     license = pkgs.lib.licenses.asl20;
-          #   };
-          # };
+          avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
+            pname = "avante-nvim-lib";
+            version = "0.0.0";
+            src = inputs."nvim_plugin-yetone/avante.nvim";
+
+            buildFeatures = [ "luajit" ];
+            doCheck = false;
+            cargoLock = {
+              lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
+              allowBuiltinFetchGit = true;
+            };
+
+            nativeBuildInputs = with pkgs; [
+              pkg-config
+            ];
+
+            buildInputs = with pkgs; [
+              openssl.dev
+            ];
+            env = {
+              OPENSSL_NO_VENDOR = "1";
+              OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
+              OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
+              OPENSSL_DIR = "${pkgs.openssl.dev}";
+            };
+            postInstall = ''
+              # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
+              for f in $out/lib/lib*; do
+                mv "$f" "$out/lib/''${f##*/lib}"
+              done
+            '';
+            meta = {
+              description = "Avante nvim libraries";
+              homepage = "https://github.com/yetone/avante.nvim";
+              license = pkgs.lib.licenses.asl20;
+            };
+          };
 
           # This will be how we put any nix related stuff into our lua config
           luaNixGlobal =
@@ -321,22 +321,22 @@
                     "LAZY"
                     "${lazyPath}"
                   ]
-                  # ++ [
-                  #   # Link avante libraries
-                  #   "--prefix"
-                  #   "LD_LIBRARY_PATH"
-                  #   ":"
-                  #   "${avante-nvim-lib}/lib"
-                  #   # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
-                  #   "--prefix"
-                  #   "LUA_CPATH"
-                  #   ";"
-                  #   "${avante-nvim-lib}/lib/?.so"
-                  #   "--prefix"
-                  #   "LUA_CPATH"
-                  #   ";"
-                  #   "${avante-nvim-lib}/lib/?.dylib"
-                  # ]
+                  ++ [
+                    # Link avante libraries
+                    "--prefix"
+                    "LD_LIBRARY_PATH"
+                    ":"
+                    "${avante-nvim-lib}/lib"
+                    # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
+                    "--prefix"
+                    "LUA_CPATH"
+                    ";"
+                    "${avante-nvim-lib}/lib/?.so"
+                    "--prefix"
+                    "LUA_CPATH"
+                    ";"
+                    "${avante-nvim-lib}/lib/?.dylib"
+                  ]
                   ++ [
                     # Don't use default directories to not collide with another neovim config
                     # All things at runtime should be deletable since we are using nix to handle downloads and bins

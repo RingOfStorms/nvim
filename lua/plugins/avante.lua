@@ -39,19 +39,23 @@ return {
 		return {
 			provider = "copilot",
 			auto_suggestions_provider = "copilot",
-			-- providers = {
-			-- 	ollama = {
-			-- 		endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
-			-- 		model = "gemma3:12b",
-			-- 	},
-			-- 	ollamafast = {
-			-- 		__inherited_from = "ollama",
-			-- 		endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
-			-- 		model = "gemma3:4b",
-			-- 	},
-			-- },
-			hints = { enabled = true },
+			providers = {
+				morph = {
+					model = "auto",
+				},
+				-- ollama = {
+				-- 	endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
+				-- 	model = "gemma3:12b",
+				-- },
+				-- 	ollamafast = {
+				-- 		__inherited_from = "ollama",
+				-- 		endpoint = "http://100.64.0.6:11434/", -- Note that there is no /v1 at the end.
+				-- 		model = "gemma3:4b",
+				-- 	},
+			},
+			hints = { enabled = false },
 			behavior = {
+				enable_fastapply = true,
 				auto_suggestions = true,
 				auto_set_highlight_group = true,
 				auto_set_keymaps = false,
