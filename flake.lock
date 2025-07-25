@@ -799,6 +799,22 @@
         "type": "github"
       }
     },
+    "nvim_plugin-sudo-tee/opencode.nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753448638,
+        "narHash": "sha256-3jtYKx7GVUnBrMs7hq91DbAiJkxXNLWZDi02UW8TTI0=",
+        "owner": "sudo-tee",
+        "repo": "opencode.nvim",
+        "rev": "99d9020957cd5a4c34e0c43c9965aab751dca3ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sudo-tee",
+        "repo": "opencode.nvim",
+        "type": "github"
+      }
+    },
     "nvim_plugin-tpope/vim-sleuth": {
       "flake": false,
       "locked": {
@@ -963,6 +979,7 @@
         "nvim_plugin-sindrets/diffview.nvim": "nvim_plugin-sindrets/diffview.nvim",
         "nvim_plugin-stevearc/conform.nvim": "nvim_plugin-stevearc/conform.nvim",
         "nvim_plugin-stevearc/dressing.nvim": "nvim_plugin-stevearc/dressing.nvim",
+        "nvim_plugin-sudo-tee/opencode.nvim": "nvim_plugin-sudo-tee/opencode.nvim",
         "nvim_plugin-tpope/vim-sleuth": "nvim_plugin-tpope/vim-sleuth",
         "nvim_plugin-tpope/vim-surround": "nvim_plugin-tpope/vim-surround",
         "nvim_plugin-uga-rosa/ccc.nvim": "nvim_plugin-uga-rosa/ccc.nvim",
