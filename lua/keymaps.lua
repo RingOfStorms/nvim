@@ -108,7 +108,27 @@ U.keymaps({
 	{ "<C-l>", "<Right>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
 	{ "<C-4>", "<End>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
 	{ "<C-6>", "<Home>", mode = { "i", "c" }, desc = "Movements in insert/command mode" },
-
+	{
+		"<leader>mv",
+		function()
+			-- Save to register z and delete the selection
+			vim.cmd('normal! "zd')
+			-- Jump to mark X
+			vim.cmd("normal! `X")
+			-- Paste
+			vim.cmd('normal! "zp')
+		end,
+		desc = "Move visual selection to mark X and paste",
+		mode = "v",
+	},
+	{
+		"<leader>mv",
+		function()
+			vim.cmd("normal! mX")
+		end,
+		desc = "Mark current position with mark X (for Move Visual)",
+		mode = "n",
+	},
 
 	-- LSP/IDE/
 	{
