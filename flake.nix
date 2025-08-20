@@ -251,6 +251,7 @@
             rustywind
             markdownlint-cli2
             sql-formatter
+            libsForQt5.qt5.qtdeclarative # qmlformat
             # LSPs
             # python312Packages.tiktoken # needed for copilot chat
             nil # nix

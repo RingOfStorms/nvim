@@ -64,6 +64,7 @@ return {
 			sql = { "sql_formatter", lsp_format = "first" },
 			lua = { "stylua", lsp_format = "first" },
 			nix = { "nixfmt", lsp_format = "first" },
+			qml = { "qmlformat", lsp_format = "first" },
 			typescript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 			typescriptreact = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
 			javascript = expandFormatters({ { "prettierd", "prettier" }, "rustywind", lsp_format = "first" }),
