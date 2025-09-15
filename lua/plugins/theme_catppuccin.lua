@@ -5,6 +5,7 @@ return {
   priority = 100,
   opts = {
     flavour = "mocha", -- latte, frappe, macchiato, mocha (default)
+    transparent_background = true,
     color_overrides = {
       mocha = {
         -- My coal variant: https://gist.github.com/RingOfStorms/b2ff0c4e37f5be9f985c72c3ec9a3e62
