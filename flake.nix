@@ -219,7 +219,7 @@
                 }
                 ({
                   storePath = "${./.}";
-                  nodejs_20_path = "${pkgs.nodejs_20}";
+                  nodejs_24_path = "${pkgs.nodejs_24}";
                   # This will look at all inputs and grab any prefixed with `nvim_plugin-`
                   pluginPaths =
                     builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins

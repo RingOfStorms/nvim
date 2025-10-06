@@ -23,7 +23,7 @@ return {
 			cmd = "Copilot",
 			event = "InsertEnter",
 			opts = {
-				copilot_node_command = NIX.nodejs_20_path and (NIX.nodejs_20_path .. "/bin/node") or "node",
+				copilot_node_command = NIX.nodejs_24_path and (NIX.nodejs_24_path .. "/bin/node") or "node",
 			},
 			main = "copilot",
 		},

@@ -214,7 +214,7 @@ return {
 				local lsp_servers = vim.tbl_keys(servers or {})
 				for _, server_name in ipairs(lsp_servers) do
 					local server_opts = servers[server_name] or {}
-					require("lspconfig")[server_name].setup(server_opts)
+					vim.lsp[server_name] = server_opts
 				end
 			else
 				-- TODO test this out on a non nix setup...
@@ -230,7 +230,7 @@ return {
 							local server = servers[server_name] or {}
 							server.capabilities =
 								vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-							require("lspconfig")[server_name].setup(server)
+							vim.lsp[server_name] = server
 						end,
 					},
 				})
