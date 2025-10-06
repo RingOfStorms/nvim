@@ -30,20 +30,19 @@ return {
 			},
 			defaults = {
 				file_ignore_patterns = {
-					"node_modules",
+					"^dist/",
+					"^build/",
+					"target/",
+					"node_modules/",
 					"package-lock.json",
-					"target",
-					".git",
-					".direnv",
+					".git/",
+					".direnv/",
+					".aider/",
 					".pytest_cache",
 					"__pycache__",
 					".venv",
-					"venv",
+					"venv$",
 					".mypy_cache",
-					"dist",
-					"build",
-					"poackage-lock.json",
-					".aider*",
 				},
 				mappings = {
 					i = {
@@ -122,6 +121,7 @@ return {
 			"<leader>ff",
 			function()
 				require("telescope.builtin").find_files({
+					cwd = vim.fn.getcwd(),
 					hidden = true,
 					follow = true,
 					no_ignore = true,
@@ -134,6 +134,7 @@ return {
 			"<leader>fg",
 			function()
 				require("telescope.builtin").git_files({
+					cwd = vim.fn.getcwd(),
 					hidden = true,
 				})
 			end,
@@ -145,6 +146,7 @@ return {
 				U.cmd_executable("rg", {
 					function()
 						require("telescope.builtin").live_grep({
+							cwd = vim.fn.getcwd(),
 							hidden = true,
 							follow = true,
 							no_ignore = true,
