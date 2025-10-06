@@ -89,12 +89,16 @@ U.keymaps({
 	{ "J", "mzJ`z", desc = "Move line below onto this line" },
 	{
 		"]d",
-		vim.diagnostic.goto_next,
+		function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end,
 		desc = "Go to next diagnostic message",
 	},
 	{
 		"[d",
-		vim.diagnostic.goto_prev,
+		function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end,
 		desc = "Go to previous diagnostic message",
 	},
 	{ ">", "> gv", desc = "Indent selection", mode = "v" },
