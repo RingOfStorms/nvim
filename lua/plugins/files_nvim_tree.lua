@@ -159,9 +159,6 @@ return {
 				vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
 
 				vim.keymap.set("n", "<leader>c", api.fs.copy.absolute_path, opts("Copy Path to Clipboard"))
-
-				vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-
 				vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
 			end,
 		}

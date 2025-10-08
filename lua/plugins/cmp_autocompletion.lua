@@ -46,6 +46,7 @@ return {
 				-- Scroll the documentation window [b]ack / [f]orward
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
+				["<C-e>"] = cmp.mapping.abort(),
 				["<esc>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.abort()

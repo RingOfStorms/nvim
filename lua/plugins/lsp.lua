@@ -70,11 +70,13 @@ return {
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			U.safeRequire("cmp_nvim_lsp", function(c)
-				capabilities = vim.tbl_deep_extend("force", capabilities, c.default_capabilities())
-			end)
-			local schemastore = require("schemastore")
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		U.safeRequire("cmp_nvim_lsp", function(c)
+			capabilities = vim.tbl_deep_extend("force", capabilities, c.default_capabilities())
+		end)
+		-- Export common capabilities to all servers via vim.lsp.config('*')
+		vim.lsp.config('*', { capabilities = capabilities })
+		local schemastore = require("schemastore")
 
 			-- TODO finish porting over lsp configs: https://github.com/RingOfStorms/nvim/blob/master/lua/plugins/lsp.lua
 			local servers = {
@@ -84,7 +86,6 @@ return {
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				-- Note that `rust-analyzer` is done via mrcjkb/rustaceanvim plugin above, do not register it here.
 				lua_ls = {
-					capabilities = capabilities,
 					settings = {
 						Lua = {
 							runtime = {
@@ -133,26 +134,21 @@ return {
 				--   },
 				-- },
 				gopls = {
-					capabilities = capabilities,
 					single_file_support = true,
 				},
 				nil_ls = { -- nix
-					capabilities = capabilities,
 				},
 				ts_ls = {
 					-- typescript/javascript
-					capabilities = capabilities,
 					implicitProjectConfiguration = {
 						checkJs = true,
 					},
 				},
 				svelte = {
 					-- svelte
-					capabilities = capabilities,
 				},
 				tailwindcss = {
 					-- tailwind css
-					capabilities = capabilities,
 					-- https://www.tailwind-variants.org/docs/getting-started#intellisense-setup-optional
 					tailwindCSS = {
 						experimental = {
@@ -164,11 +160,9 @@ return {
 				},
 				cssls = {
 					-- css
-					capabilities = capabilities,
 				},
 				jsonls = {
 					-- json
-					capabilities = capabilities,
 					settings = {
 						json = {
 							schemas = schemastore.json.schemas(),
@@ -178,19 +172,15 @@ return {
 				},
 				-- python
 				pylsp = {
-					capabilities = capabilities,
 				},
 				marksman = {
 					-- markdown
-					capabilities = capabilities,
 				},
 				taplo = {
 					-- toml
-					capabilities = capabilities,
 				},
 				yamlls = {
 					-- yaml
-					capabilities = capabilities,
 					settings = {
 						yaml = {
 							schemas = schemastore.yaml.schemas(),
@@ -203,40 +193,53 @@ return {
 				},
 				lemminx = {
 					-- xml
-					capabilities = capabilities,
 				},
 				-- ocamllsp = {
 				--   -- ocaml
 				--   capabilities = capabilities,
 				-- }
 			}
-			if NIX then
-				local lsp_servers = vim.tbl_keys(servers or {})
-				for _, server_name in ipairs(lsp_servers) do
-					local server_opts = servers[server_name] or {}
-					vim.lsp.config[server_name] = server_opts
+		-- Remove new global default keymaps added by Nvim if you prefer your own bindings
+		local global_unmaps = {
+			{ mode = 'n', lhs = 'gra' },
+			{ mode = 'n', lhs = 'gri' },
+			{ mode = 'n', lhs = 'grn' },
+			{ mode = 'n', lhs = 'grr' },
+			{ mode = 'n', lhs = 'grt' },
+			{ mode = 'n', lhs = 'gO' },
+			{ mode = 'n', lhs = 'K' },
+			{ mode = 'i', lhs = '<C-S>' },
+		}
+		for _, m in ipairs(global_unmaps) do
+			pcall(vim.keymap.del, m.mode, m.lhs)
+		end
+
+		if NIX then
+			local lsp_servers = vim.tbl_keys(servers or {})
+			for _, server_name in ipairs(lsp_servers) do
+				local server_opts = servers[server_name] or {}
+				vim.lsp.config(server_name, server_opts)
 				vim.lsp.enable(server_name)
-				end
-			else
-				-- TODO test this out on a non nix setup...
-				require("mason").setup()
-				local ensure_installed = vim.tbl_keys(servers or {})
-				vim.list_extend(ensure_installed, {
-					"stylua", -- Used to format Lua code TODO come back to this, more about linter/formatter configs
-				})
-				require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-				require("mason-lspconfig").setup({
-					handlers = {
-						function(server_name)
-							local server = servers[server_name] or {}
-							server.capabilities =
-								vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					vim.lsp.config[server_name] = server
-					vim.lsp.enable(server_name)
-						end,
-					},
-				})
 			end
+		else
+			-- TODO test this out on a non nix setup...
+			require("mason").setup()
+			local ensure_installed = vim.tbl_keys(servers or {})
+			vim.list_extend(ensure_installed, {
+				"stylua", -- Used to format Lua code TODO come back to this, more about linter/formatter configs
+			})
+			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require("mason-lspconfig").setup({
+				handlers = {
+					function(server_name)
+						local server = servers[server_name] or {}
+						-- let vim.lsp.config('*') provide the base capabilities; do not reassign capabilities here
+						vim.lsp.config(server_name, server)
+						vim.lsp.enable(server_name)
+					end,
+				},
+			})
+		end
 		end,
 	},
 }

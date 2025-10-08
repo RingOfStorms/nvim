@@ -14,7 +14,7 @@ vim.opt.mouse = "a"
 vim.opt.updatetime = 250
 -- Decrease mapped sequence wait time
 -- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 250
 
 -- line numbering, relative
 vim.opt.number = true
@@ -54,7 +54,6 @@ vim.opt.list = true
 vim.opt.listchars = { tab = "│ ", trail = "·", nbsp = "␣", eol = "↴" }
 
 -- Search settings
-vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 -- Preview substitutions live, as you type
@@ -71,6 +70,7 @@ vim.opt.splitright = true
 vim.opt.completeopt = "menu,menuone,noinsert"
 vim.diagnostic.config({
 	float = { border = "single" },
+	virtual_text = false,
 })
 
 -- Minimal number of screen lines to keep above and below the cursor.

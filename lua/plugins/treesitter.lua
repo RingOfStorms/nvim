@@ -44,14 +44,9 @@ return {
 				end,
 				additional_vim_regex_highlighting = false,
 			},
-			incremental_selection = { enable = true },
-			ident = { enable = true },
-			autotag = { enable = true },
-			rainbow = {
-				enable = true,
-				extended_mode = true,
-				max_file_lines = nil,
-			},
+		incremental_selection = { enable = true },
+		indent = { enable = true },
+		autotag = { enable = true },
 		}, nonNixOpts)
 	end,
 	config = function(_, opts)

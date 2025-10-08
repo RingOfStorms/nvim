@@ -32,7 +32,7 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	group = group,
 	callback = function()
-		if vim.bo.filetype ~= "TelescopePrompt" and vim.bo.filetype ~= nil and vim.bo.filetype ~= "" then
+		if vim.bo.buftype ~= "terminal" and vim.bo.filetype ~= "TelescopePrompt" and vim.bo.filetype ~= nil and vim.bo.filetype ~= "" then
 			vim.api.nvim_command("stopinsert")
 		end
 	end,
