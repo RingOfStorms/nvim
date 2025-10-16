@@ -2,7 +2,7 @@
 
 Goals:
 
-- Works with or without nix
+- Works with or without nix (have not verified non nix yet...)
 - LSP integration with the current project's settings if available
 
 Old pre nix config: https://git.joshuabell.xyz/nvim/~files/40eadc9b714fa29c5b28aca49f77c1ea62141763 for reference
@@ -12,7 +12,7 @@ Old pre nix config: https://git.joshuabell.xyz/nvim/~files/40eadc9b714fa29c5b28a
 ### With Nix
 
 ```sh
-nix run git+https://git.joshuabell.xyz/nvim
+nix run git+https://git.joshuabell.xyz/ringofstorms/nvim
 ```
 
 in NixOS
