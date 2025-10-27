@@ -719,7 +719,7 @@
         "type": "github"
       }
     },
-    "nvim_plugin-ron/ron.vim": {
+    "nvim_plugin-ron-rs/ron.vim": {
       "flake": false,
       "locked": {
         "lastModified": 1660904719,
@@ -942,7 +942,7 @@
         "nvim_plugin-rafamadriz/friendly-snippets": "nvim_plugin-rafamadriz/friendly-snippets",
         "nvim_plugin-rcarriga/nvim-notify": "nvim_plugin-rcarriga/nvim-notify",
         "nvim_plugin-rmagatti/auto-session": "nvim_plugin-rmagatti/auto-session",
-        "nvim_plugin-ron/ron.vim": "nvim_plugin-ron/ron.vim",
+        "nvim_plugin-ron-rs/ron.vim": "nvim_plugin-ron-rs/ron.vim",
         "nvim_plugin-saadparwaiz1/cmp_luasnip": "nvim_plugin-saadparwaiz1/cmp_luasnip",
         "nvim_plugin-sindrets/diffview.nvim": "nvim_plugin-sindrets/diffview.nvim",
         "nvim_plugin-stevearc/conform.nvim": "nvim_plugin-stevearc/conform.nvim",

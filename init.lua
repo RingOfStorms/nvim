@@ -18,7 +18,7 @@ require("keymaps")
 
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if NIX then
 		error("LAZY environment variable to nix store was not found: " .. vim.env.LAZY)
 		return

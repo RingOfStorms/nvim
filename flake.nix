@@ -124,8 +124,8 @@
     "nvim_plugin-Saecki/crates.nvim".flake = false;
     "nvim_plugin-rafamadriz/friendly-snippets".url = "github:rafamadriz/friendly-snippets";
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
-    "nvim_plugin-ron/ron.vim".url = "github:ron-rs/ron.vim";
-    "nvim_plugin-ron/ron.vim".flake = false;
+    "nvim_plugin-ron-rs/ron.vim".url = "github:ron-rs/ron.vim";
+    "nvim_plugin-ron-rs/ron.vim".flake = false;
     "nvim_plugin-nosduco/remote-sshfs.nvim".url = "github:nosduco/remote-sshfs.nvim";
     "nvim_plugin-nosduco/remote-sshfs.nvim".flake = false;
   };

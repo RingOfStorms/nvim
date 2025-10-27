@@ -1,5 +1,6 @@
 local extensions = {
 	"json",
+	"jsonc",
 	"sql",
 	"html",
 	"txt",

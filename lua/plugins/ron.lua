@@ -1,4 +1,4 @@
 return {
-	"ron/ron.vim",
+	"ron-rs/ron.vim",
 	lazy = false,
 }
