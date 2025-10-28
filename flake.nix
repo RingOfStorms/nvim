@@ -141,7 +141,7 @@
       # work then we make a new version name. Helps separate any files and
       # "version" my neovim flake. Use this name for custom .config location
       # ==================
-      version = "hydrogen";
+      version = "helium";
       # ===================
 
       # Utilities
@@ -169,44 +169,6 @@
           nixPkgsPlugins = with pkgs.vimPlugins; {
             "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
           };
-
-          # avante-nvim-lib = pkgs.rustPlatform.buildRustPackage {
-          #   pname = "avante-nvim-lib";
-          #   version = "0.0.0";
-          #   src = inputs."nvim_plugin-yetone/avante.nvim";
-          #
-          #   buildFeatures = [ "luajit" ];
-          #   doCheck = false;
-          #   cargoLock = {
-          #     lockFile = inputs."nvim_plugin-yetone/avante.nvim" + "/Cargo.lock";
-          #     allowBuiltinFetchGit = true;
-          #   };
-          #
-          #   nativeBuildInputs = with pkgs; [
-          #     pkg-config
-          #   ];
-          #
-          #   buildInputs = with pkgs; [
-          #     openssl.dev
-          #   ];
-          #   env = {
-          #     OPENSSL_NO_VENDOR = "1";
-          #     OPENSSL_LIB_DIR = "${pkgs.openssl.out}/lib";
-          #     OPENSSL_INCLUDE_DIR = "${pkgs.openssl.dev}/include";
-          #     OPENSSL_DIR = "${pkgs.openssl.dev}";
-          #   };
-          #   postInstall = ''
-          #     # mv $out/lib/libavante_repo_map.so $out/lib/avante_repo_map.so
-          #     for f in $out/lib/lib*; do
-          #       mv "$f" "$out/lib/''${f##*/lib}"
-          #     done
-          #   '';
-          #   meta = {
-          #     description = "Avante nvim libraries";
-          #     homepage = "https://github.com/yetone/avante.nvim";
-          #     license = pkgs.lib.licenses.asl20;
-          #   };
-          # };
 
           # This will be how we put any nix related stuff into our lua config
           luaNixGlobal =
