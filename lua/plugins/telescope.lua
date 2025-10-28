@@ -7,11 +7,17 @@ return {
 		{ "aznhe21/actions-preview.nvim", event = "VeryLazy" },
 	},
 	init = function()
+		-- Check for essential telescope tools
 		U.cmd_executable("rg", {
 			[false] = function()
-				vim.notify("rg not installed, live grep will not function.", 2)
+				vim.notify("'rg' (ripgrep) not found. Required for telescope live grep. Install it in your environment.", vim.log.levels.ERROR)
 			end,
 		})
+		
+		-- fd is optional but improves file finding performance
+		if not U.cmd_executable("fd") then
+			vim.notify("'fd' not found. Telescope will use 'find' instead (slower). Consider installing fd.", vim.log.levels.INFO)
+		end
 	end,
 	cmd = "Telescope",
 	opts = function()

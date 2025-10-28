@@ -1,5 +1,14 @@
 return {
 	"nosduco/remote-sshfs.nvim",
+	init = function()
+		-- Check if sshfs is available
+		if not U.cmd_executable("sshfs") then
+			vim.notify(
+				"'sshfs' not found on PATH. Required for RemoteSSHFS commands",
+				vim.log.levels.INFO
+			)
+		end
+	end,
 	cmd = {
 		"RemoteSshfs",
 		"RemoteSSHFSConnect",

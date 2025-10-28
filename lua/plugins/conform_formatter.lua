@@ -50,6 +50,30 @@ end
 
 return {
 	"stevearc/conform.nvim",
+	init = function()
+		-- Check for common formatters and warn if missing
+		local formatters_to_check = {
+			{ cmd = "stylua", desc = "Lua formatting" },
+			{ cmd = "nixfmt", desc = "Nix formatting" },
+			{ cmd = "prettier", desc = "JS/TS/Svelte formatting (alternative: prettierd)" },
+			{ cmd = "rustywind", desc = "Tailwind class sorting" },
+			{ cmd = "markdownlint-cli2", desc = "Markdown formatting" },
+			{ cmd = "sql-formatter", desc = "SQL formatting" },
+			{ cmd = "rustfmt", desc = "Rust formatting" },
+		}
+		
+		for _, formatter in ipairs(formatters_to_check) do
+			if not U.cmd_executable(formatter.cmd) then
+				-- Only warn once on startup, not on every format attempt
+				vim.schedule(function()
+					vim.notify(
+						string.format("Formatter '%s' not found. Used for: %s", formatter.cmd, formatter.desc),
+						vim.log.levels.WARN
+					)
+				end)
+			end
+		end
+	end,
 	opts = {
 		-- https://github.com/stevearc/conform.nvim?tab=readme-ov-file#setup
 		notify_on_error = true,

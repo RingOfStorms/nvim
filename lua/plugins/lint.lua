@@ -2,6 +2,24 @@
 return {
 	"mfussenegger/nvim-lint",
 	event = { "VeryLazy", "BufWritePost", "BufReadPost", "InsertLeave" },
+	init = function()
+		-- Check for common linters and warn if missing
+		local linters_to_check = {
+			{ cmd = "markdownlint", desc = "Markdown linting" },
+			{ cmd = "biome", desc = "JS/TS linting" },
+		}
+		
+		for _, linter in ipairs(linters_to_check) do
+			if not U.cmd_executable(linter.cmd) then
+				vim.schedule(function()
+					vim.notify(
+						string.format("Linter '%s' not found. Used for: %s", linter.cmd, linter.desc),
+						vim.log.levels.WARN
+					)
+				end)
+			end
+		end
+	end,
 	opts = {
 		-- Event to trigger linters
 		events = { "BufWritePost", "BufReadPost", "InsertLeave", "CursorHold", "CursorHoldI" },

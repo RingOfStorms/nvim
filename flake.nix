@@ -226,59 +226,15 @@
                       (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
                 });
 
-          # These are appended at the start of the path so that they take precedence over local install tools
+          # All runtime dependencies are now optional and checked at runtime by plugins
+          # This keeps the neovim flake lean and allows project devShells to provide tools
+          # Core dependencies that neovim itself might need can still be added here
           runtimeDependencies = with pkgs; [
-            # tools
-            ripgrep # search
-            fd # search
-            fzf # search fuzzy
-            tree-sitter
-            glow # markdown renderer
-            curl # http requests
-            sshfs # remote dev for nosduco/remote-sshfs.nvim
-            # nodePackages.cspell TODO check out `typos` rust checker instead?
-          ];
-
-          # These are appended at the end of the PATH so any local installed tools will take precedence
-          defaultRuntimeDependencies = with pkgs; [
-            # linters
-            markdownlint-cli
-            biome # (t|s)j[x]
-            # formatters
-            stylua
-            nixfmt-rfc-style
-            nodePackages.prettier
-            rustywind
-            markdownlint-cli2
-            sql-formatter
-            libsForQt5.qt5.qtdeclarative # qmlformat
-            # LSPs
-            # python312Packages.tiktoken # needed for copilot chat
-            nil # nix
-            lua-language-server
-            vscode-langservers-extracted # HTML/CSS/JSON/ESLint
-            nodePackages.typescript-language-server
-            nodePackages.svelte-language-server
-            tailwindcss-language-server
-            python312Packages.python-lsp-server
-            rust-analyzer
-            marksman # markdown
-            taplo # toml
-            yaml-language-server
-            lemminx # xml
-            gopls # go
-            # ocamlPackages.ocaml-lsp # ocaml
-            # Other
-            typescript
-            nodejs_24
-            clang
-            # zig
-            (pkgs.rust-bin.stable.latest.default.override {
-              extensions = [
-                "rust-src"
-                "rust-analyzer"
-              ];
-            })
+            # Keeping ripgrep and fd as they're core to telescope functionality
+            ripgrep # search - used heavily by telescope
+            fd # file finding - used by telescope
+            # All other tools (LSPs, formatters, linters, glow, sshfs, etc.) are now optional
+            # and will show helpful errors when missing
           ];
 
         in
@@ -299,16 +255,12 @@
                 generatedWrapperArgs =
                   old.generatedWrapperArgs or [ ]
                   ++ [
-                    # Add runtime dependencies to neovim path
-                    "--prefix"
-                    "PATH"
-                    ":"
-                    "${lib.makeBinPath runtimeDependencies}"
-                    # Some we will suffix so we pick up the local dev shell intead and default to these otherwise
+                    # Add minimal runtime dependencies to neovim path
+                    # Most tools are now optional and checked at runtime
                     "--suffix"
                     "PATH"
                     ":"
-                    "${lib.makeBinPath defaultRuntimeDependencies}"
+                    "${lib.makeBinPath runtimeDependencies}"
                   ]
                   ++ [
                     # Set the LAZY env path to the nix store, see init.lua for how it is used

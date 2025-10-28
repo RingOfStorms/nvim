@@ -38,6 +38,23 @@ function M.cmd_executable(cmd, callback)
 	return executable
 end
 
+-- Check if command exists and show helpful error if not
+-- @param cmd string: The command to check for
+-- @param feature_name string: Human-readable description of what needs this command
+-- @param level number: vim.log.levels (ERROR, WARN, INFO, etc.) - defaults to ERROR
+-- @return boolean: true if command exists, false otherwise
+function M.require_cmd(cmd, feature_name, level)
+	level = level or vim.log.levels.ERROR
+	if vim.fn.executable(cmd) ~= 1 then
+		vim.notify(
+			string.format("'%s' not found on PATH. Required for: %s", cmd, feature_name),
+			level
+		)
+		return false
+	end
+	return true
+end
+
 --     [1]: (string) lhs (required)
 --     [2]: (string|fun()) rhs (optional)
 --     mode: (string|string[]) mode (optional, defaults to "n")

@@ -219,7 +219,16 @@ return {
 			for _, server_name in ipairs(lsp_servers) do
 				local server_opts = servers[server_name] or {}
 				vim.lsp.config(server_name, server_opts)
-				vim.lsp.enable(server_name)
+				-- Try to enable LSP and show helpful error if server not found
+				local ok, err = pcall(function()
+					vim.lsp.enable(server_name)
+				end)
+				if not ok then
+					vim.notify(
+						string.format("LSP '%s' failed to start. Install it in your project devShell.\nError: %s", server_name, err),
+						vim.log.levels.ERROR
+					)
+				end
 			end
 		else
 			-- TODO test this out on a non nix setup...
