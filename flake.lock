@@ -495,22 +495,6 @@
         "type": "github"
       }
     },
-    "nvim_plugin-nosduco/remote-sshfs.nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1759193354,
-        "narHash": "sha256-FfUxpRfqrf0r56/gi76N2ZooWnXWO0aRtaQBS7m+SvY=",
-        "owner": "nosduco",
-        "repo": "remote-sshfs.nvim",
-        "rev": "45502b3892774811153aeab5f7f9b0033c82005c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nosduco",
-        "repo": "remote-sshfs.nvim",
-        "type": "github"
-      }
-    },
     "nvim_plugin-numToStr/Comment.nvim": {
       "flake": false,
       "locked": {
@@ -928,7 +912,6 @@
         "nvim_plugin-mfussenegger/nvim-lint": "nvim_plugin-mfussenegger/nvim-lint",
         "nvim_plugin-mrcjkb/rustaceanvim": "nvim_plugin-mrcjkb/rustaceanvim",
         "nvim_plugin-neovim/nvim-lspconfig": "nvim_plugin-neovim/nvim-lspconfig",
-        "nvim_plugin-nosduco/remote-sshfs.nvim": "nvim_plugin-nosduco/remote-sshfs.nvim",
         "nvim_plugin-numToStr/Comment.nvim": "nvim_plugin-numToStr/Comment.nvim",
         "nvim_plugin-nvim-lua/plenary.nvim": "nvim_plugin-nvim-lua/plenary.nvim",
         "nvim_plugin-nvim-lualine/lualine.nvim": "nvim_plugin-nvim-lualine/lualine.nvim",

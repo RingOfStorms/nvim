@@ -2,24 +2,6 @@
 return {
 	"mfussenegger/nvim-lint",
 	event = { "VeryLazy", "BufWritePost", "BufReadPost", "InsertLeave" },
-	init = function()
-		-- Check for common linters and warn if missing
-		local linters_to_check = {
-			{ cmd = "markdownlint", desc = "Markdown linting" },
-			{ cmd = "biome", desc = "JS/TS linting" },
-		}
-		
-		for _, linter in ipairs(linters_to_check) do
-			if not U.cmd_executable(linter.cmd) then
-				vim.schedule(function()
-					vim.notify(
-						string.format("Linter '%s' not found. Used for: %s", linter.cmd, linter.desc),
-						vim.log.levels.WARN
-					)
-				end)
-			end
-		end
-	end,
 	opts = {
 		-- Event to trigger linters
 		events = { "BufWritePost", "BufReadPost", "InsertLeave", "CursorHold", "CursorHoldI" },
@@ -139,7 +121,7 @@ return {
 			names = vim.tbl_filter(function(name)
 				local linter = lint.linters[name]
 				if not linter then
-					LazyVim.warn("Linter not found: " .. name, { title = "nvim-lint" })
+					vim.notify("Linter not found: " .. name, vim.log.levels.WARN)
 				end
 				return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
 			end, names)

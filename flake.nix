@@ -126,8 +126,8 @@
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
     "nvim_plugin-ron-rs/ron.vim".url = "github:ron-rs/ron.vim";
     "nvim_plugin-ron-rs/ron.vim".flake = false;
-    "nvim_plugin-nosduco/remote-sshfs.nvim".url = "github:nosduco/remote-sshfs.nvim";
-    "nvim_plugin-nosduco/remote-sshfs.nvim".flake = false;
+    # "nvim_plugin-nosduco/remote-sshfs.nvim".url = "github:nosduco/remote-sshfs.nvim";
+    # "nvim_plugin-nosduco/remote-sshfs.nvim".flake = false;
   };
   outputs =
     {
@@ -190,12 +190,10 @@
 
           # All runtime dependencies are now optional and checked lazily by plugins
           # This keeps the neovim flake lean and allows project devShells to provide tools
-          # Core dependencies that telescope needs are kept here
           runtimeDependencies = with pkgs; [
             ripgrep # search - core to telescope, checked in telescope.lua init
             fd # file finding - improves telescope performance, checked in telescope.lua init
-            # All other tools (LSPs, formatters, linters, glow, sshfs, etc.) are now optional
-            # and will show helpful errors when missing at the point of use
+            tree-sitter # highlighting
           ];
 
         in
