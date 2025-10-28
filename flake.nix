@@ -226,6 +226,7 @@
                       (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
                 });
 
+<<<<<<< Updated upstream
           # All runtime dependencies are now optional and checked at runtime by plugins
           # This keeps the neovim flake lean and allows project devShells to provide tools
           # Core dependencies that neovim itself might need can still be added here
@@ -235,6 +236,16 @@
             fd # file finding - used by telescope
             # All other tools (LSPs, formatters, linters, glow, sshfs, etc.) are now optional
             # and will show helpful errors when missing
+=======
+          # All runtime dependencies are now optional and checked lazily by plugins
+          # This keeps the neovim flake lean and allows project devShells to provide tools
+          # Core dependencies that telescope needs are kept here
+          runtimeDependencies = with pkgs; [
+            ripgrep # search - core to telescope, checked in telescope.lua init
+            fd # file finding - improves telescope performance, checked in telescope.lua init
+            # All other tools (LSPs, formatters, linters, glow, sshfs, etc.) are now optional
+            # and will show helpful errors when missing at the point of use
+>>>>>>> Stashed changes
           ];
 
         in
@@ -256,7 +267,11 @@
                   old.generatedWrapperArgs or [ ]
                   ++ [
                     # Add minimal runtime dependencies to neovim path
+<<<<<<< Updated upstream
                     # Most tools are now optional and checked at runtime
+=======
+                    # Project devShells take precedence via --suffix
+>>>>>>> Stashed changes
                     "--suffix"
                     "PATH"
                     ":"

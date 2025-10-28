@@ -83,7 +83,8 @@ return {
 			--         args = { "fmt" },
 			-- },
 		},
-		-- Note that all these need to be available at runtime, add them to flake.nix#runtimeDependencies
+		-- Formatters are checked lazily on format attempt
+		-- conform.nvim will show errors if formatters are missing
 		formatters_by_ft = {
 			sql = { "sql_formatter", lsp_format = "first" },
 			lua = { "stylua", lsp_format = "first" },
