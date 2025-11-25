@@ -204,6 +204,9 @@
             glow
             curl
             sshfs
+            # including nix for minal for nice iso build
+            nixfmt-rfc-style # nix formatter
+            nil # nix lsp
           ];
 
           # Full optional tools (suffix) — linters, formatters, LSPs
@@ -213,14 +216,12 @@
             biome
             # formatters
             stylua
-            nixfmt-rfc-style
             nodePackages.prettier
             rustywind
             markdownlint-cli2
             sql-formatter
             libsForQt5.qt5.qtdeclarative # qmlformat
             # LSPs
-            nil # nix
             lua-language-server
             vscode-langservers-extracted # HTML/CSS/JSON/ESLint
             nodePackages.typescript-language-server
