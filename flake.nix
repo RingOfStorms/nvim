@@ -193,6 +193,9 @@
             ripgrep # search - core to telescope, checked in telescope.lua init
             fd # file finding - improves telescope performance, checked in telescope.lua init
             tree-sitter # highlighting
+            # including nix for minal for nice iso build
+            nixfmt-rfc-style # nix formatter
+            nil # nix lsp
           ];
 
           # Core tools to prefer in PATH (prefix)
@@ -204,9 +207,6 @@
             glow
             curl
             sshfs
-            # including nix for minal for nice iso build
-            nixfmt-rfc-style # nix formatter
-            nil # nix lsp
           ];
 
           # Full optional tools (suffix) — linters, formatters, LSPs
