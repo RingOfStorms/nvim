@@ -193,9 +193,6 @@
             ripgrep # search - core to telescope, checked in telescope.lua init
             fd # file finding - improves telescope performance, checked in telescope.lua init
             tree-sitter # highlighting
-            # including nix for minal for nice iso build
-            nixfmt-rfc-style # nix formatter
-            nil # nix lsp
           ];
 
           # Core tools to prefer in PATH (prefix)
@@ -207,6 +204,10 @@
             glow
             curl
             sshfs
+
+            # nix lang stuff
+            nixfmt-rfc-style
+            nil # nix
           ];
 
           # Full optional tools (suffix) — linters, formatters, LSPs
@@ -246,10 +247,8 @@
             })
           ];
 
-        in
-        {
-          default = self.packages.${system}.neovim;
-          neovim =
+          createNeovim =
+            { full }:
             (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
               pkgs.neovimUtils.makeNeovimConfig {
                 withPython3 = false;
@@ -264,11 +263,18 @@
                 generatedWrapperArgs =
                   old.generatedWrapperArgs or [ ]
                   ++ [
-                    # Add minimal runtime dependencies to neovim path (suffix for devShell precedence)
+                    # Add core tools, but let local devShell override
                     "--suffix"
                     "PATH"
                     ":"
-                    "${lib.makeBinPath runtimeDependencies}"
+                    "${lib.makeBinPath runtimeDependenciesCore}"
+                  ]
+                  ++ lib.optionals full [
+                    # Add full toolchain, but let local devShell tools override
+                    "--suffix"
+                    "PATH"
+                    ":"
+                    "${lib.makeBinPath runtimeDependenciesFull}"
                   ]
                   ++ [
                     # Set the LAZY env path to the nix store, see init.lua for how it is used
@@ -276,22 +282,6 @@
                     "LAZY"
                     "${lazyPath}"
                   ]
-                  # ++ [
-                  #   # Link avante libraries
-                  #   "--prefix"
-                  #   "LD_LIBRARY_PATH"
-                  #   ":"
-                  #   "${avante-nvim-lib}/lib"
-                  #   # Add Lua C modules path TODO make these conditional so on linux, and dylib for mac it shouldn't be both...
-                  #   "--prefix"
-                  #   "LUA_CPATH"
-                  #   ";"
-                  #   "${avante-nvim-lib}/lib/?.so"
-                  #   "--prefix"
-                  #   "LUA_CPATH"
-                  #   ";"
-                  #   "${avante-nvim-lib}/lib/?.dylib"
-                  # ]
                   ++ [
                     # Don't use default directories to not collide with another neovim config
                     # All things at runtime should be deletable since we are using nix to handle downloads and bins
@@ -345,91 +335,11 @@
                     "ALL_PROXY"
                   ];
               });
-
-          neovimFull =
-            (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
-              pkgs.neovimUtils.makeNeovimConfig {
-                withPython3 = false;
-                customRC = ''
-                  lua ${luaNixGlobal}
-                  luafile ${./.}/init.lua
-                  set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
-                '';
-              }
-            )).overrideAttrs
-              (old: {
-                generatedWrapperArgs =
-                  old.generatedWrapperArgs or [ ]
-                  ++ [
-                    # Add core tools, but let local devShell override
-                    "--suffix"
-                    "PATH"
-                    ":"
-                    "${lib.makeBinPath runtimeDependenciesCore}"
-                  ]
-                  ++ [
-                    # Add full toolchain, but let local devShell tools override
-                    "--suffix"
-                    "PATH"
-                    ":"
-                    "${lib.makeBinPath runtimeDependenciesFull}"
-                  ]
-                  ++ [
-                    # Set the LAZY env path to the nix store, see init.lua for how it is used
-                    "--set"
-                    "LAZY"
-                    "${lazyPath}"
-                  ]
-                  ++ [
-                    # Don't use default directories to not collide with another neovim config
-                    "--run"
-                    ''export NVIM_FLAKE_BASE_DIR="''${XDG_STATE_HOME:-$HOME/.local/state}"''
-                    "--run"
-                    ''export XDG_CONFIG_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/config"''
-                    "--run"
-                    ''export XDG_DATA_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/share"''
-                    "--run"
-                    ''export XDG_RUNTIME_DIR="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/run"''
-                    "--run"
-                    ''export XDG_STATE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/state"''
-                    "--run"
-                    ''export XDG_CACHE_HOME="$NVIM_FLAKE_BASE_DIR/nvim_ringofstorms_${version}/cache"''
-                    "--run"
-                    ''[ ! -d "$XDG_RUNTIME_DIR" ] && mkdir -p "$XDG_RUNTIME_DIR"''
-                    "--run"
-                    ''
-                      if [ -n "$WAYLAND_DISPLAY" ]; then
-                          if [ ! -S "$XDG_RUNTIME_DIR/wayland-0" ]; then
-                            mkdir -p "$XDG_RUNTIME_DIR"
-                            ln -sf /run/user/$(id -u)/wayland-0 "$XDG_RUNTIME_DIR/wayland-0"
-                          fi
-                          if [ ! -S "$XDG_RUNTIME_DIR/wayland-1" ]; then
-                            mkdir -p "$XDG_RUNTIME_DIR"
-                            ln -sf /run/user/$(id -u)/wayland-1 "$XDG_RUNTIME_DIR/wayland-1"
-                          fi
-                        fi
-                    ''
-                  ]
-                  ++ [
-                    # Clear proxy environment variables
-                    "--unset"
-                    "http_proxy"
-                    "--unset"
-                    "https_proxy"
-                    "--unset"
-                    "ftp_proxy"
-                    "--unset"
-                    "all_proxy"
-                    "--unset"
-                    "HTTP_PROXY"
-                    "--unset"
-                    "HTTPS_PROXY"
-                    "--unset"
-                    "FTP_PROXY"
-                    "--unset"
-                    "ALL_PROXY"
-                  ];
-              });
+        in
+        {
+          default = self.packages.${system}.neovim;
+          neovim = createNeovim { full = true; };
+          neovimMinimal = createNeovim { full = false; };
         }
       );
       nixosModules = {
@@ -451,9 +361,9 @@
               environment.systemPackages = [
                 (
                   if cfg.includeAllRuntimeDependencies then
-                    self.packages.${pkgs.system}.neovimFull
-                  else
                     self.packages.${pkgs.system}.neovim
+                  else
+                    self.packages.${pkgs.system}.neovimMinimal
                 )
               ];
             };
