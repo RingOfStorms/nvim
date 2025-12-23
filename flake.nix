@@ -2,7 +2,7 @@
   description = "RingOfStorms's Neovim configuration using nix flake for portability";
   # Nixpkgs / NixOS version to use.
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     rust-overlay.url = "github:oxalica/rust-overlay";
     rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
@@ -187,14 +187,6 @@
                     builtins.foldl' (dirs: name: { "${name}" = inputs.${name}.outPath; } // dirs) nixPkgsPlugins
                       (builtins.filter (n: builtins.substring 0 12 n == "nvim_plugin-") (builtins.attrNames inputs));
                 });
-
-          # Minimal runtime dependencies for a lean flake
-          runtimeDependencies = with pkgs; [
-            ripgrep # search - core to telescope, checked in telescope.lua init
-            fd # file finding - improves telescope performance, checked in telescope.lua init
-            tree-sitter # highlighting
-          ];
-
           # Core tools to prefer in PATH (prefix)
           runtimeDependenciesCore = with pkgs; [
             ripgrep
@@ -215,6 +207,7 @@
             # linters
             markdownlint-cli
             biome
+            svelte-check
             # formatters
             stylua
             nodePackages.prettier
@@ -225,9 +218,10 @@
             # LSPs
             lua-language-server
             vscode-langservers-extracted # HTML/CSS/JSON/ESLint
-            nodePackages.typescript-language-server
-            nodePackages.svelte-language-server
+            typescript-language-server
+            svelte-language-server
             tailwindcss-language-server
+            eslint_d
             python312Packages.python-lsp-server
             rust-analyzer
             marksman # markdown
