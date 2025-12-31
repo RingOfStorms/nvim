@@ -40,6 +40,7 @@ return {
 					"^build/",
 					"target/",
 					"node_modules/",
+					"result/",
 					"package-lock.json",
 					".git/",
 					".direnv/",
