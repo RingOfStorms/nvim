@@ -65,9 +65,11 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "Buf
 			if auto_save_debounce[event.buf] ~= 1 then
 				auto_save_debounce[event.buf] = 1
 				vim.defer_fn(function()
-					vim.api.nvim_buf_call(event.buf, function()
-						vim.api.nvim_command("silent! write")
-					end)
+					if vim.api.nvim_buf_is_valid(event.buf) then
+						vim.api.nvim_buf_call(event.buf, function()
+							vim.api.nvim_command("silent! write")
+						end)
+					end
 					auto_save_debounce[event.buf] = nil
 				end, 500)
 			end
