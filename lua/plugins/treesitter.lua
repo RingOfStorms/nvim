@@ -1,7 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = { "windwp/nvim-ts-autotag" },
-	lazy = false, -- nvim-treesitter does not support lazy-loading per docs
+	lazy = false,
 	build = ":TSUpdate",
 	init = function()
 		U.cmd_executable("tree-sitter", {
@@ -11,39 +11,39 @@ return {
 		})
 	end,
 	config = function()
-		-- New nvim-treesitter API (post-rewrite)
-		-- Setup is optional and only needed for non-default install directory
-		local ts = require("nvim-treesitter")
-
-		-- In nix mode, parsers are provided by the nix store, no installation needed
-		if not NIX then
-			-- Install common parsers (async)
-			ts.install({
-				"bash",
-				"c",
-				"css",
-				"dockerfile",
-				"go",
-				"html",
-				"javascript",
-				"json",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"nix",
-				"python",
-				"rust",
-				"svelte",
-				"toml",
-				"tsx",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"yaml",
-			})
+		-- The new nvim-treesitter has queries under runtime/queries/
+		-- We need to add this to runtimepath for vim.treesitter to find them
+		local ts_path = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter"
+		if NIX then
+			-- Find the nvim-treesitter plugin path in nix store
+			for _, p in ipairs(vim.api.nvim_list_runtime_paths()) do
+				if p:match("nvim%-treesitter%-[0-9]") or p:match("nvim%-treesitter%.[0-9]") then
+					ts_path = p
+					break
+				end
+			end
 		end
 
-		-- Enable treesitter highlighting for all filetypes
+		-- Add the runtime subdirectory to runtimepath if it exists and has queries
+		local runtime_path = ts_path .. "/runtime"
+		if vim.fn.isdirectory(runtime_path .. "/queries") == 1 then
+			vim.opt.runtimepath:prepend(runtime_path)
+		end
+
+		-- In non-nix mode, install parsers
+		if not NIX then
+			local ts = require("nvim-treesitter")
+			if ts.install then
+				ts.install({
+					"bash", "c", "css", "dockerfile", "go", "html", "javascript",
+					"json", "lua", "markdown", "markdown_inline", "nix", "python",
+					"rust", "svelte", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+				})
+			end
+		end
+
+		-- Enable treesitter highlighting via vim.treesitter.start()
+		-- This works with both nix-provided parsers and installed ones
 		vim.api.nvim_create_autocmd("FileType", {
 			group = vim.api.nvim_create_augroup("myconfig-treesitter-highlight", { clear = true }),
 			callback = function(args)
@@ -61,19 +61,14 @@ return {
 				end
 
 				-- Enable treesitter highlighting
+				-- This will silently fail if no parser is available for the filetype
 				pcall(vim.treesitter.start, bufnr)
 			end,
 		})
 
-		-- Enable treesitter-based folding
-		vim.api.nvim_create_autocmd("FileType", {
-			group = vim.api.nvim_create_augroup("myconfig-treesitter-fold", { clear = true }),
-			callback = function(args)
-				local win = vim.api.nvim_get_current_win()
-				vim.wo[win][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-				vim.wo[win][0].foldmethod = "expr"
-				vim.wo[win][0].foldenable = false -- Start with folds open
-			end,
-		})
+		-- Configure nvim-ts-autotag if available
+		U.safeRequire("nvim-ts-autotag", function(autotag)
+			autotag.setup()
+		end)
 	end,
 }
