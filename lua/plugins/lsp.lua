@@ -11,12 +11,12 @@ vim.g.rustaceanvim = {
 
 return {
 	-- LSP helper plugins for various languages
-	{ "folke/neodev.nvim", event = { "BufRead *.lua", "BufRead *.vim" }, opts = {}, main = "neodev" },
+	-- lazydev.nvim handles Lua/Neovim development (configured in lazydev.lua)
 	-- { TODO come back to this, do I actually use any features provided here? I was losing out on rust-analyzer stuff when this was on and it was added below...
 	--   "mrcjkb/rustaceanvim",
 	--   -- uses ftplugins to enable itself lazily already
 	--   lazy = false,
-	-- },
+	-- }
 	-- TODO add some hotkeys for opening the popup menus on crates
 	{ "Saecki/crates.nvim", event = "BufRead Cargo.toml", tag = "stable", opts = {}, main = "crates" },
 	{
@@ -31,7 +31,6 @@ return {
 		"neovim/nvim-lspconfig",
 		event = "BufEnter",
 		dependencies = {
-			{ "hrsh7th/nvim-cmp" },
 			{ "b0o/schemastore.nvim" },
 			-- Automatically install LSPs and related tools to stdpath for Neovim
 			{ "williamboman/mason.nvim", enabled = not NIX, config = true }, -- NOTE: Must be loaded before dependants
@@ -71,6 +70,7 @@ return {
 			})
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		-- Extend capabilities with cmp-nvim-lsp for better completion support
 		U.safeRequire("cmp_nvim_lsp", function(c)
 			capabilities = vim.tbl_deep_extend("force", capabilities, c.default_capabilities())
 		end)
@@ -96,26 +96,18 @@ return {
 							completion = {
 								callSnippet = "Replace",
 							},
-							workspace = {
-								checkThirdParty = false,
-								library = {
-									vim.env.VIMRUNTIME,
-									vim.api.nvim_get_runtime_file("", true),
-									vim.fn.expand("$VIMRUNTIME/lua"),
-									vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
-								},
-								telemetry = { enable = false },
-								diagnostics = {
-									globals = {
-										"vim",
-										"require",
-										"NIX",
-										"U",
-										-- Hammerspoon for macos
-										"hs",
-									},
+							-- lazydev.nvim handles workspace library configuration
+							diagnostics = {
+								globals = {
+									"vim",
+									"require",
+									"NIX",
+									"U",
+									-- Hammerspoon for macos
+									"hs",
 								},
 							},
+							telemetry = { enable = false },
 						},
 					},
 				},
@@ -213,6 +205,52 @@ return {
 		for _, m in ipairs(global_unmaps) do
 			pcall(vim.keymap.del, m.mode, m.lhs)
 		end
+
+		-- Smart LSP detection: notify user when LSP is missing for a filetype
+		-- This helps guide users to add LSPs to their project devShell
+		local expected_lsp_for_filetype = {
+			rust = { name = "rust-analyzer", binary = "rust-analyzer" },
+			typescript = { name = "ts_ls", binary = "typescript-language-server" },
+			typescriptreact = { name = "ts_ls", binary = "typescript-language-server" },
+			javascript = { name = "ts_ls", binary = "typescript-language-server" },
+			javascriptreact = { name = "ts_ls", binary = "typescript-language-server" },
+			python = { name = "pylsp", binary = "pylsp" },
+			go = { name = "gopls", binary = "gopls" },
+			svelte = { name = "svelte", binary = "svelteserver" },
+			css = { name = "cssls", binary = "vscode-css-language-server" },
+			html = { name = "html", binary = "vscode-html-language-server" },
+			json = { name = "jsonls", binary = "vscode-json-language-server" },
+			yaml = { name = "yamlls", binary = "yaml-language-server" },
+			toml = { name = "taplo", binary = "taplo" },
+			markdown = { name = "marksman", binary = "marksman" },
+			xml = { name = "lemminx", binary = "lemminx" },
+			-- lua and nix are always available from core deps
+		}
+		local lsp_warned = {}
+		vim.api.nvim_create_autocmd("FileType", {
+			group = vim.api.nvim_create_augroup("myconfig-lsp-detect", { clear = true }),
+			callback = function(args)
+				local ft = args.match
+				local expected = expected_lsp_for_filetype[ft]
+				if expected and not lsp_warned[ft] then
+					-- Check if the binary is available
+					if vim.fn.executable(expected.binary) ~= 1 then
+						lsp_warned[ft] = true
+						vim.defer_fn(function()
+							vim.notify(
+								string.format(
+									"LSP '%s' for %s not found.\nAdd '%s' to your project devShell.",
+									expected.name,
+									ft,
+									expected.binary
+								),
+								vim.log.levels.WARN
+							)
+						end, 500)
+					end
+				end
+			end,
+		})
 
 		if NIX then
 			local lsp_servers = vim.tbl_keys(servers or {})

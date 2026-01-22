@@ -56,8 +56,6 @@
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url =
       "github:JoosepAlviste/nvim-ts-context-commentstring";
     "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".flake = false;
-    "nvim_plugin-numToStr/Comment.nvim".url = "github:numToStr/Comment.nvim";
-    "nvim_plugin-numToStr/Comment.nvim".flake = false;
     "nvim_plugin-windwp/nvim-ts-autotag".url = "github:windwp/nvim-ts-autotag";
     "nvim_plugin-windwp/nvim-ts-autotag".flake = false;
     "nvim_plugin-uga-rosa/ccc.nvim".url = "github:uga-rosa/ccc.nvim";
@@ -78,8 +76,9 @@
     "nvim_plugin-MeanderingProgrammer/render-markdown.nvim".flake = false;
     "nvim_plugin-Almo7aya/openingh.nvim".url = "github:Almo7aya/openingh.nvim";
     "nvim_plugin-Almo7aya/openingh.nvim".flake = false;
-    "nvim_plugin-tpope/vim-surround".url = "github:tpope/vim-surround";
-    "nvim_plugin-tpope/vim-surround".flake = false;
+    # mini.nvim replaces vim-surround, Comment.nvim
+    "nvim_plugin-echasnovski/mini.nvim".url = "github:echasnovski/mini.nvim";
+    "nvim_plugin-echasnovski/mini.nvim".flake = false;
     "nvim_plugin-johmsalas/text-case.nvim".url = "github:johmsalas/text-case.nvim";
     "nvim_plugin-johmsalas/text-case.nvim".flake = false;
     "nvim_plugin-mbbill/undotree".url = "github:mbbill/undotree";
@@ -96,10 +95,9 @@
     "nvim_plugin-neovim/nvim-lspconfig".flake = false;
     "nvim_plugin-b0o/schemastore.nvim".url = "github:b0o/schemastore.nvim";
     "nvim_plugin-b0o/schemastore.nvim".flake = false;
+    # Completion: nvim-cmp (blink.cmp had stability issues)
     "nvim_plugin-hrsh7th/nvim-cmp".url = "github:hrsh7th/nvim-cmp";
     "nvim_plugin-hrsh7th/nvim-cmp".flake = false;
-    "nvim_plugin-L3MON4D3/LuaSnip".url = "github:L3MON4D3/LuaSnip";
-    "nvim_plugin-L3MON4D3/LuaSnip".flake = false;
     "nvim_plugin-saadparwaiz1/cmp_luasnip".url = "github:saadparwaiz1/cmp_luasnip";
     "nvim_plugin-saadparwaiz1/cmp_luasnip".flake = false;
     "nvim_plugin-hrsh7th/cmp-nvim-lsp".url = "github:hrsh7th/cmp-nvim-lsp";
@@ -108,16 +106,22 @@
     "nvim_plugin-hrsh7th/cmp-path".flake = false;
     "nvim_plugin-hrsh7th/cmp-buffer".url = "github:hrsh7th/cmp-buffer";
     "nvim_plugin-hrsh7th/cmp-buffer".flake = false;
-    "nvim_plugin-zbirenbaum/copilot-cmp".url = "github:zbirenbaum/copilot-cmp";
-    "nvim_plugin-zbirenbaum/copilot-cmp".flake = false;
-    "nvim_plugin-zbirenbaum/copilot.lua".url = "github:zbirenbaum/copilot.lua";
-    "nvim_plugin-zbirenbaum/copilot.lua".flake = false;
-    "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".url = "github:CopilotC-Nvim/CopilotChat.nvim";
-    "nvim_plugin-CopilotC-Nvim/CopilotChat.nvim".flake = false;
+    "nvim_plugin-L3MON4D3/LuaSnip".url = "github:L3MON4D3/LuaSnip";
+    "nvim_plugin-L3MON4D3/LuaSnip".flake = false;
     "nvim_plugin-stevearc/dressing.nvim".url = "github:stevearc/dressing.nvim";
     "nvim_plugin-stevearc/dressing.nvim".flake = false;
-    "nvim_plugin-folke/neodev.nvim".url = "github:folke/neodev.nvim";
-    "nvim_plugin-folke/neodev.nvim".flake = false;
+    # lazydev.nvim replaces neodev.nvim (which is archived)
+    "nvim_plugin-folke/lazydev.nvim".url = "github:folke/lazydev.nvim";
+    "nvim_plugin-folke/lazydev.nvim".flake = false;
+    # trouble.nvim for better diagnostics UI
+    "nvim_plugin-folke/trouble.nvim".url = "github:folke/trouble.nvim";
+    "nvim_plugin-folke/trouble.nvim".flake = false;
+    # direnv.vim for project environment integration
+    "nvim_plugin-direnv/direnv.vim".url = "github:direnv/direnv.vim";
+    "nvim_plugin-direnv/direnv.vim".flake = false;
+    # llama.vim for local AI autocomplete
+    "nvim_plugin-ggml-org/llama.vim".url = "github:ggml-org/llama.vim";
+    "nvim_plugin-ggml-org/llama.vim".flake = false;
     "nvim_plugin-mrcjkb/rustaceanvim".url = "github:mrcjkb/rustaceanvim";
     "nvim_plugin-mrcjkb/rustaceanvim".flake = false;
     "nvim_plugin-Saecki/crates.nvim".url = "github:Saecki/crates.nvim";
@@ -196,6 +200,7 @@
             glow
             curl
             sshfs
+            direnv # Auto-load project devShell environments
 
             # nix lang stuff
             nixfmt-rfc-style

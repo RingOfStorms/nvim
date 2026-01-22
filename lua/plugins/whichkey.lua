@@ -22,6 +22,7 @@ return {
 				{ "<leader>l", group = "LSP" },
 				{ "<leader>lf", group = "LSP Find" },
 				{ "<leader>t", group = "Tabs" },
+				{ "<leader>x", group = "Trouble/Diagnostics" },
 			},
 		},
 	},

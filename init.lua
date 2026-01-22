@@ -49,9 +49,9 @@ local function getSpec()
 			local p = ensure_table(plugin)
 			if U.isArray(p) and #p > 1 then
 				local plugins = {}
-				table.foreachi(p, function(i, inner)
+				for _, inner in ipairs(p) do
 					table.insert(plugins, convertPluginToNixStore(inner))
-				end)
+				end
 				return plugins
 			end
 			if p.enabled == false then
@@ -77,11 +77,13 @@ local function getSpec()
 
 		local plugins = {}
 		local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
-		for _, file in ipairs(vim.fn.readdir(plugins_path, [[v:val =~ '\.lua$']])) do
-			local plugin = string.sub(file, 0, -5)
-			local converted = convertPluginToNixStore(require("plugins." .. plugin))
-			if converted ~= nil then
-				table.insert(plugins, converted)
+		for _, file in ipairs(vim.fn.readdir(plugins_path)) do
+			if file:match("%.lua$") then
+				local plugin = string.sub(file, 0, -5)
+				local converted = convertPluginToNixStore(require("plugins." .. plugin))
+				if converted ~= nil then
+					table.insert(plugins, converted)
+				end
 			end
 		end
 		return plugins
