@@ -176,4 +176,28 @@ function M.fnZero()
 	return 0
 end
 
+--- Opens telescope file browser to pick a directory, then calls callback with the selected path.
+--- Starts at the current buffer's parent directory for quick access.
+---@param callback fun(dir: string): nil Function to call with selected directory path
+function M.pick_directory_then(callback)
+  local actions = require("telescope.actions")
+  local action_state = require("telescope.actions.state")
+
+  require("telescope").extensions.file_browser.file_browser({
+    path = vim.fn.expand("%:p:h"),
+    select_buffer = true,
+    files = false, -- Only show directories
+    depth = false,
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace(function()
+        local entry = action_state.get_selected_entry()
+        local dir = entry and entry.path or vim.fn.expand("%:p:h")
+        actions.close(prompt_bufnr)
+        callback(dir)
+      end)
+      return true
+    end,
+  })
+end
+
 return M

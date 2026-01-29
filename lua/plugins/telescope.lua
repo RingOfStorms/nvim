@@ -167,6 +167,47 @@ return {
 			end,
 			desc = "Find Words",
 		},
+		-- Find Words in Directory (scoped)
+		{
+			"<leader>fW",
+			function()
+				U.pick_directory_then(function(dir)
+					U.cmd_executable("rg", {
+						function()
+							require("telescope.builtin").live_grep({
+								cwd = dir,
+								hidden = true,
+								follow = true,
+								no_ignore = true,
+								no_ignore_parent = true,
+								prompt_title = "Find Words in " .. vim.fn.fnamemodify(dir, ":~:."),
+							})
+						end,
+						function()
+							vim.notify("rg not installed, find words will not function.", 3)
+						end,
+					})
+				end)
+			end,
+			desc = "Find Words in Directory",
+		},
+		-- Find Files in Directory (scoped)
+		{
+			"<leader>fF",
+			function()
+				U.pick_directory_then(function(dir)
+					require("telescope.builtin").find_files({
+						cwd = dir,
+						hidden = true,
+						follow = true,
+						no_ignore = true,
+						no_ignore_parent = true,
+						prompt_title = "Find Files in " .. vim.fn.fnamemodify(dir, ":~:."),
+					})
+				end)
+			end,
+			desc = "Find Files in Directory",
+		},
 		{
 			"<leader>fc",
 			function()
