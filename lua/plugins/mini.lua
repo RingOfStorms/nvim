@@ -30,8 +30,7 @@ return {
 			},
 		})
 
-		-- Auto pairs: Automatically close brackets, quotes, etc.
-		require("mini.pairs").setup()
+
 
 		-- Enhanced text objects: Better text objects for quotes, brackets, etc.
 		-- Adds: aq/iq (quotes), ab/ib (brackets), af/if (function), etc.
