@@ -15,16 +15,61 @@ Goals:
 nix run git+https://git.joshuabell.xyz/ringofstorms/nvim
 ```
 
-in NixOS
+#### NixOS Module
+
+Add the flake input and import the module:
 
 ```nix
 -- in flake.nix#inputs
 ringofstorms-nvim = {
   url = "git+https://git.joshuabell.xyz/nvim";
 };
--- in nix module
-environment.systemPackages = with pkgs; [
-  ringofstorms-nvim.packages.${settings.system.system}.neovim
+
+-- in flake.nix#outputs nixosSystem modules
+ringofstorms-nvim.nixosModules.default
+```
+
+Then configure the options:
+
+```nix
+"ringofstorms-nvim" = {
+  # Include all LSPs, formatters, linters, and tools in the packaged neovim PATH.
+  # When false (default), only core dependencies are included — project devShells
+  # provide the rest via direnv.
+  includeAllRuntimeDependencies = true;
+
+  # When null (default), installs this neovim as `nvim` globally.
+  # When set to a string, does NOT install as `nvim` — instead creates wrapper
+  # scripts under that prefix so another system neovim is left untouched.
+  # For example, underPrefix = "n" creates:
+  #   `n`  — launches this neovim
+  #   `nn` — deletes the current session then launches this neovim
+  underPrefix = "n";
+};
+```
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `includeAllRuntimeDependencies` | `bool` | `false` | Bundle all runtime tools (LSPs, formatters, linters) into the neovim PATH |
+| `underPrefix` | `null` or `string` | `null` | Install under a custom prefix instead of as `nvim` globally |
+
+**`underPrefix` examples:**
+
+| Value | Installed commands | System `nvim` |
+|-------|-------------------|---------------|
+| `null` | `nvim` | Replaced |
+| `"n"` | `n`, `nn` | Untouched |
+| `"vi"` | `vi`, `vivi` | Untouched |
+
+#### Manual package install (without the module)
+
+You can also skip the module and add the package directly:
+
+```nix
+environment.systemPackages = [
+  ringofstorms-nvim.packages.${system}.neovim        # full (all tools)
+  # or
+  ringofstorms-nvim.packages.${system}.neovimMinimal  # core only
 ];
 ```
 

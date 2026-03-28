@@ -353,19 +353,59 @@
             cfg = config."ringofstorms-nvim";
           in
           {
-            options."ringofstorms-nvim".includeAllRuntimeDependencies =
-              lib.mkEnableOption "Include all runtime dependencies (LSPs, formatters, linters, tools) in the packaged Neovim PATH.";
+            options."ringofstorms-nvim" = {
+              includeAllRuntimeDependencies =
+                lib.mkEnableOption "Include all runtime dependencies (LSPs, formatters, linters, tools) in the packaged Neovim PATH.";
 
-            config = {
-              environment.systemPackages = [
-                (
+              underPrefix = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = ''
+                  When null (default), installs this neovim as `nvim` globally in system packages.
+                  When set to a string prefix, does NOT install as `nvim` — instead creates
+                  `<prefix>` and `<prefix><prefix>` wrapper scripts so another system neovim is left untouched.
+                  For example, underPrefix = "n" creates:
+                    `n`  — launches this neovim
+                    `nn` — deletes the session then launches this neovim
+                '';
+              };
+            };
+
+            config =
+              let
+                nvimPackage =
                   if cfg.includeAllRuntimeDependencies then
                     self.packages.${pkgs.system}.neovim
                   else
-                    self.packages.${pkgs.system}.neovimMinimal
-                )
+                    self.packages.${pkgs.system}.neovimMinimal;
+              in
+              lib.mkMerge [
+                # When underPrefix is null, install as nvim globally (current behavior)
+                (lib.mkIf (cfg.underPrefix == null) {
+                  environment.systemPackages = [ nvimPackage ];
+                })
+
+                # When underPrefix is set, create named wrapper scripts instead
+                (lib.mkIf (cfg.underPrefix != null) (
+                  let
+                    prefix = cfg.underPrefix;
+                    nvimBin = lib.getExe nvimPackage;
+                    prefixPkg = pkgs.writeShellScriptBin prefix ''
+                      exec ${nvimBin} "$@"
+                    '';
+                    prefixPrefixPkg = pkgs.writeShellScriptBin "${prefix}${prefix}" ''
+                      ${nvimBin} --headless '+SessionDelete' +qa > /dev/null 2>&1
+                      exec ${nvimBin} "$@"
+                    '';
+                  in
+                  {
+                    environment.systemPackages = [
+                      prefixPkg
+                      prefixPrefixPkg
+                    ];
+                  }
+                ))
               ];
-            };
           };
       };
     };
