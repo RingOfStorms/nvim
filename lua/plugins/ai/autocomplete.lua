@@ -12,7 +12,17 @@
 local function is_llama_server_running()
 	-- Quick sync check - only used at startup
 	local result = vim.system(
-		{ "curl", "-s", "-o", "/dev/null", "-w", "%{http_code}", "--connect-timeout", "0.5", "http://127.0.0.1:8012/health" },
+		{
+			"curl",
+			"-s",
+			"-o",
+			"/dev/null",
+			"-w",
+			"%{http_code}",
+			"--connect-timeout",
+			"0.5",
+			"http://127.0.0.1:8012/health",
+		},
 		{ text = true }
 	):wait()
 	return result.code == 0 and result.stdout and result.stdout:match("200")

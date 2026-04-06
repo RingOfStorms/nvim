@@ -48,7 +48,8 @@ return {
 		load_history()
 
 		local function call_llm(prompt, callback)
-			local system_prompt = [[You are a vim command generator. Given a task description, output ONLY a vim command or sequence of keystrokes that accomplishes the task. 
+			local system_prompt =
+				[[You are a vim command generator. Given a task description, output ONLY a vim command or sequence of keystrokes that accomplishes the task. 
 Rules:
 - Output ONLY the vim command/keystrokes, nothing else
 - No explanations, no markdown, no code blocks
@@ -72,10 +73,13 @@ Rules:
 			vim.fn.jobstart({
 				"curl",
 				"-s",
-				"-X", "POST",
+				"-X",
+				"POST",
 				"http://h001.net.joshuabell.xyz:8094/v1/chat/completions",
-				"-H", "Content-Type: application/json",
-				"-d", body,
+				"-H",
+				"Content-Type: application/json",
+				"-d",
+				body,
 			}, {
 				stdout_buffered = true,
 				stderr_buffered = true,
@@ -132,11 +136,7 @@ Rules:
 					vim.notify("Command failed: " .. err, vim.log.levels.ERROR)
 				end
 			else
-				vim.api.nvim_feedkeys(
-					vim.api.nvim_replace_termcodes(command, true, false, true),
-					"n",
-					false
-				)
+				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "n", false)
 			end
 		end
 

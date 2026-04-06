@@ -39,6 +39,26 @@ vim.opt.rtp:prepend(lazypath)
 local function ensure_table(object)
 	return type(object) == "table" and object or { object }
 end
+
+-- Recursively scan a directory for .lua files (handles subdirectories)
+local function scan_plugin_files(base_path, module_prefix)
+	local plugins = {}
+	for _, entry in ipairs(vim.fn.readdir(base_path)) do
+		local full_path = base_path .. "/" .. entry
+		if vim.fn.isdirectory(full_path) == 1 then
+			-- Recurse into subdirectory
+			local sub_plugins = scan_plugin_files(full_path, module_prefix .. "." .. entry)
+			for _, p in ipairs(sub_plugins) do
+				table.insert(plugins, p)
+			end
+		elseif entry:match("%.lua$") then
+			local module_name = module_prefix .. "." .. string.sub(entry, 1, -5)
+			table.insert(plugins, module_name)
+		end
+	end
+	return plugins
+end
+
 local function getSpec()
 	if NIX then
 		-- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
@@ -60,7 +80,7 @@ local function getSpec()
 				return nil
 			end
 			p.dir = NIX.pluginPaths[nixName]
-			p.name = p.name or p[1]
+			p.name = p.name or p[1]:match("[^/]+$")
 			p.url = nil
 			p.pin = true
 			if p.dependencies then
@@ -74,18 +94,21 @@ local function getSpec()
 
 		local plugins = {}
 		local plugins_path = debug.getinfo(2, "S").source:sub(2):match("(.*/)") .. "lua/plugins"
-		for _, file in ipairs(vim.fn.readdir(plugins_path)) do
-			if file:match("%.lua$") then
-				local plugin = string.sub(file, 0, -5)
-				local converted = convertPluginToNixStore(require("plugins." .. plugin))
-				if converted ~= nil then
-					table.insert(plugins, converted)
-				end
+		local module_names = scan_plugin_files(plugins_path, "plugins")
+		for _, module_name in ipairs(module_names) do
+			local converted = convertPluginToNixStore(require(module_name))
+			if converted ~= nil then
+				table.insert(plugins, converted)
 			end
 		end
 		return plugins
 	else
-		return { { import = "plugins" } }
+		return {
+			{ import = "plugins.editor" },
+			{ import = "plugins.lang" },
+			{ import = "plugins.git" },
+			{ import = "plugins.ai" },
+		}
 	end
 end
 

@@ -32,7 +32,18 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 	group = group,
 	callback = function()
-		if vim.bo.buftype ~= "terminal" and vim.bo.filetype ~= "TelescopePrompt" and vim.bo.filetype ~= nil and vim.bo.filetype ~= "" then
+		-- Skip floating windows (completion popups, documentation, etc.)
+		local win = vim.api.nvim_get_current_win()
+		local win_config = vim.api.nvim_win_get_config(win)
+		if win_config.relative ~= "" then
+			return
+		end
+		if
+			vim.bo.buftype ~= "terminal"
+			and vim.bo.filetype ~= "snacks_picker_input"
+			and vim.bo.filetype ~= nil
+			and vim.bo.filetype ~= ""
+		then
 			vim.api.nvim_command("stopinsert")
 		end
 	end,
@@ -53,7 +64,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 	end,
 })
 
-local auto_save_disallowed_filetypes = { "TelescopePrompt", "quickfix", "terminal" }
+local auto_save_disallowed_filetypes = { "snacks_picker_input", "quickfix", "terminal" }
 local auto_save_debounce = {}
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "BufLeave" }, {
 	group = group,

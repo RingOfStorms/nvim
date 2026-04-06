@@ -46,10 +46,7 @@ end
 function M.require_cmd(cmd, feature_name, level)
 	level = level or vim.log.levels.ERROR
 	if vim.fn.executable(cmd) ~= 1 then
-		vim.notify(
-			string.format("'%s' not found on PATH. Required for: %s", cmd, feature_name),
-			level
-		)
+		vim.notify(string.format("'%s' not found on PATH. Required for: %s", cmd, feature_name), level)
 		return false
 	end
 	return true
@@ -124,7 +121,7 @@ function M.table_contains(table, element)
 end
 
 function M.table_not_contains(table, element)
-  return not M.table_contains(table, element)
+	return not M.table_contains(table, element)
 end
 
 -- From https://github.com/lukas-reineke/onedark.nvim/blob/master/lua/onedark.lua
@@ -174,30 +171,6 @@ end
 
 function M.fnZero()
 	return 0
-end
-
---- Opens telescope file browser to pick a directory, then calls callback with the selected path.
---- Starts at the current buffer's parent directory for quick access.
----@param callback fun(dir: string): nil Function to call with selected directory path
-function M.pick_directory_then(callback)
-  local actions = require("telescope.actions")
-  local action_state = require("telescope.actions.state")
-
-  require("telescope").extensions.file_browser.file_browser({
-    path = vim.fn.expand("%:p:h"),
-    select_buffer = true,
-    files = false, -- Only show directories
-    depth = false,
-    attach_mappings = function(prompt_bufnr, _)
-      actions.select_default:replace(function()
-        local entry = action_state.get_selected_entry()
-        local dir = entry and entry.path or vim.fn.expand("%:p:h")
-        actions.close(prompt_bufnr)
-        callback(dir)
-      end)
-      return true
-    end,
-  })
 end
 
 return M

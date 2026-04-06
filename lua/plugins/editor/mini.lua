@@ -30,8 +30,6 @@ return {
 			},
 		})
 
-
-
 		-- Enhanced text objects: Better text objects for quotes, brackets, etc.
 		-- Adds: aq/iq (quotes), ab/ib (brackets), af/if (function), etc.
 		require("mini.ai").setup()

@@ -202,7 +202,7 @@ This config supports local AI-powered code completion via [llama.vim](https://gi
 | Linting | nvim-lint | Async linter integration |
 | AI | llama.vim | Local LLM code completion |
 | Utilities | mini.nvim | Surround, comment, pairs, text objects |
-| Files | nvim-tree, telescope | File browsing and fuzzy finding |
+| Files | nvim-tree, snacks.nvim | File browsing and fuzzy finding |
 
 ## Keybindings
 

@@ -35,9 +35,27 @@ return {
 			local ts = require("nvim-treesitter")
 			if ts.install then
 				ts.install({
-					"bash", "c", "css", "dockerfile", "go", "html", "javascript",
-					"json", "lua", "markdown", "markdown_inline", "nix", "python",
-					"rust", "svelte", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+					"bash",
+					"c",
+					"css",
+					"dockerfile",
+					"go",
+					"html",
+					"javascript",
+					"json",
+					"lua",
+					"markdown",
+					"markdown_inline",
+					"nix",
+					"python",
+					"rust",
+					"svelte",
+					"toml",
+					"tsx",
+					"typescript",
+					"vim",
+					"vimdoc",
+					"yaml",
 				})
 			end
 		end

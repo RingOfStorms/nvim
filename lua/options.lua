@@ -86,4 +86,3 @@ vim.opt.diffopt:append("linematch:20")
 
 -- Don't resize panels when closing something it is annoying
 vim.opt.equalalways = false
-
