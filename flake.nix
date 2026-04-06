@@ -203,7 +203,7 @@
             direnv # Auto-load project devShell environments
 
             # nix lang stuff
-            nixfmt-rfc-style
+            nixfmt
             nil # nix
           ];
 
@@ -215,7 +215,7 @@
             svelte-check
             # formatters
             stylua
-            nodePackages.prettier
+            prettierd
             rustywind
             markdownlint-cli2
             sql-formatter
@@ -248,20 +248,15 @@
 
           createNeovim =
             { full }:
-            (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped (
-              pkgs.neovimUtils.makeNeovimConfig {
-                withPython3 = false;
-                customRC = ''
+            (pkgs.wrapNeovimUnstable pkgs.neovim-unwrapped {
+                neovimRcContent = ''
                   lua ${luaNixGlobal}
                   luafile ${./.}/init.lua
                   set runtimepath^=${builtins.concatStringsSep "," (builtins.attrValues pkgs.vimPlugins.nvim-treesitter.grammarPlugins)}
                 '';
-              }
-            )).overrideAttrs
-              (old: {
-                generatedWrapperArgs =
-                  old.generatedWrapperArgs or [ ]
-                  ++ [
+                withPython3 = false;
+                wrapRc = true;
+                wrapperArgs = [
                     # Add core tools, but let local devShell override
                     "--suffix"
                     "PATH"

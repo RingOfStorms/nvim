@@ -10,7 +10,7 @@ return {
     {
       "<leader>,c",
       function()
-        if next(vim.lsp.get_active_clients()) ~= nil then
+        if next(vim.lsp.get_clients()) ~= nil then
           vim.cmd("TextCaseOpenTelescopeLSPChange")
         else
           vim.cmd("TextCaseOpenTelescope")

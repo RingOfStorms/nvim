@@ -26,14 +26,14 @@ local function langs()
 end
 
 local last_blame = nil
-local last_blame_time = vim.loop.now()
+local last_blame_time = vim.uv.now()
 local function gitblame()
 	local d = vim.b.gitsigns_blame_line_dict
 
 	if d then
 		last_blame = d
-		last_blame_time = vim.loop.now()
-	elseif vim.loop.now() - last_blame_time <= 2000 then
+		last_blame_time = vim.uv.now()
+	elseif vim.uv.now() - last_blame_time <= 2000 then
 		d = last_blame
 	end
 
@@ -132,7 +132,7 @@ return {
 		vim.api.nvim_create_autocmd("RecordingLeave", {
 			group = group,
 			callback = function()
-				local timer = vim.loop.new_timer()
+				local timer = vim.uv.new_timer()
 				timer:start(50, 0, vim.schedule_wrap(ref))
 			end,
 		})

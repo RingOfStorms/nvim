@@ -199,7 +199,7 @@ Rules:
 			table.insert(content, "[y] run  [e] edit  [q/Esc] cancel")
 
 			vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, content)
-			vim.api.nvim_buf_set_option(popup.bufnr, "modifiable", false)
+			vim.bo[popup.bufnr].modifiable = false
 			vim.cmd("stopinsert")
 
 			local function close()
@@ -245,8 +245,8 @@ Rules:
 			})
 
 			popup:mount()
-			vim.api.nvim_buf_set_option(popup.bufnr, "modifiable", true)
-			vim.api.nvim_buf_set_option(popup.bufnr, "buftype", "nofile")
+			vim.bo[popup.bufnr].modifiable = true
+			vim.bo[popup.bufnr].buftype = "nofile"
 			vim.cmd("startinsert")
 
 			local function get_text()

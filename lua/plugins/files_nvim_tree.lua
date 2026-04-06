@@ -14,8 +14,8 @@ return {
 				float = {
 					enable = true,
 					open_win_config = function()
-						local cols = vim.api.nvim_get_option("columns")
-						local rows = vim.api.nvim_get_option("lines")
+					local cols = vim.o.columns
+					local rows = vim.o.lines
 						local width = math.floor(cols / 2)
 						local height = math.floor(rows / 1.2)
 						return {

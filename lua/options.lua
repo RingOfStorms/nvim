@@ -71,6 +71,11 @@ vim.opt.completeopt = "menu,menuone,noinsert"
 vim.diagnostic.config({
 	float = { border = "single" },
 	virtual_text = false,
+	jump = {
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	},
 })
 
 -- Minimal number of screen lines to keep above and below the cursor.
@@ -82,5 +87,3 @@ vim.opt.diffopt:append("linematch:20")
 -- Don't resize panels when closing something it is annoying
 vim.opt.equalalways = false
 
--- enable colors for opacity changes
-vim.opt.termguicolors = true

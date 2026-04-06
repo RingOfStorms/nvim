@@ -58,9 +58,9 @@ local auto_save_debounce = {}
 vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "BufLeave" }, {
 	group = group,
 	callback = function(event)
-		local modifiable = vim.api.nvim_buf_get_option(event.buf, "modifiable")
-		local filetype = vim.api.nvim_buf_get_option(event.buf, "filetype")
-		local modified = vim.api.nvim_buf_get_option(event.buf, "modified")
+		local modifiable = vim.bo[event.buf].modifiable
+		local filetype = vim.bo[event.buf].filetype
+		local modified = vim.bo[event.buf].modified
 		if modifiable and modified and U.table_not_contains(auto_save_disallowed_filetypes, filetype) then
 			if auto_save_debounce[event.buf] ~= 1 then
 				auto_save_debounce[event.buf] = 1

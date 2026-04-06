@@ -7,9 +7,6 @@ if NIX then
 	package.path = package.path .. ";" .. NIX.storePath .. "/lua/?/init.lua"
 end
 
--- Compat stolen form LazyVim
-vim.uv = vim.uv or vim.loop
-
 U = require("util") -- NOTE global U[til]
 require("options")
 require("keymaps")

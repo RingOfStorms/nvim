@@ -90,14 +90,14 @@ U.keymaps({
 	{
 		"]d",
 		function()
-			vim.diagnostic.jump({ count = 1, float = true })
+			vim.diagnostic.jump({ count = 1 })
 		end,
 		desc = "Go to next diagnostic message",
 	},
 	{
 		"[d",
 		function()
-			vim.diagnostic.jump({ count = -1, float = true })
+			vim.diagnostic.jump({ count = -1 })
 		end,
 		desc = "Go to previous diagnostic message",
 	},
