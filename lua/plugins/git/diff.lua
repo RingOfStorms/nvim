@@ -1,6 +1,10 @@
 return {
 	"sindrets/diffview.nvim",
 	opts = {
+		default_args = {
+			DiffviewOpen = { "--", ".", ":!.direnv", ":!result", ":!result-*" },
+			DiffviewFileHistory = { "--", ".", ":!.direnv", ":!result", ":!result-*" },
+		},
 		diff_binaries = false,
 		enhanced_diff_hl = true,
 		git_cmd = { "git" },
