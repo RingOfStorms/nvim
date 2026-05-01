@@ -48,7 +48,7 @@ return {
 			group = group,
 			callback = function()
 				pcall(cleanup_for_session)
-				vim.cmd("SessionSave")
+				vim.cmd("AutoSession save")
 			end,
 		})
 	end,
