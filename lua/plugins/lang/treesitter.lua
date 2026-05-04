@@ -1,8 +1,8 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	branch = "main",
 	dependencies = { "windwp/nvim-ts-autotag" },
 	lazy = false,
-	build = ":TSUpdate",
 	init = function()
 		U.cmd_executable("tree-sitter", {
 			[false] = function()
