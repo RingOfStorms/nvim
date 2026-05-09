@@ -75,6 +75,18 @@ return {
 					{ gitblame, color = { fg = "#696969" } },
 				},
 				lualine_x = {
+					{
+						function()
+							return "\xee\x89\x95" -- U+E255 nf-fae-pear
+						end,
+						color = function()
+							local ok, state = pcall(require, "pearing.state")
+							if not ok then
+								return { fg = "#3a3a3a" }
+							end
+							return { fg = state.is_enabled() and "#A8C66C" or "#696969" }
+						end,
+					},
 					lsp_clients,
 					langs,
 					"encoding",
@@ -135,6 +147,11 @@ return {
 				local timer = vim.uv.new_timer()
 				timer:start(50, 0, vim.schedule_wrap(ref))
 			end,
+		})
+		vim.api.nvim_create_autocmd("User", {
+			group = group,
+			pattern = "PearingStateChanged",
+			callback = ref,
 		})
 	end,
 }

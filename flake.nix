@@ -80,6 +80,10 @@
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
     "nvim_plugin-ron-rs/ron.vim".url = "github:ron-rs/ron.vim";
     "nvim_plugin-ron-rs/ron.vim".flake = false;
+
+    # Local in-development plugin. Swap to github:joshuabell/pearing.nvim once published.
+    "nvim_plugin-joshuabell/pearing.nvim".url = "path:/home/josh/projects/pearing";
+    "nvim_plugin-joshuabell/pearing.nvim".flake = false;
   };
   outputs =
     {
