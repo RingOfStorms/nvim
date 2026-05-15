@@ -80,6 +80,8 @@
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
     "nvim_plugin-ron-rs/ron.vim".url = "github:ron-rs/ron.vim";
     "nvim_plugin-ron-rs/ron.vim".flake = false;
+    "nvim_plugin-ivov/lisette".url = "github:ivov/lisette";
+    "nvim_plugin-ivov/lisette".flake = false; # lisette language: ftdetect, ts grammar, lsp glue
   };
   outputs =
     {
@@ -121,6 +123,28 @@
           nixPkgsPlugins = with pkgs.vimPlugins; {
             "nvim_plugin-nvim-treesitter/nvim-treesitter" = nvim-treesitter.withAllGrammars;
             "nvim_plugin-saghen/blink.cmp" = blink-cmp; # nixpkgs build includes prebuilt Rust fuzzy matcher
+          };
+
+          # ───── Lisette compiler (`lis` + LSP) ──────────────────────────
+          # Not in nixpkgs as of writing. Hashes pinned via the
+          # fakeHash → "got: ..." dance — to bump, set `version`, replace
+          # both hashes with `pkgs.lib.fakeHash`, run `nix build`, paste
+          # the `got:` value back. Kept identical to the project flake at
+          # ~/projects/lisette_test/flake.nix so versions stay in sync.
+          lisette = pkgs.rustPlatform.buildRustPackage rec {
+            pname = "lisette";
+            version = "0.2.4";
+            src = pkgs.fetchFromGitHub {
+              owner = "ivov";
+              repo = "lisette";
+              rev = "lisette-v${version}";
+              hash = "sha256-Fy+WQMBNT4u99C4uaU2znTOtArlmxitvoxYKJluogN8=";
+            };
+            cargoHash = "sha256-nEWrPlov0fmrk8X3OtTx17Mmm+YDvay40mmI9fotYvM=";
+            cargoBuildFlags = [ "--package" "lisette" "--package" "lisette-lsp" ];
+            doCheck = false;
+            nativeBuildInputs = with pkgs; [ pkg-config ];
+            meta.mainProgram = "lis";
           };
 
           # This will be how we put any nix related stuff into our lua config
@@ -183,6 +207,7 @@
             yaml-language-server
             lemminx # xml
             gopls # go
+            lisette # lisette: provides `lis` (compiler + LSP)
             # Other
             typescript
             nodejs_24

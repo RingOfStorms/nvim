@@ -191,6 +191,7 @@ return {
 				toml = { name = "taplo", binary = "taplo" },
 				markdown = { name = "marksman", binary = "marksman" },
 				xml = { name = "lemminx", binary = "lemminx" },
+				lisette = { name = "lisette", binary = "lis" },
 				-- lua and nix are always available from core deps
 			}
 			local lsp_warned = {}
