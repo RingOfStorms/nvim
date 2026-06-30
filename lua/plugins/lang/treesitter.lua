@@ -35,6 +35,7 @@ return {
 			local ts = require("nvim-treesitter")
 			if ts.install then
 				ts.install({
+					"astro",
 					"bash",
 					"c",
 					"css",

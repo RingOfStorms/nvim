@@ -112,6 +112,9 @@ return {
 				svelte = {
 					-- svelte
 				},
+				astro = {
+					-- astro
+				},
 				tailwindcss = {
 					-- tailwind css
 					-- https://www.tailwind-variants.org/docs/getting-started#intellisense-setup-optional
@@ -184,6 +187,7 @@ return {
 				python = { name = "pylsp", binary = "pylsp" },
 				go = { name = "gopls", binary = "gopls" },
 				svelte = { name = "svelte", binary = "svelteserver" },
+				astro = { name = "astro", binary = "astro-ls" },
 				css = { name = "cssls", binary = "vscode-css-language-server" },
 				html = { name = "html", binary = "vscode-html-language-server" },
 				json = { name = "jsonls", binary = "vscode-json-language-server" },

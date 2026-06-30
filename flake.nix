@@ -202,6 +202,7 @@
             vscode-langservers-extracted # HTML/CSS/JSON/ESLint
             typescript-language-server
             svelte-language-server
+            astro-language-server # astro: provides `astro-ls`
             tailwindcss-language-server
             eslint_d
             python312Packages.python-lsp-server
