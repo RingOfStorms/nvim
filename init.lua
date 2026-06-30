@@ -74,6 +74,20 @@ local function getSpec()
 			if p.enabled == false then
 				return plugin
 			end
+			-- Escape hatch: a spec with an explicit `dir` (local-path plugin)
+			-- bypasses the nix-store rewrite. Useful for in-development plugins
+			-- where you want edits visible without re-locking the flake input.
+			-- See lua/plugins/ai/pearing.lua for the canonical example.
+			if p.dir then
+				p.name = p.name or (p[1] and p[1]:match("[^/]+$")) or p.dir:match("[^/]+$")
+				if p.dependencies then
+					p.dependencies = ensure_table(p.dependencies)
+					for i, dep in ipairs(p.dependencies) do
+						p.dependencies[i] = convertPluginToNixStore(dep)
+					end
+				end
+				return p
+			end
 			local nixName = "nvim_plugin-" .. p[1]
 			if not NIX.pluginPaths[nixName] then
 				error("Plugin is missing in the nix store, ensure it is in the nix flake inputs: " .. p[1])

@@ -82,6 +82,10 @@
     "nvim_plugin-ron-rs/ron.vim".flake = false;
     "nvim_plugin-ivov/lisette".url = "github:ivov/lisette";
     "nvim_plugin-ivov/lisette".flake = false; # lisette language: ftdetect, ts grammar, lsp glue
+
+    # Local in-development plugin. Swap to github:joshuabell/pearing.nvim once published.
+    "nvim_plugin-joshuabell/pearing.nvim".url = "path:/home/josh/projects/pearing";
+    "nvim_plugin-joshuabell/pearing.nvim".flake = false;
   };
   outputs =
     {
