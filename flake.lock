@@ -240,6 +240,22 @@
         "type": "github"
       }
     },
+    "nvim_plugin-ivov/lisette": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778798924,
+        "narHash": "sha256-mQ3cAZ1AX7/+UxgCawYyzVuf9rBv4P/ElzwvmBuu0Us=",
+        "owner": "ivov",
+        "repo": "lisette",
+        "rev": "9d2a912c8c16523b75512c231a4abb4293a0f53f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivov",
+        "repo": "lisette",
+        "type": "github"
+      }
+    },
     "nvim_plugin-j-hui/fidget.nvim": {
       "flake": false,
       "locked": {
@@ -606,6 +622,7 @@
         "nvim_plugin-folke/trouble.nvim": "nvim_plugin-folke/trouble.nvim",
         "nvim_plugin-folke/which-key.nvim": "nvim_plugin-folke/which-key.nvim",
         "nvim_plugin-ggml-org/llama.vim": "nvim_plugin-ggml-org/llama.vim",
+        "nvim_plugin-ivov/lisette": "nvim_plugin-ivov/lisette",
         "nvim_plugin-j-hui/fidget.nvim": "nvim_plugin-j-hui/fidget.nvim",
         "nvim_plugin-johmsalas/text-case.nvim": "nvim_plugin-johmsalas/text-case.nvim",
         "nvim_plugin-joshuabell/pearing.nvim": "nvim_plugin-joshuabell/pearing.nvim",
