@@ -208,6 +208,7 @@
             python312Packages.python-lsp-server
             rust-analyzer
             marksman # markdown
+            mdx-language-server # mdx (Markdown + JSX): provides `mdx-language-server`
             taplo # toml
             yaml-language-server
             lemminx # xml

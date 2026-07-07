@@ -15,6 +15,10 @@ return {
 			javascriptreact = { "biomejs" },
 			svelte = { "eslint_d" },
 			astro = { "eslint_d" },
+			-- mdx (Markdown + JSX): eslint_d is JSX-aware. Requires the project to
+			-- provide eslint + eslint-plugin-mdx in its config/devShell; nvim-lint
+			-- silently no-ops when eslint finds no config for the file.
+			mdx = { "eslint_d" },
 			-- Use the "*" filetype to run linters on all filetypes.
 			-- ['*'] = { 'global linter' },
 			-- Use the "_" filetype to run linters on filetypes that don't have other linters configured.

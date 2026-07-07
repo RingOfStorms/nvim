@@ -79,6 +79,8 @@ return {
 			-- https://nixos.org/guides/nix-pills/
 			-- markdown = { "mdslw", "mdsf"},
 			markdown = { "markdownlint-cli2", lsp_format = "first" },
+			-- mdx (Markdown + JSX): prettier/prettierd format MDX natively.
+			mdx = expandFormatters({ { "prettierd", "prettier" }, lsp_format = "first" }),
 			rust = { "rustfmt", lsp_format = "first" },
 		},
 	},

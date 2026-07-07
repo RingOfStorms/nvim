@@ -143,6 +143,11 @@ return {
 				marksman = {
 					-- markdown
 				},
+				mdx_analyzer = {
+					-- mdx (Markdown + JSX). Server config ships with nvim-lspconfig
+					-- as lsp/mdx_analyzer.lua; it runs `mdx-language-server --stdio`
+					-- and reuses the `typescript` tsdk for JSX/import intelligence.
+				},
 				taplo = {
 					-- toml
 				},
@@ -194,6 +199,7 @@ return {
 				yaml = { name = "yamlls", binary = "yaml-language-server" },
 				toml = { name = "taplo", binary = "taplo" },
 				markdown = { name = "marksman", binary = "marksman" },
+				mdx = { name = "mdx_analyzer", binary = "mdx-language-server" },
 				xml = { name = "lemminx", binary = "lemminx" },
 				lisette = { name = "lisette", binary = "lis" },
 				-- lua and nix are always available from core deps

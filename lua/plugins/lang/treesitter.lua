@@ -61,6 +61,12 @@ return {
 			end
 		end
 
+		-- MDX has no dedicated grammar in the nixpkgs treesitter bundle, so reuse
+		-- the `markdown` parser for `mdx` buffers. This gives prose/code-fence
+		-- highlighting (markdown_inline is auto-injected); JSX is treated as HTML.
+		-- The mdx_analyzer LSP (lua/plugins/lang/lsp.lua) covers JSX intelligence.
+		pcall(vim.treesitter.language.register, "markdown", "mdx")
+
 		-- Enable treesitter highlighting via vim.treesitter.start()
 		-- This works with both nix-provided parsers and installed ones
 		vim.api.nvim_create_autocmd("FileType", {

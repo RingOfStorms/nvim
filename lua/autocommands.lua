@@ -29,6 +29,14 @@ vim.filetype.add({
 		http = "http",
 	},
 })
+-- MDX (Markdown + JSX). Neovim has no built-in detection for `.mdx`.
+-- The filetype must be exactly "mdx" so the mdx_analyzer LSP (lua/plugins/lang/lsp.lua)
+-- attaches, and so treesitter/conform/nvim-lint pick it up (see those plugin files).
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})
 
 -- Auto exit insert mode whenever we switch screens
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
