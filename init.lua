@@ -35,7 +35,27 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Setup lazy
+-- Load machine-specific plugin specs from the host without making them flake inputs.
+-- This intentionally uses HOME rather than stdpath("config"), because the Nix
+-- wrapper isolates XDG_CONFIG_HOME for the packaged configuration.
+local local_plugin_path = (vim.env.HOME or vim.fn.expand("~")) .. "/.config/ringofstorms_nvim/lua/plugins"
+
+local function load_local_plugin_specs()
+	if vim.fn.isdirectory(local_plugin_path) ~= 1 then
+		return {}
+	end
+
+	local plugins = {}
+	for _, path in ipairs(vim.fn.globpath(local_plugin_path, "**/*.lua", false, true)) do
+		local chunk, err = loadfile(path)
+		if not chunk then
+			error("Unable to load local plugin spec " .. path .. ": " .. err)
+		end
+		table.insert(plugins, chunk())
+	end
+	return plugins
+end
+
 local function ensure_table(object)
 	return type(object) == "table" and object or { object }
 end
@@ -74,10 +94,8 @@ local function getSpec()
 			if p.enabled == false then
 				return plugin
 			end
-			-- Escape hatch: a spec with an explicit `dir` (local-path plugin)
-			-- bypasses the nix-store rewrite. Useful for in-development plugins
-			-- where you want edits visible without re-locking the flake input.
-			-- See lua/plugins/ai/pearing.lua for the canonical example.
+			-- An explicit `dir` is a local-path plugin: leave it outside the
+			-- Nix-store rewrite so host-only development specs can work.
 			if p.dir then
 				p.name = p.name or (p[1] and p[1]:match("[^/]+$")) or p.dir:match("[^/]+$")
 				if p.dependencies then
@@ -115,14 +133,24 @@ local function getSpec()
 				table.insert(plugins, converted)
 			end
 		end
+		for _, plugin in ipairs(load_local_plugin_specs()) do
+			local converted = convertPluginToNixStore(plugin)
+			if converted ~= nil then
+				table.insert(plugins, converted)
+			end
+		end
 		return plugins
 	else
-		return {
+		local plugins = {
 			{ import = "plugins.editor" },
 			{ import = "plugins.lang" },
 			{ import = "plugins.git" },
 			{ import = "plugins.ai" },
 		}
+		for _, plugin in ipairs(load_local_plugin_specs()) do
+			table.insert(plugins, plugin)
+		end
+		return plugins
 	end
 end
 
