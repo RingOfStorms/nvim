@@ -1,4 +1,29 @@
 local group = vim.api.nvim_create_augroup("myconfig-autocommands-group", { clear = true })
+local undo_retention_seconds = 12 * 24 * 60 * 60
+local undo_dir = vim.fn.stdpath("data") .. "/undodir"
+local uv = vim.uv or vim.loop
+
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = group,
+	desc = "Remove stale persistent undo files",
+	callback = function()
+		if vim.fn.isdirectory(undo_dir) ~= 1 then
+			return
+		end
+
+		local now = os.time()
+		for name, type in vim.fs.dir(undo_dir) do
+			if type == "file" then
+				local path = undo_dir .. "/" .. name
+				local stat = uv.fs_stat(path)
+				if stat and now - stat.mtime.sec > undo_retention_seconds then
+					uv.fs_unlink(path)
+				end
+			end
+		end
+	end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
