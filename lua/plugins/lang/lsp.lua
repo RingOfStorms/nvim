@@ -249,14 +249,68 @@ return {
 					end
 				end
 			else
-				-- TODO test this out on a non nix setup...
 				require("mason").setup()
-				local ensure_installed = vim.tbl_keys(servers or {})
-				vim.list_extend(ensure_installed, {
-					"stylua",
+
+				local mason_packages = {
+					lua_ls = "lua-language-server",
+					gopls = "gopls",
+					nil_ls = "nil",
+					ts_ls = "typescript-language-server",
+					svelte = "svelte-language-server",
+					astro = "astro-language-server",
+					tailwindcss = "tailwindcss-language-server",
+					cssls = "css-lsp",
+					jsonls = "json-lsp",
+					pylsp = "python-lsp-server",
+					marksman = "marksman",
+					mdx_analyzer = "mdx-analyzer",
+					taplo = "taplo",
+					yamlls = "yaml-language-server",
+					lemminx = "lemminx",
+				}
+				local install_prerequisites = {
+					["astro-language-server"] = { "npm" },
+					["css-lsp"] = { "npm" },
+					["json-lsp"] = { "npm" },
+					["mdx-analyzer"] = { "npm" },
+					["nil"] = { "cargo" },
+					["svelte-language-server"] = { "npm" },
+					["tailwindcss-language-server"] = { "npm" },
+					["typescript-language-server"] = { "npm" },
+					["yaml-language-server"] = { "npm" },
+				}
+				local missing_prerequisites = {}
+				local ensure_installed = { "stylua" }
+				local mason_lsp_servers = {}
+				for server_name, package_name in pairs(mason_packages) do
+					local missing
+					for _, executable in ipairs(install_prerequisites[package_name] or {}) do
+						if vim.fn.executable(executable) ~= 1 then
+							missing = executable
+							break
+						end
+					end
+					if missing then
+						missing_prerequisites[missing] = true
+					else
+						table.insert(ensure_installed, package_name)
+						table.insert(mason_lsp_servers, server_name)
+					end
+				end
+				if next(missing_prerequisites) then
+					vim.notify(
+						"Mason skipped tools requiring missing executables: "
+							.. table.concat(vim.tbl_keys(missing_prerequisites), ", "),
+						vim.log.levels.WARN
+					)
+				end
+				require("mason-tool-installer").setup({
+					ensure_installed = ensure_installed,
+					integrations = { ["mason-lspconfig"] = false },
 				})
-				require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 				require("mason-lspconfig").setup({
+					ensure_installed = mason_lsp_servers,
+					automatic_enable = false,
 					handlers = {
 						function(server_name)
 							local server = servers[server_name] or {}

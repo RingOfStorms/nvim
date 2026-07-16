@@ -3,13 +3,14 @@ return {
 	branch = "main",
 	dependencies = { "windwp/nvim-ts-autotag" },
 	lazy = false,
-	init = function()
-		U.cmd_executable("tree-sitter", {
-			[false] = function()
-				vim.notify("tree-sitter not installed, code syntax will be broken.", 2)
-			end,
-		})
-	end,
+		init = function()
+			if not NIX and vim.fn.executable("tree-sitter") ~= 1 then
+				vim.notify(
+					"tree-sitter CLI not found; parsers will not be installed automatically.",
+					vim.log.levels.WARN
+				)
+			end
+		end,
 	config = function()
 		-- The new nvim-treesitter has queries under runtime/queries/
 		-- We need to add this to runtimepath for vim.treesitter to find them
@@ -30,34 +31,41 @@ return {
 			vim.opt.runtimepath:prepend(runtime_path)
 		end
 
-		-- In non-nix mode, install parsers
+		-- In non-Nix installations parsers are compiled locally.  Recent
+		-- nvim-treesitter releases require the tree-sitter CLI for this; do not
+		-- start an installation that is guaranteed to fail when it is absent.
 		if not NIX then
-			local ts = require("nvim-treesitter")
-			if ts.install then
-				ts.install({
-					"astro",
-					"bash",
-					"c",
-					"css",
-					"dockerfile",
-					"go",
-					"html",
-					"javascript",
-					"json",
-					"lua",
-					"markdown",
-					"markdown_inline",
-					"nix",
-					"python",
-					"rust",
-					"svelte",
-					"toml",
-					"tsx",
-					"typescript",
-					"vim",
-					"vimdoc",
-					"yaml",
-				})
+			local parsers = {
+				"astro",
+				"bash",
+				"c",
+				"css",
+				"dockerfile",
+				"go",
+				"html",
+				"javascript",
+				"json",
+				"lua",
+				"markdown",
+				"markdown_inline",
+				"nix",
+				"python",
+				"rust",
+				"svelte",
+				"toml",
+				"tsx",
+				"typescript",
+				"vim",
+				"vimdoc",
+				"yaml",
+			}
+			if vim.fn.executable("tree-sitter") == 1 then
+				require("nvim-treesitter").install(parsers)
+			else
+				vim.notify(
+					"Tree-sitter parsers were not installed: install the tree-sitter CLI and restart Neovim.",
+					vim.log.levels.WARN
+				)
 			end
 		end
 
