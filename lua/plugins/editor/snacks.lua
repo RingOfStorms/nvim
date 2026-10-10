@@ -1,5 +1,15 @@
 -- snacks.nvim: Swiss-army-knife plugin replacing nvim-notify, cinnamon, vim-illuminate,
 -- indent-blankline, openingh, dressing, telescope, telescope-file-browser, telescope-ui-select
+-- Show the picker immediately instead of waiting for snacks' deferred first update (~10ms+).
+-- Without this, keys typed right after <leader>ff/fw run in the underlying buffer before the
+-- picker input exists (e.g. typing "abc" appends "bc" to the file).
+local function show_now(picker)
+	if picker then
+		picker:show()
+	end
+	return picker
+end
+
 return {
 	"folke/snacks.nvim",
 	priority = 1000,
@@ -175,70 +185,70 @@ return {
 		{
 			"<leader>ff",
 			function()
-				Snacks.picker.files()
+				show_now(Snacks.picker.files())
 			end,
 			desc = "Find Files",
 		},
 		{
 			"<leader>fg",
 			function()
-				Snacks.picker.git_files()
+				show_now(Snacks.picker.git_files())
 			end,
 			desc = "Find Git Files",
 		},
 		{
 			"<leader>fw",
 			function()
-				Snacks.picker.grep()
+				show_now(Snacks.picker.grep())
 			end,
 			desc = "Find Words (live grep)",
 		},
 		{
 			"<leader>fW",
 			function()
-				Snacks.picker.grep({ dirs = { vim.fn.expand("%:p:h") } })
+				show_now(Snacks.picker.grep({ dirs = { vim.fn.expand("%:p:h") } }))
 			end,
 			desc = "Find Words in Current Dir",
 		},
 		{
 			"<leader>fF",
 			function()
-				Snacks.picker.files({ dirs = { vim.fn.expand("%:p:h") } })
+				show_now(Snacks.picker.files({ dirs = { vim.fn.expand("%:p:h") } }))
 			end,
 			desc = "Find Files in Current Dir",
 		},
 		{
 			"<leader>fb",
 			function()
-				Snacks.picker.buffers()
+				show_now(Snacks.picker.buffers())
 			end,
 			desc = "Find Buffer",
 		},
 		{
 			"<leader>fc",
 			function()
-				Snacks.picker.commands()
+				show_now(Snacks.picker.commands())
 			end,
 			desc = "Find Commands",
 		},
 		{
 			"<leader>fk",
 			function()
-				Snacks.picker.keymaps()
+				show_now(Snacks.picker.keymaps())
 			end,
 			desc = "Find Keymap",
 		},
 		{
 			"<leader>fh",
 			function()
-				Snacks.picker.help()
+				show_now(Snacks.picker.help())
 			end,
 			desc = "Find Help",
 		},
 		{
 			"<leader>f/",
 			function()
-				Snacks.picker.lines()
+				show_now(Snacks.picker.lines())
 			end,
 			desc = "Buffer Lines",
 		},
@@ -259,14 +269,14 @@ return {
 		{
 			"<leader>fp",
 			function()
-				Snacks.picker.files()
+				show_now(Snacks.picker.files())
 			end,
 			desc = "Find Files (picker)",
 		},
 		{
 			"<leader>fl",
 			function()
-				Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") })
+				show_now(Snacks.picker.files({ cwd = vim.fn.expand("%:p:h") }))
 			end,
 			desc = "Find Files at Current Buffer",
 		},
