@@ -69,6 +69,14 @@ return {
 				enabled = true,
 			},
 
+			-- Disable image support. Previewing a markdown file in the picker makes snacks query the
+			-- terminal (XTVERSION, `ESC[>q`). Under tmux with `extended-keys always`, the reply
+			-- (`ESC P>|...`) arrives as typed keys: `\` lands in the picker, `<C-w>`-like keys switch
+			-- windows, the picker auto-closes, and the rest of the query goes into the buffer.
+			image = {
+				enabled = false,
+			},
+
 			-- Picker (replaces telescope.nvim + extensions)
 			picker = {
 				enabled = true,
