@@ -57,7 +57,7 @@ return {
 				-- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#modify-you-on_attach-function-to-have-ability-to-operate-multiple-files-at-once
 				local api = require("nvim-tree.api")
 				local opts = function(desc)
-					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+					return { desc = "nvim-tree: " .. desc, buf = bufnr, noremap = true, silent = true, nowait = true }
 				end
 				-- mark operation
 				local mark_move_j = function()

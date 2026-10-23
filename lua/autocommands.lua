@@ -1,7 +1,6 @@
 local group = vim.api.nvim_create_augroup("myconfig-autocommands-group", { clear = true })
 local undo_retention_seconds = 12 * 24 * 60 * 60
 local undo_dir = vim.fn.stdpath("data") .. "/undodir"
-local uv = vim.uv or vim.loop
 
 vim.api.nvim_create_autocmd("VimEnter", {
 	group = group,
@@ -15,9 +14,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
 		for name, type in vim.fs.dir(undo_dir) do
 			if type == "file" then
 				local path = undo_dir .. "/" .. name
-				local stat = uv.fs_stat(path)
+				local stat = vim.uv.fs_stat(path)
 				if stat and now - stat.mtime.sec > undo_retention_seconds then
-					uv.fs_unlink(path)
+					vim.uv.fs_unlink(path)
 				end
 			end
 		end
@@ -31,7 +30,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = group,
 	desc = "Highlight when yanking (copying) text",
 	callback = function()
-		-- vim.highlight.on_yank({ timeout = 200 })
 		vim.hl.on_yank({ timeout = 200 })
 	end,
 })
@@ -40,16 +38,6 @@ vim.filetype.add({
 	pattern = {
 		[".env.*"] = "sh",
 		[".*rc"] = "sh",
-	},
-})
-vim.filetype.add({
-	pattern = {
-		["Dockerfile.*"] = "dockerfile",
-	},
-})
-vim.filetype.add({
-	extension = {
-		http = "http",
 	},
 })
 -- MDX (Markdown + JSX). Neovim has no built-in detection for `.mdx`.
@@ -92,7 +80,7 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 		local close_types = { "httpResult", "noice", "help" }
 		local buffers = vim.api.nvim_list_bufs()
 		for _, bufnr in ipairs(buffers) do
-			if U.table_contains(close_types, vim.bo[bufnr].filetype) then
+			if vim.list_contains(close_types, vim.bo[bufnr].filetype) then
 				vim.api.nvim_buf_delete(bufnr, { force = true })
 			end
 		end
@@ -107,7 +95,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged", "TextChangedI", "Buf
 		local modifiable = vim.bo[event.buf].modifiable
 		local filetype = vim.bo[event.buf].filetype
 		local modified = vim.bo[event.buf].modified
-		if modifiable and modified and U.table_not_contains(auto_save_disallowed_filetypes, filetype) then
+		if modifiable and modified and not vim.list_contains(auto_save_disallowed_filetypes, filetype) then
 			if auto_save_debounce[event.buf] ~= 1 then
 				auto_save_debounce[event.buf] = 1
 				vim.defer_fn(function()

@@ -1,16 +1,13 @@
 return {
 	"lewis6991/gitsigns.nvim",
 	event = "BufEnter",
-	-- plenary.nvim no longer required as of gitsigns v0.9+
 	opts = function()
-		local highlight = U.highlight
-		highlight("GitSignsAdd", { fg = "#688066", gui = "nocombine" })
-		highlight("GitSignsUntracked", { fg = "#688066", gui = "nocombine" })
-		highlight("GitSignsChange", { fg = "#666f80", gui = "nocombine" })
-		highlight("GitSignsTopdelete", { fg = "#806666", gui = "nocombine" })
-		highlight("GitSignsDelete", { fg = "#806666", gui = "nocombine" })
-		highlight("GitGutterChangeDelete", { fg = "#806666", gui = "nocombine" })
-
+		vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#66B066", nocombine = true })
+		vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#66B066", nocombine = true })
+		vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#666FB0", nocombine = true })
+		vim.api.nvim_set_hl(0, "GitSignsTopdelete", { fg = "#B06666", nocombine = true })
+		vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#B06666", nocombine = true })
+		vim.api.nvim_set_hl(0, "GitSignsChangeDelete", { fg = "#B06666", nocombine = true })
 		return {
 			watch_gitdir = {
 				interval = 100,

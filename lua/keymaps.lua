@@ -63,7 +63,7 @@ U.keymaps({
 			-- * if empty buffer, then we will quit this buffer
 			local close_always = { "quickfix", "help", "nofile", "noice", "httpResult" }
 			if
-				U.table_contains(close_always, vim.bo.buftype)
+				vim.list_contains(close_always, vim.bo.buftype)
 				or (vim.api.nvim_buf_line_count(0) == 1 and vim.api.nvim_buf_get_lines(0, 0, 1, -1)[1] == "")
 			then
 				vim.cmd("silent confirm q")
@@ -87,20 +87,6 @@ U.keymaps({
 
 	-- Editor
 	{ "J", "mzJ`z", desc = "Move line below onto this line" },
-	{
-		"]d",
-		function()
-			vim.diagnostic.jump({ count = 1 })
-		end,
-		desc = "Go to next diagnostic message",
-	},
-	{
-		"[d",
-		function()
-			vim.diagnostic.jump({ count = -1 })
-		end,
-		desc = "Go to previous diagnostic message",
-	},
 	{ ">", "> gv", desc = "Indent selection", mode = "v" },
 	{ "<", "< gv", desc = "Outdent selection", mode = "v" },
 	{ "p", '"_dP', desc = "Paste without yanking replaced content", mode = "v" },
@@ -147,4 +133,5 @@ U.keymaps({
 		desc = "Show diagnostics in quickfix list",
 		mode = nvx,
 	},
+	{ "<leader>u", "<cmd>Undotree<cr>", desc = "Undo Tree Toggle" },
 })

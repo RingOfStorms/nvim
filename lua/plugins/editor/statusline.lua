@@ -7,22 +7,41 @@ local function lsp_clients()
 	return table.concat(clients, " • "), " "
 end
 
+local lang_version_cache = {}
+local function get_cached_cmd_version(key, cmd)
+	if lang_version_cache[key] ~= nil then
+		return lang_version_cache[key]
+	end
+	lang_version_cache[key] = ""
+	vim.system(cmd, { text = true }, function(obj)
+		if obj.code == 0 and obj.stdout then
+			lang_version_cache[key] = vim.trim(obj.stdout)
+		end
+	end)
+	return lang_version_cache[key]
+end
+
 local function langs()
 	local l = {}
 	for _, client in pairs(vim.lsp.get_clients()) do
 		local out = nil
-		if client.name == "pyright" then
-			out = vim.fn.system({ "python", "-V" })
+		if client.name == "pyright" or client.name == "pylsp" then
+			local v = get_cached_cmd_version("python", { "python", "-V" })
+			if v ~= "" then
+				out = v
+			end
 		elseif client.name == "tsserver" or client.name == "ts_ls" then
-			out = "node " .. vim.fn.system({ "node", "--version" })
+			local v = get_cached_cmd_version("node", { "node", "--version" })
+			if v ~= "" then
+				out = "node " .. v
+			end
 		end
 		if out ~= nil and out ~= "" then
-			l[#l + 1] = vim.trim(out)
+			l[#l + 1] = out
 		end
 	end
-
 	table.sort(l)
-	return table.concat(l, " • "), " "
+	return table.concat(l, " * ")
 end
 
 local last_blame = nil

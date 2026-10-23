@@ -1,5 +1,5 @@
 local function formatCurrent(retry)
-	require("conform").format({ async = true, lsp_fallback = true }, function(err, edited)
+	require("conform").format({ async = true, lsp_format = "fallback" }, function(err, edited)
 		if edited then
 			print("Formatted!")
 		elseif err then

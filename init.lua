@@ -15,7 +15,7 @@ require("keymaps")
 
 -- When using nix, it will set lazy via LAZY env variable.
 local lazypath = vim.env.LAZY or (vim.fn.stdpath("data") .. "/lazy/lazy.nvim")
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	if NIX then
 		error("LAZY environment variable to nix store was not found: " .. vim.env.LAZY)
 		return
@@ -84,7 +84,7 @@ local function getSpec()
 		-- Convert plugins to use nix store, this auto sets the `dir` property for us on all plugins.
 		local function convertPluginToNixStore(plugin)
 			local p = ensure_table(plugin)
-			if U.isArray(p) and #p > 1 then
+			if vim.islist(p) and #p > 1 then
 				local plugins = {}
 				for _, inner in ipairs(p) do
 					table.insert(plugins, convertPluginToNixStore(inner))

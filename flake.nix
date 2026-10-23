@@ -14,13 +14,9 @@
     "nvim_plugin-catppuccin/nvim".flake = false; # color scheme
     "nvim_plugin-nvim-tree/nvim-web-devicons".url = "github:nvim-tree/nvim-web-devicons";
     "nvim_plugin-nvim-tree/nvim-web-devicons".flake = false;
-    "nvim_plugin-m4xshen/hardtime.nvim".url = "github:m4xshen/hardtime.nvim";
-    "nvim_plugin-m4xshen/hardtime.nvim".flake = false;
     "nvim_plugin-nvim-treesitter/nvim-treesitter-context".url =
       "github:nvim-treesitter/nvim-treesitter-context";
     "nvim_plugin-nvim-treesitter/nvim-treesitter-context".flake = false;
-    "nvim_plugin-MunifTanjim/nui.nvim".url = "github:MunifTanjim/nui.nvim";
-    "nvim_plugin-MunifTanjim/nui.nvim".flake = false; # component library util (used by llm_vim_command)
     "nvim_plugin-rmagatti/auto-session".url = "github:rmagatti/auto-session";
     "nvim_plugin-rmagatti/auto-session".flake = false; # Restore sessions
     "nvim_plugin-chrisgrieser/nvim-early-retirement".url = "github:chrisgrieser/nvim-early-retirement";
@@ -33,13 +29,8 @@
     "nvim_plugin-folke/snacks.nvim".flake = false;
     "nvim_plugin-nvim-tree/nvim-tree.lua".url = "github:nvim-tree/nvim-tree.lua";
     "nvim_plugin-nvim-tree/nvim-tree.lua".flake = false; # tree based file browser
-    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".url =
-      "github:JoosepAlviste/nvim-ts-context-commentstring";
-    "nvim_plugin-JoosepAlviste/nvim-ts-context-commentstring".flake = false;
     "nvim_plugin-windwp/nvim-ts-autotag".url = "github:windwp/nvim-ts-autotag";
     "nvim_plugin-windwp/nvim-ts-autotag".flake = false;
-    "nvim_plugin-uga-rosa/ccc.nvim".url = "github:uga-rosa/ccc.nvim";
-    "nvim_plugin-uga-rosa/ccc.nvim".flake = false;
     "nvim_plugin-lewis6991/gitsigns.nvim".url = "github:lewis6991/gitsigns.nvim";
     "nvim_plugin-lewis6991/gitsigns.nvim".flake = false;
     "nvim_plugin-sindrets/diffview.nvim".url = "github:sindrets/diffview.nvim";
@@ -50,16 +41,12 @@
     "nvim_plugin-echasnovski/mini.nvim".flake = false;
     "nvim_plugin-johmsalas/text-case.nvim".url = "github:johmsalas/text-case.nvim";
     "nvim_plugin-johmsalas/text-case.nvim".flake = false;
-    "nvim_plugin-mbbill/undotree".url = "github:mbbill/undotree";
-    "nvim_plugin-mbbill/undotree".flake = false;
     "nvim_plugin-tpope/vim-sleuth".url = "github:tpope/vim-sleuth";
     "nvim_plugin-tpope/vim-sleuth".flake = false;
     "nvim_plugin-mfussenegger/nvim-lint".url = "github:mfussenegger/nvim-lint";
     "nvim_plugin-mfussenegger/nvim-lint".flake = false;
     "nvim_plugin-stevearc/conform.nvim".url = "github:stevearc/conform.nvim";
     "nvim_plugin-stevearc/conform.nvim".flake = false;
-    "nvim_plugin-j-hui/fidget.nvim".url = "github:j-hui/fidget.nvim";
-    "nvim_plugin-j-hui/fidget.nvim".flake = false;
     "nvim_plugin-neovim/nvim-lspconfig".url = "github:neovim/nvim-lspconfig";
     "nvim_plugin-neovim/nvim-lspconfig".flake = false;
     "nvim_plugin-b0o/schemastore.nvim".url = "github:b0o/schemastore.nvim";
@@ -78,8 +65,6 @@
     "nvim_plugin-Saecki/crates.nvim".flake = false;
     "nvim_plugin-rafamadriz/friendly-snippets".url = "github:rafamadriz/friendly-snippets";
     "nvim_plugin-rafamadriz/friendly-snippets".flake = false;
-    "nvim_plugin-ron-rs/ron.vim".url = "github:ron-rs/ron.vim";
-    "nvim_plugin-ron-rs/ron.vim".flake = false;
     "nvim_plugin-ivov/lisette".url = "github:ivov/lisette";
     "nvim_plugin-ivov/lisette".flake = false; # lisette language: ftdetect, ts grammar, lsp glue
 

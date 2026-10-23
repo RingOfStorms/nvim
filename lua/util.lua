@@ -1,15 +1,5 @@
 local M = {}
 
-function M.isArray(table)
-	local i = 0
-	for _ in pairs(table) do
-		i = i + 1
-		if table[i] == nil then
-			return false
-		end
-	end
-	return true
-end
 
 function M.cmd_executable(cmd, callback)
 	local executable = vim.fn.executable(cmd) == 1
@@ -111,41 +101,6 @@ function M.assign(obj, assign)
 	return obj
 end
 
-function M.table_contains(table, element)
-	for _, value in pairs(table) do
-		if value == element then
-			return true
-		end
-	end
-	return false
-end
-
-function M.table_not_contains(table, element)
-	return not M.table_contains(table, element)
-end
-
--- From https://github.com/lukas-reineke/onedark.nvim/blob/master/lua/onedark.lua
-function M.highlight(group, options)
-	local guifg = options.fg or "NONE"
-	local guibg = options.bg or "NONE"
-	local guisp = options.sp or "NONE"
-	local gui = options.gui or "NONE"
-	local blend = options.blend or 0
-	local ctermfg = options.ctermfg or "NONE"
-
-	vim.cmd(
-		string.format(
-			"highlight %s guifg=%s ctermfg=%s guibg=%s guisp=%s gui=%s blend=%d",
-			group,
-			guifg,
-			ctermfg,
-			guibg,
-			guisp,
-			gui,
-			blend
-		)
-	)
-end
 
 function M.safeRequire(module, func, errorFunc)
 	local ok, result = pcall(require, module)

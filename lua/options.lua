@@ -41,7 +41,7 @@ vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
--- Dont use swap files, use undotree
+-- Dont use swap files, use built-in undotree
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir"
@@ -68,8 +68,9 @@ vim.opt.splitright = true
 
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = "menu,menuone,noinsert"
+vim.o.winborder = "single"
+vim.o.pumborder = "single"
 vim.diagnostic.config({
-	float = { border = "single" },
 	virtual_text = false,
 	jump = {
 		on_jump = function()
@@ -81,8 +82,8 @@ vim.diagnostic.config({
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 3
 
--- Turn on new diff
-vim.opt.diffopt:append("linematch:20")
-
+-- Built-in Neovim 0.12 diffopt already includes indent-heuristic, linematch:40, inline:char
+-- Enable built-in Undotree plugin (:Undotree)
+vim.cmd.packadd("nvim.undotree")
 -- Don't resize panels when closing something it is annoying
 vim.opt.equalalways = false

@@ -17,6 +17,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("myconfig-quick-fix-group", { clear = true }),
 	pattern = "qf",
 	callback = function(event)
-		vim.keymap.set("n", "dd", RemoveQFItem, { buffer = event.buffer, silent = true })
+		vim.keymap.set("n", "dd", RemoveQFItem, { buf = event.buf, silent = true })
 	end,
 })

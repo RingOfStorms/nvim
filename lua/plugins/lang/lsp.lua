@@ -37,7 +37,7 @@ return {
 				group = vim.api.nvim_create_augroup("myconfig-lsp-attach", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+						vim.keymap.set("n", keys, func, { buf = event.buf, desc = "LSP: " .. desc })
 					end
 					map("gd", function()
 						Snacks.picker.lsp_definitions()
@@ -62,13 +62,6 @@ return {
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			-- Extend capabilities with blink.cmp for better completion support
-			U.safeRequire("blink.cmp", function(blink)
-				capabilities = blink.get_lsp_capabilities(capabilities)
-			end)
-			-- Export common capabilities to all servers via vim.lsp.config('*')
-			vim.lsp.config("*", { capabilities = capabilities })
 			local schemastore = require("schemastore")
 
 			local servers = {
@@ -98,15 +91,17 @@ return {
 						},
 					},
 				},
-				gopls = {
-					single_file_support = true,
-				},
+				gopls = {},
 				nil_ls = { -- nix
 				},
 				ts_ls = {
 					-- typescript/javascript
-					implicitProjectConfiguration = {
-						checkJs = true,
+					settings = {
+						javascript = {
+							implicitProjectConfiguration = {
+								checkJs = true,
+							},
+						},
 					},
 				},
 				svelte = {
@@ -118,10 +113,12 @@ return {
 				tailwindcss = {
 					-- tailwind css
 					-- https://www.tailwind-variants.org/docs/getting-started#intellisense-setup-optional
-					tailwindCSS = {
-						experimental = {
-							classRegex = {
-								{ "tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+					settings = {
+						tailwindCSS = {
+							experimental = {
+								classRegex = {
+									{ "tv\\((([^()]*|\\([^()]*\\))*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+								},
 							},
 						},
 					},
@@ -167,16 +164,16 @@ return {
 					-- xml
 				},
 			}
-			-- Remove new global default keymaps added by Nvim if you prefer your own bindings
+			-- Remove global default keymaps added by Nvim where custom bindings are preferred
 			local global_unmaps = {
-				{ mode = "n", lhs = "gra" },
+				{ mode = { "n", "x" }, lhs = "gra" },
 				{ mode = "n", lhs = "gri" },
 				{ mode = "n", lhs = "grn" },
 				{ mode = "n", lhs = "grr" },
 				{ mode = "n", lhs = "grt" },
+				{ mode = "n", lhs = "grx" },
 				{ mode = "n", lhs = "gO" },
-				{ mode = "n", lhs = "K" },
-				{ mode = "i", lhs = "<C-S>" },
+				{ mode = { "i", "s" }, lhs = "<C-S>" },
 			}
 			for _, m in ipairs(global_unmaps) do
 				pcall(vim.keymap.del, m.mode, m.lhs)
@@ -229,26 +226,22 @@ return {
 				end,
 			})
 
-			if NIX then
-				local lsp_servers = vim.tbl_keys(servers or {})
-				for _, server_name in ipairs(lsp_servers) do
-					local server_opts = servers[server_name] or {}
-					vim.lsp.config(server_name, server_opts)
-					local ok, err = pcall(function()
-						vim.lsp.enable(server_name)
-					end)
-					if not ok then
-						vim.notify(
-							string.format(
-								"LSP '%s' failed to start. Install it in your project devShell.\nError: %s",
-								server_name,
-								err
-							),
-							vim.log.levels.ERROR
-						)
-					end
+			for server_name, server_opts in pairs(servers) do
+				vim.lsp.config(server_name, server_opts or {})
+				local ok, err = pcall(vim.lsp.enable, server_name)
+				if not ok then
+					vim.notify(
+						string.format(
+							"LSP '%s' failed to start. Install it in your project devShell.\nError: %s",
+							server_name,
+							err
+						),
+						vim.log.levels.ERROR
+					)
 				end
-			else
+			end
+
+			if not NIX then
 				require("mason").setup()
 
 				local mason_packages = {
@@ -310,14 +303,7 @@ return {
 				})
 				require("mason-lspconfig").setup({
 					ensure_installed = mason_lsp_servers,
-					automatic_enable = false,
-					handlers = {
-						function(server_name)
-							local server = servers[server_name] or {}
-							vim.lsp.config(server_name, server)
-							vim.lsp.enable(server_name)
-						end,
-					},
+					automatic_enable = true,
 				})
 			end
 		end,

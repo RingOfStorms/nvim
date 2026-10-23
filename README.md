@@ -220,7 +220,7 @@ This config supports local AI-powered code completion via [llama.vim](https://gi
 - `<leader>xs` - Document symbols
 - `<leader>xq` - Quickfix list
 
-### Comments (mini.comment)
+### Comments (Built-in)
 - `gc{motion}` - Toggle comment
 - `gcc` - Toggle line comment
 - `<leader>/` - Toggle comment (preserved binding)

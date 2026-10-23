@@ -1,12 +1,13 @@
 return {
-	"MunifTanjim/nui.nvim",
+	"folke/snacks.nvim",
+	optional = true,
 	keys = {
-		{ "<leader>,v", desc = "LLM Vim Command" },
+		{
+			"<leader>,v",
+			desc = "LLM Vim Command",
+		},
 	},
-	config = function()
-		local Input = require("nui.input")
-		local Popup = require("nui.popup")
-
+	init = function()
 		local history_file = vim.fn.stdpath("state") .. "/llm_vim_command_history.json"
 		local history = {}
 		local history_index = 0
@@ -16,7 +17,7 @@ return {
 			if f then
 				local content = f:read("*a")
 				f:close()
-				local ok, decoded = pcall(vim.fn.json_decode, content)
+				local ok, decoded = pcall(vim.json.decode, content)
 				if ok and type(decoded) == "table" then
 					history = decoded
 				end
@@ -26,7 +27,7 @@ return {
 		local function save_history()
 			local f = io.open(history_file, "w")
 			if f then
-				f:write(vim.fn.json_encode(history))
+				f:write(vim.json.encode(history))
 				f:close()
 			end
 		end
@@ -47,279 +48,235 @@ return {
 
 		load_history()
 
-		local function call_llm(prompt, callback)
-			local system_prompt =
-				[[You are a vim command generator. Given a task description, output ONLY a vim command or sequence of keystrokes that accomplishes the task. 
+		local function call_ollama(prompt, mode_info, callback)
+			local system_prompt = [[You are a Neovim command generator. Output ONLY the raw vim command or normal mode keystrokes that achieve what the user wants. No explanation, no markdown, no backticks, just the command itself.
+
 Rules:
-- Output ONLY the vim command/keystrokes, nothing else
-- No explanations, no markdown, no code blocks
-- For ex commands, start with :
-- For normal mode sequences, just output the keys
-- If the task mentions working on a selection, assume visual mode is active
-- Keep commands as simple and idiomatic as possible]]
+- For ex commands, prefix with : (e.g., :%s/foo/bar/g or :sort u)
+- For normal mode commands, output the keystrokes directly (e.g., ggdG or ciw)
+- If a visual selection is active, the command will be run with '<,'> range for ex commands, so omit the range prefix — just start with : (e.g., :s/foo/bar/g not :'<,'>s/foo/bar/g). For normal mode commands in visual mode, assume the selection is already active.
+- Never include <CR> or <Enter> at the end
+- Prefer concise, idiomatic vim commands]]
 
-			local body = vim.fn.json_encode({
-				model = "azure-gpt-5.1-2025-11-13",
-				messages = {
-					{ role = "system", content = system_prompt },
-					{ role = "user", content = prompt },
+			local user_msg = prompt
+			if mode_info.visual then
+				user_msg = user_msg .. "\n[Context: visual selection active"
+				if mode_info.selected_text and #mode_info.selected_text < 500 then
+					user_msg = user_msg .. ", selected text: " .. vim.json.encode(mode_info.selected_text)
+				end
+				user_msg = user_msg .. "]"
+			end
+			if mode_info.filetype and mode_info.filetype ~= "" then
+				user_msg = user_msg .. "\n[Filetype: " .. mode_info.filetype .. "]"
+			end
+
+			local body = vim.json.encode({
+				model = "qwen2.5-coder:7b",
+				prompt = user_msg,
+				system = system_prompt,
+				stream = false,
+				options = {
+					temperature = 0.1,
 				},
-				temperature = 0.1,
 			})
 
-			local stdout_data = {}
-			local stderr_data = {}
-
-			vim.fn.jobstart({
-				"curl",
-				"-s",
-				"-X",
-				"POST",
-				"http://h001.net.joshuabell.xyz:8094/v1/chat/completions",
-				"-H",
-				"Content-Type: application/json",
-				"-d",
-				body,
-			}, {
-				stdout_buffered = true,
-				stderr_buffered = true,
-				on_stdout = function(_, data)
-					if data then
-						for _, line in ipairs(data) do
-							if line ~= "" then
-								table.insert(stdout_data, line)
-							end
-						end
-					end
-				end,
-				on_stderr = function(_, data)
-					if data then
-						for _, line in ipairs(data) do
-							if line ~= "" then
-								table.insert(stderr_data, line)
-							end
-						end
-					end
-				end,
-				on_exit = vim.schedule_wrap(function(_, exit_code)
-					if exit_code ~= 0 then
-						local err_msg = table.concat(stderr_data, "\n")
+			vim.system(
+				{
+					"curl",
+					"-s",
+					"-X",
+					"POST",
+					"http://localhost:11434/api/generate",
+					"-H",
+					"Content-Type: application/json",
+					"-d",
+					body,
+				},
+				{ text = true },
+				vim.schedule_wrap(function(obj)
+					if obj.code ~= 0 then
+						local err_msg = vim.trim(obj.stderr or "")
 						if err_msg == "" then
-							err_msg = "exit code " .. exit_code
+							err_msg = "Failed to connect to Ollama at localhost:11434 (exit code " .. obj.code .. ")"
 						end
-						callback(nil, "curl failed: " .. err_msg)
+						callback(nil, err_msg)
 						return
 					end
-					if #stdout_data == 0 then
-						callback(nil, "curl returned empty response. stderr: " .. table.concat(stderr_data, "\n"))
+
+					local raw = obj.stdout or ""
+					local ok, decoded = pcall(vim.json.decode, raw)
+					if not ok or not decoded or not decoded.response then
+						callback(nil, "Unexpected response from Ollama: " .. raw:sub(1, 200))
 						return
 					end
-					local response_body = table.concat(stdout_data, "")
-					local ok, decoded = pcall(vim.fn.json_decode, response_body)
-					if not ok or not decoded.choices or not decoded.choices[1] then
-						callback(nil, "Failed to parse LLM response: " .. response_body)
-						return
-					end
-					local command = decoded.choices[1].message.content
-					command = command:gsub("^%s+", ""):gsub("%s+$", "")
-					callback(command, nil)
-				end),
-			})
+
+					local cmd = vim.trim(decoded.response)
+					cmd = cmd:gsub("^```%w*\n?", ""):gsub("\n?```$", "")
+					cmd = vim.trim(cmd)
+					callback(cmd, nil)
+				end)
+			)
 		end
 
-		local function execute_command(command)
-			if command:sub(1, 1) == ":" then
-				local cmd = command:sub(2)
-				vim.fn.histadd("cmd", cmd)
-				local ok, err = pcall(vim.cmd, cmd)
+		local function execute_command(cmd, mode_info)
+			if cmd:sub(1, 1) == ":" then
+				local ex_cmd = cmd:sub(2)
+				if mode_info.visual then
+					ex_cmd = "'<,'>" .. ex_cmd
+				end
+				vim.fn.histadd("cmd", ex_cmd)
+				local ok, err = pcall(vim.cmd, ex_cmd)
 				if not ok then
-					vim.notify("Command failed: " .. err, vim.log.levels.ERROR)
+					vim.notify("Command failed: " .. tostring(err), vim.log.levels.ERROR)
 				end
 			else
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(command, true, false, true), "n", false)
+				if mode_info.visual then
+					vim.cmd("normal! gv")
+				end
+				local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+				vim.api.nvim_feedkeys(keys, "n", false)
 			end
 		end
 
-		local function show_edit_dialog(command)
-			local input = Input({
-				position = "50%",
-				size = { width = 60 },
-				border = {
-					style = "rounded",
-					text = { top = " Edit Command ", top_align = "center" },
-				},
-			}, {
-				prompt = "> ",
-				default_value = command,
-				on_submit = function(value)
-					if value and value ~= "" then
-						execute_command(value)
-					end
-				end,
-			})
-
-			input:mount()
-			input:map("n", "<Esc>", function()
-				input:unmount()
-			end, { noremap = true })
+		local function show_edit_dialog(command, mode_info)
+			Snacks.input({
+				prompt = "Edit Vim Command",
+				default = command,
+			}, function(val)
+				if val and val ~= "" then
+					execute_command(val, mode_info)
+				end
+			end)
 		end
 
-		local function show_confirmation(command)
+		local function show_confirmation(command, mode_info)
 			local lines = vim.split(command, "\n")
 			local max_line_len = 0
 			for _, line in ipairs(lines) do
 				max_line_len = math.max(max_line_len, #line)
 			end
 			local width = math.max(40, math.min(80, max_line_len + 4))
-			local height = #lines + 4
+			local height = #lines + 2
 
-			local popup = Popup({
-				position = "50%",
-				size = { width = width, height = height },
-				border = {
-					style = "rounded",
-					text = { top = " LLM Vim Command ", top_align = "center" },
-				},
+			local display_lines = {}
+			for _, line in ipairs(lines) do
+				table.insert(display_lines, "  " .. line)
+			end
+			table.insert(display_lines, "")
+			table.insert(display_lines, "  [Enter] Run   [e] Edit   [Esc/q] Cancel")
+
+			Snacks.win({
+				title = " LLM Vim Command ",
+				title_pos = "center",
+				width = width,
+				height = height,
+				border = "rounded",
 				enter = true,
-				focusable = true,
-				buf_options = {
-					modifiable = true,
-					readonly = false,
+				bo = { modifiable = false, buftype = "nofile" },
+				text = display_lines,
+				keys = {
+					["<CR>"] = function(self)
+						self:close()
+						execute_command(command, mode_info)
+					end,
+					["e"] = function(self)
+						self:close()
+						show_edit_dialog(command, mode_info)
+					end,
+					["q"] = "close",
+					["<Esc>"] = "close",
 				},
 			})
-
-			popup:mount()
-
-			local content = {}
-			for _, line in ipairs(lines) do
-				table.insert(content, line)
-			end
-			table.insert(content, "")
-			table.insert(content, string.rep("─", width - 2))
-			table.insert(content, "[y] run  [e] edit  [q/Esc] cancel")
-
-			vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, content)
-			vim.bo[popup.bufnr].modifiable = false
-			vim.cmd("stopinsert")
-
-			local function close()
-				popup:unmount()
-			end
-
-			popup:map("n", "q", close, { noremap = true })
-			popup:map("n", "<Esc>", close, { noremap = true })
-
-			popup:map("n", "y", function()
-				close()
-				execute_command(command)
-			end, { noremap = true })
-
-			popup:map("n", "e", function()
-				close()
-				show_edit_dialog(command)
-			end, { noremap = true })
 		end
 
-		local function show_prompt_dialog(is_visual)
-			local selection = nil
-			if is_visual then
+		local function get_visual_selection()
+			local start_pos = vim.fn.getpos("'<")
+			local end_pos = vim.fn.getpos("'>")
+			local start_line, start_col = start_pos[2], start_pos[3]
+			local end_line, end_col = end_pos[2], end_pos[3]
+
+			if start_line == 0 or end_line == 0 then
+				return nil
+			end
+
+			local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+			if #lines == 0 then
+				return nil
+			end
+
+			if #lines == 1 then
+				lines[1] = lines[1]:sub(start_col, end_col)
+			else
+				lines[1] = lines[1]:sub(start_col)
+				lines[#lines] = lines[#lines]:sub(1, end_col)
+			end
+
+			return table.concat(lines, "\n")
+		end
+
+		local function show_prompt_dialog(visual)
+			local mode_info = {
+				visual = visual,
+				filetype = vim.bo.filetype,
+				selected_text = nil,
+			}
+
+			if visual then
 				vim.cmd('normal! "vy')
-				selection = vim.fn.getreg("v")
+				mode_info.selected_text = get_visual_selection()
 			end
 
 			history_index = #history + 1
 
-			local popup = Popup({
-				position = "50%",
-				size = { width = 60, height = 5 },
-				border = {
-					style = "rounded",
-					text = { top = " Describe vim task ", top_align = "center" },
+			Snacks.input({
+				prompt = visual and "LLM Vim Command (visual)" or "LLM Vim Command",
+				win = {
+					keys = {
+						i_up = {
+							"<Up>",
+							function(self)
+								if #history == 0 then
+									return
+								end
+								history_index = math.max(1, history_index - 1)
+								vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { history[history_index] })
+								vim.cmd("startinsert!")
+							end,
+							mode = { "i", "n" },
+						},
+						i_down = {
+							"<Down>",
+							function(self)
+								if #history == 0 then
+									return
+								end
+								history_index = math.min(#history + 1, history_index + 1)
+								local text = history_index <= #history and history[history_index] or ""
+								vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { text })
+								vim.cmd("startinsert!")
+							end,
+							mode = { "i", "n" },
+						},
+					},
 				},
-				enter = true,
-				focusable = true,
-				win_options = {
-					wrap = true,
-					linebreak = true,
-				},
-			})
-
-			popup:mount()
-			vim.bo[popup.bufnr].modifiable = true
-			vim.bo[popup.bufnr].buftype = "nofile"
-			vim.cmd("startinsert")
-
-			local function get_text()
-				local lines = vim.api.nvim_buf_get_lines(popup.bufnr, 0, -1, false)
-				return table.concat(lines, "\n"):gsub("^%s+", ""):gsub("%s+$", "")
-			end
-
-			local function set_text(text)
-				local lines = vim.split(text, "\n")
-				vim.api.nvim_buf_set_lines(popup.bufnr, 0, -1, false, lines)
-				local last_line = lines[#lines] or ""
-				vim.api.nvim_win_set_cursor(popup.winid, { #lines, #last_line })
-			end
-
-			local function close_popup()
-				popup:unmount()
-			end
-
-			local function submit()
-				local task = get_text()
-				close_popup()
-
-				if task == "" then
+			}, function(value)
+				if not value or value == "" then
 					return
 				end
-
-				add_to_history(task)
-
-				local full_prompt = task
-				if selection and selection ~= "" then
-					full_prompt = full_prompt .. "\n\nThe current selection is:\n" .. selection
-				end
-
-				vim.notify("Generating vim command...", vim.log.levels.INFO)
-
-				call_llm(full_prompt, function(command, err)
+				add_to_history(value)
+				vim.notify("Asking Ollama...", vim.log.levels.INFO)
+				call_ollama(value, mode_info, function(cmd, err)
 					if err then
-						vim.notify(err, vim.log.levels.ERROR)
+						vim.notify("Ollama error: " .. err, vim.log.levels.ERROR)
 						return
 					end
-					show_confirmation(command)
+					if not cmd or cmd == "" then
+						vim.notify("Ollama returned empty response", vim.log.levels.WARN)
+						return
+					end
+					show_confirmation(cmd, mode_info)
 				end)
-			end
-
-			popup:map("n", "<Esc>", close_popup, { noremap = true })
-			popup:map("i", "<Esc>", close_popup, { noremap = true })
-			popup:map("i", "<CR>", submit, { noremap = true })
-			popup:map("n", "<CR>", submit, { noremap = true })
-
-			local function history_prev()
-				if #history == 0 then
-					return
-				end
-				history_index = math.max(1, history_index - 1)
-				set_text(history[history_index])
-			end
-
-			local function history_next()
-				if #history == 0 then
-					return
-				end
-				history_index = math.min(#history + 1, history_index + 1)
-				if history_index > #history then
-					set_text("")
-				else
-					set_text(history[history_index])
-				end
-			end
-
-			popup:map("i", "<Up>", history_prev, { noremap = true })
-			popup:map("i", "<Down>", history_next, { noremap = true })
-			popup:map("i", "<C-k>", history_prev, { noremap = true })
-			popup:map("i", "<C-j>", history_next, { noremap = true })
+			end)
 		end
 
 		vim.keymap.set({ "n", "v" }, "<leader>,v", function()
