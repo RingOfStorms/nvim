@@ -45,36 +45,24 @@ return {
 
 		load_history()
 
-		local function call_ollama(prompt, mode_info, callback)
-			local system_prompt = [[You are a Neovim command generator. Output ONLY the raw vim command or normal mode keystrokes that achieve what the user wants. No explanation, no markdown, no backticks, just the command itself.
-
+		local function call_llm(prompt, callback)
+			local system_prompt =
+				[[You are a vim command generator. Given a task description, output ONLY a vim command or sequence of keystrokes that accomplishes the task. 
 Rules:
-- For ex commands, prefix with : (e.g., :%s/foo/bar/g or :sort u)
-- For normal mode commands, output the keystrokes directly (e.g., ggdG or ciw)
-- If a visual selection is active, the command will be run with '<,'> range for ex commands, so omit the range prefix — just start with : (e.g., :s/foo/bar/g not :'<,'>s/foo/bar/g). For normal mode commands in visual mode, assume the selection is already active.
-- Never include <CR> or <Enter> at the end
-- Prefer concise, idiomatic vim commands]]
-
-			local user_msg = prompt
-			if mode_info.visual then
-				user_msg = user_msg .. "\n[Context: visual selection active"
-				if mode_info.selected_text and #mode_info.selected_text < 500 then
-					user_msg = user_msg .. ", selected text: " .. vim.json.encode(mode_info.selected_text)
-				end
-				user_msg = user_msg .. "]"
-			end
-			if mode_info.filetype and mode_info.filetype ~= "" then
-				user_msg = user_msg .. "\n[Filetype: " .. mode_info.filetype .. "]"
-			end
+- Output ONLY the vim command/keystrokes, nothing else
+- No explanations, no markdown, no code blocks
+- For ex commands, start with :
+- For normal mode sequences, just output the keys
+- If the task mentions working on a selection, assume visual mode is active
+- Keep commands as simple and idiomatic as possible]]
 
 			local body = vim.json.encode({
-				model = "qwen2.5-coder:7b",
-				prompt = user_msg,
-				system = system_prompt,
-				stream = false,
-				options = {
-					temperature = 0.1,
+				model = "air-gpt-5.1",
+				messages = {
+					{ role = "system", content = system_prompt },
+					{ role = "user", content = prompt },
 				},
+				temperature = 0.1,
 			})
 
 			vim.system(
@@ -83,7 +71,7 @@ Rules:
 					"-s",
 					"-X",
 					"POST",
-					"http://localhost:11434/api/generate",
+					"http://litellm.joshuabell.xyz/v1/chat/completions",
 					"-H",
 					"Content-Type: application/json",
 					"-d",
@@ -94,27 +82,30 @@ Rules:
 					if obj.code ~= 0 then
 						local err_msg = vim.trim(obj.stderr or "")
 						if err_msg == "" then
-							err_msg = "Failed to connect to Ollama at localhost:11434 (exit code " .. obj.code .. ")"
+							err_msg = "exit code " .. obj.code
 						end
-						callback(nil, err_msg)
+						callback(nil, "curl failed: " .. err_msg)
 						return
 					end
 
-					local raw = obj.stdout or ""
-					local ok, decoded = pcall(vim.json.decode, raw)
-					if not ok or not decoded or not decoded.response then
-						callback(nil, "Unexpected response from Ollama: " .. raw:sub(1, 200))
+					local response_body = vim.trim(obj.stdout or "")
+					if response_body == "" then
+						callback(nil, "curl returned empty response. stderr: " .. vim.trim(obj.stderr or ""))
 						return
 					end
 
-					local cmd = vim.trim(decoded.response)
-					cmd = cmd:gsub("^```%w*\n?", ""):gsub("\n?```$", "")
-					cmd = vim.trim(cmd)
-					callback(cmd, nil)
+					local ok, decoded = pcall(vim.json.decode, response_body)
+					if not ok or not decoded or not decoded.choices or not decoded.choices[1] then
+						callback(nil, "Failed to parse LLM response: " .. response_body:sub(1, 200))
+						return
+					end
+
+					local command = vim.trim(decoded.choices[1].message.content or "")
+					command = command:gsub("^```%w*\n?", ""):gsub("\n?```$", "")
+					callback(vim.trim(command), nil)
 				end)
 			)
 		end
-
 		local function execute_command(cmd, mode_info)
 			if cmd:sub(1, 1) == ":" then
 				local ex_cmd = cmd:sub(2)
@@ -160,7 +151,7 @@ Rules:
 				table.insert(display_lines, "  " .. line)
 			end
 			table.insert(display_lines, "")
-			table.insert(display_lines, "  [Enter] Run   [e] Edit   [Esc/q] Cancel")
+			table.insert(display_lines, "  [y/Enter] Run   [e] Edit   [Esc/q] Cancel")
 
 			Snacks.win({
 				title = " LLM Vim Command ",
@@ -172,6 +163,10 @@ Rules:
 				bo = { modifiable = false, buftype = "nofile" },
 				text = display_lines,
 				keys = {
+					["y"] = function(self)
+						self:close()
+						execute_command(command, mode_info)
+					end,
 					["<CR>"] = function(self)
 						self:close()
 						execute_command(command, mode_info)
@@ -261,14 +256,18 @@ Rules:
 					return
 				end
 				add_to_history(value)
-				vim.notify("Asking Ollama...", vim.log.levels.INFO)
-				call_ollama(value, mode_info, function(cmd, err)
+				local full_prompt = value
+				if mode_info.visual and mode_info.selected_text and mode_info.selected_text ~= "" then
+					full_prompt = full_prompt .. "\n\nThe current selection is:\n" .. mode_info.selected_text
+				end
+				vim.notify("Generating vim command...", vim.log.levels.INFO)
+				call_llm(full_prompt, function(cmd, err)
 					if err then
-						vim.notify("Ollama error: " .. err, vim.log.levels.ERROR)
+						vim.notify(err, vim.log.levels.ERROR)
 						return
 					end
 					if not cmd or cmd == "" then
-						vim.notify("Ollama returned empty response", vim.log.levels.WARN)
+						vim.notify("LLM returned empty response", vim.log.levels.WARN)
 						return
 					end
 					show_confirmation(cmd, mode_info)
