@@ -4,11 +4,8 @@ return {
 	keys = {
 		{
 			"<leader>,v",
-			desc = "LLM Vim Command",
-		},
-	},
-	init = function()
-		local history_file = vim.fn.stdpath("state") .. "/llm_vim_command_history.json"
+			function()
+				local history_file = vim.fn.stdpath("state") .. "/llm_vim_command_history.json"
 		local history = {}
 		local history_index = 0
 
@@ -278,10 +275,11 @@ Rules:
 				end)
 			end)
 		end
-
-		vim.keymap.set({ "n", "v" }, "<leader>,v", function()
-			local mode = vim.fn.mode()
-			show_prompt_dialog(mode == "v" or mode == "V" or mode == "\22")
-		end, { desc = "LLM Vim Command" })
-	end,
+				local mode = vim.fn.mode()
+				show_prompt_dialog(mode == "v" or mode == "V" or mode == "\22")
+			end,
+			mode = { "n", "v" },
+			desc = "LLM Vim Command",
+		},
+	},
 }
