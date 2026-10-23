@@ -51,9 +51,10 @@ return {
 Rules:
 - Output ONLY the vim command/keystrokes, nothing else
 - No explanations, no markdown, no code blocks
-- For ex commands, start with :
+- For ex commands, start with : (e.g., :%s/foo/bar/g or :sort u)
 - For normal mode sequences, just output the keys
-- If the task mentions working on a selection, assume visual mode is active
+- If the task works on a selection, assume visual mode is active (for ex commands, start with :'<,'> or : without a range)
+- Never include <CR> or <Enter> at the end
 - Keep commands as simple and idiomatic as possible]]
 
 			local body = vim.json.encode({
@@ -109,7 +110,7 @@ Rules:
 		local function execute_command(cmd, mode_info)
 			if cmd:sub(1, 1) == ":" then
 				local ex_cmd = cmd:sub(2)
-				if mode_info.visual then
+				if mode_info.visual and not ex_cmd:match("^'<,'>") and not ex_cmd:match("^%%") then
 					ex_cmd = "'<,'>" .. ex_cmd
 				end
 				vim.fn.histadd("cmd", ex_cmd)
